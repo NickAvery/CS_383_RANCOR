@@ -26,7 +26,7 @@ class SkillManager {
   //Sets character that is being used (by character ID), and all base skill settings defined by selected character.
   //Returns: 1 if successful, 0 if charID is invalid
   //Use: int success = skillManager.selectCharacter(Character.CHARACTER_1);
-  //Note: See Character.h for full list of Charater ID's
+  //Note: See KNCharacter.h for full list of Charater ID's
   int selectCharacter(int charID);
   //Returns the Character ID of the currently selected character
   //Returns -1 if no character is currently selected
@@ -34,7 +34,7 @@ class SkillManager {
   //Returns current level of skill with given Skill ID
   //Returns -1 if skillID is invalid
   //Use: int speedLevel = skillManager.getSkillLevel(Skill.SPEED);
-  //Note: See Skill.h for full list of Skill ID's
+  //Note: See KNSkill.h for full list of Skill ID's
   int getSkillLevel(int skillID);
   //Returns value total Skill level
   int getTotalLevel();
