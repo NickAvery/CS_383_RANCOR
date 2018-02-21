@@ -8,11 +8,11 @@ class EnemyUpdater
 {
 private:
 
-    void update(double, double);
+    void update(qreal, qreal);
 public:
     EnemyUpdater();
     Enemy **sEnemies;
-    void giveInfo(Enemy **enemies, double charX, double charY);
+    void giveInfo(qreal charX, qreal charY);
 };
 
 #endif // ENEMYUPDATER_H
