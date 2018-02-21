@@ -1,9 +1,9 @@
 #include "KNCharacterDatabase.h"
 
 CharacterDatabase::CharacterDatabase() {
-  characters = (Character *)malloc(sizeof(Character) * 4);
+  characters = new Character*[4];
   characters[3] = NULL;
-  Skill *skillSet = (Skill *)malloc(sizeof(Skill) * 5);
+  Skill **skillSet = new Skill*[5];
   skillSet[4] = NULL;
   //CHARACTER_1 creation
   skillSet[0] = new Skill(Skill.STRENGTH, 1);
@@ -32,7 +32,7 @@ CharacterDatabase::~CharacterDatabase() {
 
 int CharacterDatabase::hasCharacter(int charID) {
   for (int i=0; i < 4; i++) {
-    if (character[i].hasID(charID)) {
+    if (character[i]->hasID(charID)) {
       return 1;
     }
   }
@@ -41,7 +41,7 @@ int CharacterDatabase::hasCharacter(int charID) {
 
 Character *CharacterDatabase::getCharacter(int charID) {
   for (int i=0; i < 4; i++) {
-    if (character[i].hasID(charID)) {
+    if (character[i]->hasID(charID)) {
       return character[i];
     }
   }
