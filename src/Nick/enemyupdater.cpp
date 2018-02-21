@@ -6,17 +6,17 @@ void EnemyUpdater::update(qreal charX, qreal charY)
     {
         //qDebug() << sEnemies[i]->getXPos();
         if (sEnemies[i]->getXPos()-charX < 0)
-            sEnemies[i]->move(sEnemies[i]->getXPos()+abs(sEnemies[i]->getXPos()-charX)/10.0,
+            sEnemies[i]->move(sEnemies[i]->getXPos()+1,
                               sEnemies[i]->getYPos());
         else
-            sEnemies[i]->move(sEnemies[i]->getXPos()-abs(sEnemies[i]->getXPos()-charX)/10.0,
+            sEnemies[i]->move(sEnemies[i]->getXPos()-1,
                               sEnemies[i]->getYPos());
         if (sEnemies[i]->getYPos()-charY < 0)
             sEnemies[i]->move(sEnemies[i]->getXPos(),
-                              sEnemies[i]->getYPos()+abs(sEnemies[i]->getYPos()-charY)/10.0);
+                              sEnemies[i]->getYPos()+1;
         else
             sEnemies[i]->move(sEnemies[i]->getXPos(),
-                              sEnemies[i]->getYPos()-abs(sEnemies[i]->getYPos()-charY)/10.0);
+                              sEnemies[i]->getYPos()-1;
         //qDebug() << "Enemy " << i << ": " << sEnemies[i]->getXPos() << ", " << sEnemies[i]->getYPos();
     }
 }
