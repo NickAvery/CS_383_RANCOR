@@ -1,10 +1,11 @@
-#include <iostream>
+#include <QString>
 #include <QApplication>
 #include <QMediaPlayer>
 
+
 class Audio{
  public:
-  Audio(int sound_choice, string soundpath);    //1 for a sound 2 for a song.
+  Audio(int sound_choice, QString soundpath);    //1 for a sound 2 for a song.
                                                 //A typical sound path looks like "qrc:/sounds/Faltering-Circuits.mp3"
                                                 //please inform me if you would like new sounds or music to be added I will then provide you with a string to put in your code to call
 
