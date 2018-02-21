@@ -1,12 +1,10 @@
-#include "enemyupdater.h"
+#include "NAenemyupdater.h"
 #include <QDebug>
-void EnemyUpdater::update(double charX, double charY)
+void EnemyUpdater::update(qreal charX, qreal charY)
 {
-    Enemy *temp = new Enemy(0,0,0);
     for(int i = 0; i < 2; i++)
     {
-        //temp = sEnemies[i];
-        qDebug() << sEnemies[i]->getXPos()+abs(sEnemies[i]->getXPos()-charX)/10.0;
+        //qDebug() << sEnemies[i]->getXPos();
         if (sEnemies[i]->getXPos()-charX < 0)
             sEnemies[i]->move(sEnemies[i]->getXPos()+abs(sEnemies[i]->getXPos()-charX)/10.0,
                               sEnemies[i]->getYPos());
@@ -19,19 +17,19 @@ void EnemyUpdater::update(double charX, double charY)
         else
             sEnemies[i]->move(sEnemies[i]->getXPos(),
                               sEnemies[i]->getYPos()-abs(sEnemies[i]->getYPos()-charY)/10.0);
-        qDebug() << "Enemy 0: " << sEnemies[i]->getXPos() << ", " << sEnemies[i]->getYPos();
-        //sEnemies[i] = temp;
+        //qDebug() << "Enemy " << i << ": " << sEnemies[i]->getXPos() << ", " << sEnemies[i]->getYPos();
     }
 }
 
 EnemyUpdater::EnemyUpdater()
 {
     sEnemies = new Enemy*[2];
-    sEnemies[0] = new Enemy(0.0, 0.0, 5);
+    sEnemies[0] = new Enemy(0.0, 5.0, 5);
     sEnemies[1] = new Enemy(7.0, 2.0, 6);
+    //qDebug() << "Enemy " << 1 << ": " << sEnemies[1]->getXPos() << ", " << sEnemies[1]->getYPos();
 }
 
-void EnemyUpdater::giveInfo(Enemy **enemies, double charX, double charY)
+void EnemyUpdater::giveInfo(double charX, double charY)
 {
     //sEnemies = enemies;
     update(charX, charY);
