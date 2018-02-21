@@ -1,8 +1,8 @@
-#include "Map.h"
-#include "Enemy.h"
-#include "Character.h"
+#include "JTmap.h"
+#include "NAenemyupdater.h"
+//#include "JTcharacter.h"
 #include "JAgame.h"
-#include "Menu.h"
+//#include "ASmenu.h"
 #include <QGraphicsTextItem>
 #include <QMediaPlayer>
 
@@ -14,27 +14,30 @@ Game::Game(QWidget *parent)
   setScene(scene);
 }
 
-void Game::start(int CharClass)
+
+void Game::start(/*int CharClass*/)
 {
   scene->clear();
-  
-  
-  Enemy * NPC = new Enemy();
-  Enemy * NPC2 = new Enemy();
-  scene->addItem(NPC);
-  scene->addItem(NPC2);
-  
-  Character * Player = new Character(CharClass);
+  Map * map = new Map(scene);
+
+
+  EnemyUpdater* eUpdater = new EnemyUpdater();
+  Enemy **enemies = eUpdater->sEnemies;
+  scene->addItem(enemies[0]);
+  scene->addItem(enemies[1]);
+
+
+  Character * Player = new Character();
   scene->addItem(Player);
   
   show();
   
 }
 
-QGraphics* getScene(){
-  return scene;
+//QGraphicsScene* getScene(){
+//  return scene;
   
-}
+//}
 
 void mainMenu(){
   MMenu * menu = new MMenu();
