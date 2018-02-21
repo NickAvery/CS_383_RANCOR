@@ -24,18 +24,18 @@ class Character {
   static const int CHARACTER_3 = 2;
   //Constructor
   //Requires a collection of starting skills given character begins with.
-  Character(int charID, Skill *startSkills);
+  Character(int charID, Skill **startSkills);
   //Destructor
   ~Character();
   //Returns collection of starting skill data assigned to this character
-  Skill *getStartingSkills();
+  Skill **getStartingSkills();
   //Returns 0 if charID is not this character, returns 1 if it is.
   int hasID(int charID);
  private:
   //Character ID
   int ID;
   //Collection of starting skills
-  Skill *startingSkills;
+  Skill **startingSkills;
 };
 
 #endif //CHARACTER_H

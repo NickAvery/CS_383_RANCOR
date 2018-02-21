@@ -46,13 +46,13 @@ class SkillManager {
   void tickDownPowerUps(double seconds);
  private:
   //Collection of skills
-  Skill skills[];
+  Skill **skills;
   //Reference to CharacterDatabase object
   CharacterDatabase *characterDatabase;
   //Reference to currently selected Character
   Character *selectedCharacter;
   //Collection of active PowerUps
-  PowerUp *appliedPowerUps;
+  PowerUp **appliedPowerUps;
   //Reference to Score object
   Score *score;
   //Total skill level

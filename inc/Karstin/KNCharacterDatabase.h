@@ -10,7 +10,7 @@ class CharacterDatabase {
   int hasCharacter(int charID);
   Character *getCharacter(int charID);
  private:
-  Character characters[];
+  Character **characters;
 };
 
 #endif //CHARACTERDATABASE_H
