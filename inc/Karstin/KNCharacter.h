@@ -18,10 +18,10 @@ class Character {
   //Character ID's:
   //To be used whenever a charID field is required to reference a given character.
   //Static and constant, so should be available whenever "KNCharacter.h" is included.
-  //Use: Character.CHARACTER_1 to reference "Character 1", etc.
-  static const int CHARACTER_1 = 0;
-  static const int CHARACTER_2 = 1;
-  static const int CHARACTER_3 = 2;
+  //Use: Character.WARRIOR to reference the Warrior character, etc.
+  static const int WARRIOR = 0;
+  static const int RANGER = 1;
+  static const int DR_BC = 2;
   //Constructor
   //Requires a collection of starting skills given character begins with.
   Character(int charID, Skill **startSkills);
