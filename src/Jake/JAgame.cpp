@@ -2,7 +2,7 @@
 #include "Enemy.h"
 #include "Character.h"
 #include "JAgame.h"
-#include "menu.h"
+#include "Menu.h"
 #include <QGraphicsTextItem>
 #include <QMediaPlayer>
 
