@@ -1,6 +1,6 @@
 
-#ifndef MAIN_MENU_H
-#define MAIN_MENU_H
+#ifndef ASMENU_H
+#define ASMENU_H
 
 #include <QMainWindow>
 #include "JAgame.h"
