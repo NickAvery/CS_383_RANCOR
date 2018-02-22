@@ -1,18 +1,21 @@
 #include "KNSkillManager.h"
 
-SkillManager::SkillManager() {
+SkillManager::SkillManager(Character *parent = 0, int classID) {
   
+  if (this->selectClassType(classID) == 0) {
+    //Incorrect class type selection
+  }
 }
 
 SkillManager::~SkillManager() {
   
 }
 
-int SkillManager::selectCharacter(int charID) {
+int SkillManager::selectClassType(int classID) {
   
 }
 
-int SkillManager::getSelectedCharacter() {
+int SkillManager::getSelectedClassTypeID() {
   
 }
 
