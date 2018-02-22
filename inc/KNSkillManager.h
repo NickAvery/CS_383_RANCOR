@@ -32,7 +32,7 @@ class SkillManager {
   int selectClassType(int classID);
   //Returns the Class Type ID of the currently selected class type
   //Returns -1 if no class type is currently selected
-  int getSelectedClassType();
+  int getSelectedClassTypeID();
   //Returns current level of skill with given Skill ID
   //Returns -1 if skillID is invalid
   //Use: int speedLevel = skillManager.getSkillLevel(Skill.SPEED);
