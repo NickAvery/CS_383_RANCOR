@@ -5,6 +5,8 @@
 #include <QMainWindow>
 #include "JAgame.h"
 
+class Game;
+
 namespace Ui{
 	class MainMenu;
 }
