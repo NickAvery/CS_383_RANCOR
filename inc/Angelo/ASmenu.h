@@ -6,7 +6,7 @@
 
 class MainMenu;
 
-namespace Ui{
+namespace UI{
 	class MainMenu;
 }
 
