@@ -60,7 +60,7 @@ void Character::setSpeed(int newSpeed)
 
 QPoint Character::getPosition()
 {
-    return QPoint( x() + (rect().width()/ 2) , y() + (rect().height()/2) );
+    return QPoint( QGraphicsRectItem::x() + (QGraphicsRectItem::rect().width()/ 2) , QGraphicsRectItem::y() + (QGraphicsRectItem::rect().height()/2) );
 }
 
 void Character::keyPressEvent(QKeyEvent *event)
@@ -138,10 +138,10 @@ void Character::move()
     }
     */
 //If the above method has issues, just use this one.
-    int x = pos().x();  //Current x and y values, before moving player.
-    int y = pos().y();
+    int x = QGraphicsRectItem::pos().x();  //Current x and y values, before moving player.
+    int y = QGraphicsRectItem::pos().y();
     if (moveUp) {
-        int newY = pos().y() - moveDistance;
+        int newY = QGraphicsRectItem::pos().y() - moveDistance;
         int topWall = walls->pos().y();
         if (newY >= topWall) {
             setPos( x , newY );
@@ -150,8 +150,8 @@ void Character::move()
         }
     }
     if (moveDown) {
-        int newY = pos().y() + rect().height() + moveDistance;
-        int botWall = pos().y() + rect().height();
+        int newY = QGraphicsRectItem::pos().y() + QGraphicsRectItem::rect().height() + moveDistance;
+        int botWall = QGraphicsRectItem::pos().y() + QGraphicsRectItem::rect().height();
         if (botWall > newY){
             setPos( x, newY );
         } else {    //move to wall edge instead.
@@ -159,7 +159,7 @@ void Character::move()
         }
     }
     if (moveRight) {
-        int newX = pos().x() + rect().width() + moveDistance;
+        int newX = QGraphicsRectItem::pos().x() + QGraphicsRectItem::rect().width() + moveDistance;
         int rightWall = walls->pos().x() + walls->rect().width();
         if (newX <= rightWall){
             setPos( newX, y );
@@ -168,8 +168,8 @@ void Character::move()
         }
     }
     if (moveLeft) { //if not moving past border
-        int newX = pos().x() - moveDistance;
-        int leftWall = pos().x();
+        int newX = QGraphicsRectItem::pos().x() - moveDistance;
+        int leftWall = QGraphicsRectItem::pos().x();
         if (leftWall <= newX) {
             setPos( newX, y );
         } else {    //move to wall edge
