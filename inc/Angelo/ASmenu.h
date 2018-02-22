@@ -3,6 +3,7 @@
 #define MAIN_MENU_H
 
 #include <QMainWindow>
+#include "JAgame.h"
 
 namespace UI{
 	class MainMenu;
