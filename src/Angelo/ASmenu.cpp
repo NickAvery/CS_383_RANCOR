@@ -1,6 +1,6 @@
 
 #include "ASmenu.h"
-#include "ui_ASmenu.h"
+#include "ui_mainmenu.h"
 #include <QGraphicsScene>
 
 MainMenu:: MainMenu(QWidget *parent, Game* game) :
