@@ -22,12 +22,13 @@ class SkillManager {
   //Visible methods
  public:
   //Constructor
+  //Use Class Type ID in place of classID; example: ClassType::WARRIOR
   SkillManager(Character *parent = 0, int classID);
   //Destructor
   ~SkillManager();
   //Sets class type that is being used (by Class Type ID), and all base skill settings defined by selected class type.
   //Returns: 1 if successful, 0 if classID is invalid
-  //Use: int success = skillManager.selectClassType(ClassType.WARRIOR);
+  //Use: int success = skillManager.selectClassType(ClassType::WARRIOR);
   //Note: See KNClassType.h for full list of Class Type ID's
   int selectClassType(int classID);
   //Returns the Class Type ID of the currently selected class type
@@ -35,7 +36,7 @@ class SkillManager {
   int getSelectedClassTypeID();
   //Returns current level of skill with given Skill ID
   //Returns -1 if skillID is invalid
-  //Use: int speedLevel = skillManager.getSkillLevel(Skill.SPEED);
+  //Use: int speedLevel = skillManager.getSkillLevel(Skill::SPEED);
   //Note: See KNSkill.h for full list of Skill ID's
   int getSkillLevel(int skillID);
   //Returns value total Skill level
