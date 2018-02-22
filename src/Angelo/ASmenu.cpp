@@ -4,7 +4,8 @@
 #include <QGraphicsScene>
 
 MainMenu:: MainMenu(QWidget *parent, Game* game)	:
-	QMainWindow(parent), ui(new Ui::MainWindow)
+	QMainWindow(parent), 
+	ui(new Ui::MainWindow)
 	{
 		ui->setupUI(this);
 	}
