@@ -75,16 +75,16 @@ QPoint Character::getPosition()
 void Character::keyPressEvent(QKeyEvent *event)
 {
     if (event->key() == Qt::Key_Up || event->key() == Qt::Key_W) {
-        //qDebug() << "Pressing up.";
+        qDebug() << "Pressing up.";
         moveUp = true;
     } else if (event->key() == Qt::Key_Down || event->key() == Qt::Key_S) {
-        //qDebug() << "Pressing down.";
+        qDebug() << "Pressing down.";
         moveDown = true;
     } else if (event->key() == Qt::Key_Right || event->key() == Qt::Key_D) {
-        //qDebug() << "Pressing right.";
+        qDebug() << "Pressing right.";
         moveRight = true;
     } else if (event->key() == Qt::Key_Left || event->key() == Qt::Key_A) {
-        //qDebug() << "Pressing left.";
+        qDebug() << "Pressing left.";
         moveLeft = true;
     }
 }
@@ -164,7 +164,7 @@ void Character::move()
         if (botWall >= newY + QGraphicsRectItem::rect().height()){    //If not colliding with walls
             setPos( x, newY );
         } else {              //move to wall edge instead.
-            setPos( x, botWall );
+            setPos( x, botWall - QGraphicsRectItem::rect().height());
         }
     }
     if (moveRight) {
@@ -173,7 +173,7 @@ void Character::move()
         if (newX + QGraphicsRectItem::rect().width() <= rightWall){ //If not colliding with walls
             setPos( newX, y );
         } else {                //move to wall edge intead
-            setPos( rightWall, y ); //move to wall's edge.
+            setPos( rightWall - QGraphicsRectItem::rect().width(), y ); //move to wall's edge.
         }
     }
     if (moveLeft) { //if not moving past border
