@@ -29,7 +29,7 @@ EnemyUpdater::EnemyUpdater()
     //qDebug() << "Enemy " << 1 << ": " << sEnemies[1]->getXPos() << ", " << sEnemies[1]->getYPos();
 }
 
-void EnemyUpdater::giveInfo(double charX, double charY)
+void EnemyUpdater::giveInfo(qreal charX, qreal charY)
 {
     //sEnemies = enemies;
     update(charX, charY);
