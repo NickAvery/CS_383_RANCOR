@@ -33,7 +33,7 @@ public:
     void keyPressEvent(QKeyEvent *event);
     void keyReleaseEvent(QKeyEvent *event);
 private:
-    QGraphicsRectItem* player;
+    //QGraphicsRectItem* player;    //ca
 
     SkillManager* skills;
     Walls* walls;   //Stores the walls object that i need to not collide with.
