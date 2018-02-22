@@ -5,7 +5,7 @@
 #include <QGraphicsScene>
 #include <QTimer>
 #include "NAenemyupdater.h"
-//#include "BTcharacter.h"
+#include "BTcharacter.h"
 
 
 class Game : public QGraphicsView{
@@ -14,7 +14,7 @@ class Game : public QGraphicsView{
  private:
   QGraphicsScene* scene;
   //the scene on which the enemies and the map will be displayed.
-  //Character* Player;
+  Character* Player;
   QTimer * timer;
   Enemy **enemies;
   EnemyUpdater* eUpdater;
