@@ -22,7 +22,7 @@ class SkillManager {
   //Visible methods
  public:
   //Constructor
-  SkillManager(Character *parent = 0);
+  SkillManager(Character *parent = 0, int classID);
   //Destructor
   ~SkillManager();
   //Sets class type that is being used (by Class Type ID), and all base skill settings defined by selected class type.
