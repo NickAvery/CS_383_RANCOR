@@ -8,7 +8,7 @@ Enemy::Enemy(qreal x, qreal y, int size)
     mSize = size;
     mHealth = 5;
     mAtkValue = 1;
-    setRect(mXPos, mYPos, size, size);
+    setRect(0, 0, size, size);
     setPos(mXPos, mYPos);
 }
 
