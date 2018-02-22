@@ -51,7 +51,7 @@ void Game::levelLoop()
 //}
 
 void Game::mainMenu(){
-  //MainMenu * menu = new MainMenu();
-  //scene->addItem(menu);
+  MainMenu * menu = new MainMenu(this);
+  menu->show();
 
 }
