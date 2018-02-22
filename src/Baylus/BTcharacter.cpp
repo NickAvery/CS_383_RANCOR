@@ -138,36 +138,42 @@ void Character::move()
     }
     */
 //If the above method has issues, just use this one.
+    int x = player->pos().x();  //Current x and y values, before moving player.
+    int y = player->pos().y();
     if (moveUp) {
         int newY = player->pos().y() - moveDistance;
-        if (newY > 0) {
-            player->setPos( player->pos().x(), newY );
+        int topWall = walls->pos().y();
+        if (newY >= topWall) {
+            player->setPos( x , newY );
         } else {    //Move to wall edge instead.
-            player->setPos( player->pos().x(), 0 );
+            player->setPos( x , topWall );
         }
     }
     if (moveDown) {
         int newY = player->pos().y() + player->rect().height() + moveDistance;
-        if (walls->rect().height() > newY){
-            player->setPos( player->pos().x(), newY );
+        int botWall = player->pos().y() + player->rect().height();
+        if (botWall > newY){
+            player->setPos( x, newY );
         } else {    //move to wall edge instead.
-            player->setPos( player->pos().x(), walls->rect().height() );
+            player->setPos( x, botWall );
         }
     }
     if (moveRight) {
         int newX = player->pos().x() + player->rect().width() + moveDistance;
-        if (walls->rect().width() > newX){
-            player->setPos( newX, player->pos().y() );
+        int rightWall = walls->pos().x() + walls->rect().width();
+        if (newX <= rightWall){
+            player->setPos( newX, y );
         } else {    //move to wall edge
-            player->setPos( walls->rect().width(), player->pos().y() ); //move to wall's edge.
+            player->setPos( rightWall, y ); //move to wall's edge.
         }
     }
     if (moveLeft) { //if not moving past border
         int newX = player->pos().x() - moveDistance;
-        if (newX >= 0){
-            player->setPos( newX, player->pos().y() );
+        int leftWall = player->pos().x();
+        if (leftWall <= newX) {
+            player->setPos( newX, y );
         } else {    //move to wall edge
-            player->setPos( 0 , player->pos().y() );
+            player->setPos( leftWall , y );
         }
     }
 }
