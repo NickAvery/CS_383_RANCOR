@@ -11,10 +11,10 @@
 #define __SKILLMANAGER_H__
 
 //Necessary included headers
-#include "KNClassTypeDatabase.h"
-#include "KNSkill.h"
-#include "KNScore.h"
-#include "KNPowerUp.h"
+#include "Karstin/KNClassTypeDatabase.h"
+#include "Karstin/KNSkill.h"
+#include "Karstin/KNScore.h"
+#include "Karstin/KNPowerUp.h"
 
 class SkillManager {
   //Visible methods
