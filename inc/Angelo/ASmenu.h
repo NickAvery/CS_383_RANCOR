@@ -5,7 +5,7 @@
 #include <QMainWindow>
 #include "JAgame.h"
 
-namespace UI{
+namespace Ui{
 	class MainMenu;
 }
 
@@ -22,7 +22,7 @@ private slots:
 	void on_pushButton_clicked();
 
 private:
-	UI::MainMenu *ui;
+	Ui::MainMenu *ui;
 
 };
 
