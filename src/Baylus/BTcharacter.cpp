@@ -52,6 +52,10 @@ Character::Character( int characterNumber )
         walls->setRect(0,0,720,520);
         walls->setPos(40,40);
     }
+    moveUp =    false;
+    moveDown =  false;
+    moveRight = false;
+    moveLeft =  false;
 }
 
 Character::~Character()
