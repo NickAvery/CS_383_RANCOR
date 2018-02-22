@@ -159,8 +159,9 @@ void Character::move()
         }
     }
     if (moveDown) {
-        int newY = QGraphicsRectItem::pos().y()  + moveDistance;
-        int botWall = QGraphicsRectItem::pos().y() + QGraphicsRectItem::rect().height();
+        int newY = QGraphicsRectItem::pos().y() + moveDistance;
+        qDebug() << "y = " << QGraphicsRectItem::pos().y() << "\t move = " << newY;
+        int botWall = walls->pos().y() + walls->rect().height();
         if (botWall >= newY + QGraphicsRectItem::rect().height()){    //If not colliding with walls
             setPos( x, newY );
         } else {              //move to wall edge instead.
@@ -178,7 +179,7 @@ void Character::move()
     }
     if (moveLeft) { //if not moving past border
         int newX = QGraphicsRectItem::pos().x() - moveDistance;
-        int leftWall = QGraphicsRectItem::pos().x();
+        int leftWall = walls->pos().x();
         if (leftWall <= newX) { //If not colliding with walls
             setPos( newX, y );
         } else {                 //move to wall edge instead
