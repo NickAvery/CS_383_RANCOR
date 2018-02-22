@@ -7,7 +7,7 @@ MainMenu:: MainMenu(QWidget *parent, Game* game) :
 	QMainWindow(parent), 
 	ui(new Ui::MainMenu)
 	{
-		ui->setupUI(this);
+		ui->setupUi(this);
 	}
 
 MainMenu::~MainMenu()
