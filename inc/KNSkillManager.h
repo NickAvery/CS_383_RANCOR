@@ -10,17 +10,19 @@
 #ifndef __SKILLMANAGER_H__
 #define __SKILLMANAGER_H__
 
+#include "BTCharacter.h"
+
 //Necessary included headers
-#include "Karstin/KNClassTypeDatabase.h"
-#include "Karstin/KNSkill.h"
-#include "Karstin/KNScore.h"
-#include "Karstin/KNPowerUp.h"
+#include "KNClassTypeDatabase.h"
+#include "KNSkill.h"
+#include "KNScore.h"
+#include "KNPowerUp.h"
 
 class SkillManager {
   //Visible methods
  public:
   //Constructor
-  SkillManager();
+  SkillManager(Character *parent = 0);
   //Destructor
   ~SkillManager();
   //Sets class type that is being used (by Class Type ID), and all base skill settings defined by selected class type.
