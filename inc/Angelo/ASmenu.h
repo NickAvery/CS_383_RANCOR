@@ -8,7 +8,7 @@ namespace UI{
 	class MainMenu;
 }
 
-class MainMenu : public MainMenu
+class MainMenu : public QMainWindow
 {
 	Q_OBJECT
 
