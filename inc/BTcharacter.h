@@ -14,7 +14,7 @@
 #include "KNSkillManager.h"
 #include "JTwalls.h"
 
-class Character : public QWidget
+class Character : public QWidget, public QGraphicsRectItem
 {
     Q_OBJECT
 
@@ -23,7 +23,7 @@ public:
      * The second constructor will create, and intialize the player graphics, and the default stats.
      */
     //Character(QWidget *parent = 0); //Initializes Player as temporary character, starts character in
-    Character(QWidget *parent, int characterNumber = 0);
+    Character(int characterNumber = 0);
     ~Character();
 
     void setSpeed(int speed);
@@ -36,8 +36,8 @@ private:
     SkillManager* skills;
     Walls* walls;   //Stores the walls object that i need to not collide with.
 
-    QPoint* position;
-    QTimer tick;
+    //QPoint* position;
+    //QTimer tick;
     bool moveUp, moveDown, moveRight, moveLeft;
     int speed = 10;
 public slots:
