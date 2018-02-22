@@ -11,6 +11,7 @@
 #include <QWidget>
 #include <QPoint>
 #include <QGraphicsRectItem>
+#include "KNSkillManager.h"
 
 class Character : public QWidget
 {
@@ -20,8 +21,8 @@ public:
     /* The first constructor calls the second, with a default "characterNum" of 0.
      * The second constructor will create, and intialize the player graphics, and the default stats.
      */
-    Character(QWidget *parent = 0); //Initializes Player as temporary character, starts character in
-    Character(QWidget *parent = 0, int characterNumber);
+    //Character(QWidget *parent = 0); //Initializes Player as temporary character, starts character in
+    Character(QWidget *parent, int characterNumber = 0);
     ~Character();
 
     void setSpeed(int speed);
@@ -30,6 +31,8 @@ public:
     void keyReleaseEvent(QKeyEvent *event);
 private:
     QGraphicsRectItem* player;
+
+    SkillManager* skills;
 
     QPoint* position;
     QTimer tick;
