@@ -12,6 +12,7 @@
 #include <QPoint>
 #include <QGraphicsRectItem>
 #include "KNSkillManager.h"
+#include "JTwalls.h"
 
 class Character : public QWidget
 {
@@ -33,6 +34,7 @@ private:
     QGraphicsRectItem* player;
 
     SkillManager* skills;
+    Walls* walls;   //Stores the walls object that i need to not collide with.
 
     QPoint* position;
     QTimer tick;
@@ -40,7 +42,7 @@ private:
     int speed = 10;
 public slots:
     void move();
-    void setSpeed(int speed);
+    //void setSpeed(int speed); //Will use when adopting to signals/slots
 
 };
 
