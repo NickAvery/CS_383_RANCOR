@@ -1,3 +1,6 @@
+#ifndef AUDIO_H
+#define AUDIO_H
+
 #include <QString>
 #include <QApplication>
 #include <QMediaPlayer>
@@ -24,3 +27,4 @@ class Audio{
   int mGameState;       //not currently working for the purpose of the demo
   QMediaPlayer * sound; //holds the sound information
 };
+#endif
