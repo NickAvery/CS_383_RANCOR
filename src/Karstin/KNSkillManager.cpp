@@ -1,6 +1,6 @@
 #include "KNSkillManager.h"
 
-SkillManager::SkillManager(Character *parent = 0, int classID) {
+SkillManager::SkillManager(Character *parent = 0, int classID = 0) {
   parent->setSpeed(2);
   if (this->selectClassType(classID) == 0) {
     //Incorrect class type selection
