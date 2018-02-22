@@ -11,6 +11,7 @@
 #define __SKILLMANAGER_H__
 
 #include "BTcharacter.h"
+class Character;
 
 //Necessary included headers
 #include "KNClassTypeDatabase.h"
