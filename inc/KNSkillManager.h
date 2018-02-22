@@ -17,7 +17,7 @@
 #include "KNSkill.h"
 #include "KNScore.h"
 #include "KNPowerUp.h"
-
+class Character;
 class SkillManager {
   //Visible methods
  public:
