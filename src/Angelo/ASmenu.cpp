@@ -1,6 +1,6 @@
 
 #include "ASmenu.h"
-#include "ui_asmenu.h"
+#include "ui_ASmenu.h"
 #include <QGraphicsScene>
 #include "JAgame.h"
 
