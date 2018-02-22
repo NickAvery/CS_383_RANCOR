@@ -1,12 +1,12 @@
 #include "BTcharacter.h"
 #include "JTwalls.h"
-#include "KNSkillsManager.h"
+#include "KNSkillManager.h"
 
-#include <iostream.h>
+#include <iostream>
 #include <QPoint>
 #include <QGraphicsRectItem>
 #include <QGraphicsScene>
-
+#include <QKeyEvent>
 
 /*
 //No real reason why to have this intermediate constructor, just assume the value is 0 if not given.
@@ -18,18 +18,18 @@ Character::Character(QWidget *parent)
 }
 */
 
-Character::Character(QWidget *parent = 0, int characterNumber = 0)
+Character::Character( int characterNumber )
 {
     int length = 100;
 
-    player = new QGraphicsRectItem();
-    player->setRect( 0, 0, length, length );
+    //player = new QGraphicsRectItem();
+    setRect( 0, 0, length, length );
     //player->setPos( (scene()->width() - length)/2 , (scene()->height() - length)/2 );
-    player->setPos( 400, 300 );
+    setPos( 400, 300 );
 
     //Get Walls Object
     //https://stackoverflow.com/questions/23533691/qt-collision-detection-with-custom-qgraphicsitem-classes
-    QList<QGraphicsItem *> list = player->collidingItems() ;
+    QList<QGraphicsItem *> list = collidingItems() ;
 
     foreach(QGraphicsItem * i , list)
     {
@@ -47,8 +47,8 @@ Character::Character(QWidget *parent = 0, int characterNumber = 0)
 
 Character::~Character()
 {
-    delete(player);
-    player = NULL;
+    //delete(player);
+    //player = NULL;
     delete(skills);
     skills = NULL;
 }
@@ -60,7 +60,7 @@ void Character::setSpeed(int newSpeed)
 
 QPoint Character::getPosition()
 {
-    return QPoint( player->x() + (player->rect().width()/ 2) , player->y() + (player->rect().height()/2) );
+    return QPoint( x() + (rect().width()/ 2) , y() + (rect().height()/2) );
 }
 
 void Character::keyPressEvent(QKeyEvent *event)
@@ -138,42 +138,42 @@ void Character::move()
     }
     */
 //If the above method has issues, just use this one.
-    int x = player->pos().x();  //Current x and y values, before moving player.
-    int y = player->pos().y();
+    int x = pos().x();  //Current x and y values, before moving player.
+    int y = pos().y();
     if (moveUp) {
-        int newY = player->pos().y() - moveDistance;
+        int newY = pos().y() - moveDistance;
         int topWall = walls->pos().y();
         if (newY >= topWall) {
-            player->setPos( x , newY );
+            setPos( x , newY );
         } else {    //Move to wall edge instead.
-            player->setPos( x , topWall );
+            setPos( x , topWall );
         }
     }
     if (moveDown) {
-        int newY = player->pos().y() + player->rect().height() + moveDistance;
-        int botWall = player->pos().y() + player->rect().height();
+        int newY = pos().y() + rect().height() + moveDistance;
+        int botWall = pos().y() + rect().height();
         if (botWall > newY){
-            player->setPos( x, newY );
+            setPos( x, newY );
         } else {    //move to wall edge instead.
-            player->setPos( x, botWall );
+            setPos( x, botWall );
         }
     }
     if (moveRight) {
-        int newX = player->pos().x() + player->rect().width() + moveDistance;
+        int newX = pos().x() + rect().width() + moveDistance;
         int rightWall = walls->pos().x() + walls->rect().width();
         if (newX <= rightWall){
-            player->setPos( newX, y );
+            setPos( newX, y );
         } else {    //move to wall edge
-            player->setPos( rightWall, y ); //move to wall's edge.
+            setPos( rightWall, y ); //move to wall's edge.
         }
     }
     if (moveLeft) { //if not moving past border
-        int newX = player->pos().x() - moveDistance;
-        int leftWall = player->pos().x();
+        int newX = pos().x() - moveDistance;
+        int leftWall = pos().x();
         if (leftWall <= newX) {
-            player->setPos( newX, y );
+            setPos( newX, y );
         } else {    //move to wall edge
-            player->setPos( leftWall , y );
+            setPos( leftWall , y );
         }
     }
 }
