@@ -4,8 +4,6 @@
 
 #include <QMainWindow>
 
-class MainMenu;
-
 namespace UI{
 	class MainMenu;
 }
