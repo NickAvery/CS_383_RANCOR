@@ -20,7 +20,7 @@ public:
 	~MainMenu();
 
 private slots:
-	void on_pushButton_clicked(Game game);
+	void on_pushButton_clicked();
 
 private:
 	UI::MainMenu *ui;
