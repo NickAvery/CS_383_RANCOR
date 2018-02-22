@@ -1,9 +1,11 @@
 #include "BTcharacter.h"
-#include <QPoint>
 #include "JTwalls.h"
+#include "KNSkillsManager.h"
+
+#include <iostream.h>
+#include <QPoint>
 #include <QGraphicsRectItem>
 #include <QGraphicsScene>
-#include "KNSkillsManager.h"
 
 
 /*
@@ -45,7 +47,10 @@ Character::Character(QWidget *parent = 0, int characterNumber = 0)
 
 Character::~Character()
 {
-
+    delete(player);
+    player = NULL;
+    delete(skills);
+    skills = NULL;
 }
 
 void Character::setSpeed(int newSpeed)
@@ -61,16 +66,16 @@ QPoint Character::getPosition()
 void Character::keyPressEvent(QKeyEvent *event)
 {
     if (event->key() == Qt::Key_Up) {
-        qDebug() << "Releasing up.";
+        //qDebug() << "Releasing up.";
         moveUp = true;
     } else if (event->key() == Qt::Key_Down) {
-        qDebug() << "Releasing down.";
+        //qDebug() << "Releasing down.";
         moveDown = true;
     } else if (event->key() == Qt::Key_Down) {
-        qDebug() << "Releasing down.";
+        //qDebug() << "Releasing down.";
         moveRight = true;
     } else if (event->key() == Qt::Key_Down) {
-        qDebug() << "Releasing down.";
+        //qDebug() << "Releasing down.";
         moveLeft = true;
     }
 }
@@ -137,24 +142,32 @@ void Character::move()
         int newY = player->pos().y() - moveDistance;
         if (newY > 0) {
             player->setPos( player->pos().x(), newY );
+        } else {    //Move to wall edge instead.
+            player->setPos( player->pos().x(), 0 );
         }
     }
     if (moveDown) {
         int newY = player->pos().y() + player->rect().height() + moveDistance;
         if (walls->rect().height() > newY){
             player->setPos( player->pos().x(), newY );
+        } else {    //move to wall edge instead.
+            player->setPos( player->pos().x(), walls->rect().height() );
         }
     }
     if (moveRight) {
         int newX = player->pos().x() + player->rect().width() + moveDistance;
         if (walls->rect().width() > newX){
             player->setPos( newX, player->pos().y() );
+        } else {    //move to wall edge
+            player->setPos( walls->rect().width(), player->pos().y() ); //move to wall's edge.
         }
     }
     if (moveLeft) { //if not moving past border
         int newX = player->pos().x() - moveDistance;
         if (newX >= 0){
             player->setPos( newX, player->pos().y() );
+        } else {    //move to wall edge
+            player->setPos( 0 , player->pos().y() );
         }
     }
 }
