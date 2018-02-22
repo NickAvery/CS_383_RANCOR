@@ -8,6 +8,7 @@ MainMenu:: MainMenu(QWidget *parent, Game* game) :
 	ui(new Ui::MainMenu)
 	{
 		ui->setupUi(this);
+		game1 = game;
 	}
 
 MainMenu::~MainMenu()
@@ -17,5 +18,5 @@ MainMenu::~MainMenu()
 
 void MainMenu::on_pushButton_clicked()
 {
-	game->start(1);
+	game1->start(1);
 }
