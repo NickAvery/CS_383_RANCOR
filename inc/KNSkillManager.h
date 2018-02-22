@@ -23,7 +23,7 @@ class SkillManager {
  public:
   //Constructor
   //Use Class Type ID in place of classID; example: ClassType::WARRIOR
-  SkillManager(Character *parent = 0, int classID);
+  SkillManager(Character *parent = 0, int classID = 0);
   //Destructor
   ~SkillManager();
   //Sets class type that is being used (by Class Type ID), and all base skill settings defined by selected class type.
