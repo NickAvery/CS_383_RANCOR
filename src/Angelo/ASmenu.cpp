@@ -2,7 +2,7 @@
 #include "asmenu.h"
 #include "ui_asmenu.h"
 #include <QGraphicsScene>
-#include <JAgame.h>
+#include "JAgame.h"
 
 MainMenu:: MainMenu(QWidget *parent)	:
 	QMainWindow(parent), ui(new Ui::MainWindow)
