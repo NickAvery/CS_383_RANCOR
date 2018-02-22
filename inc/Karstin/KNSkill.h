@@ -17,10 +17,10 @@ class Skill {
   //Skill ID's:
   //To be used whenever a skillID field is required to reference a given skill.
   //Static and constant, so should be available whenever "KNSkill.h" is included.
-  //Use: Skill.SPEED to reference "speed", etc.
-  static const int STRENGTH = 0;
-  static const int SPEED = 1;
-  static const int ACCURACY = 2;
+  //Use: Skill::SPEED to reference "speed", etc.
+  static const int STRENGTH   = 0;
+  static const int SPEED      = 1;
+  static const int ACCURACY   = 2;
   static const int RESILIENCE = 3;
   //Constructor
   //Requires a Skill ID

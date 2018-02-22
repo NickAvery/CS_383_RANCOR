@@ -18,10 +18,10 @@ class ClassType {
   //Class Type ID's:
   //To be used whenever a classID field is required to reference a given class type.
   //Static and constant, so should be available whenever "KNClassType.h" is included.
-  //Use: ClassType.WARRIOR to reference the Warrior class type, etc.
+  //Use: ClassType::WARRIOR to reference the Warrior class type, etc.
   static const int WARRIOR = 0;
-  static const int RANGER = 1;
-  static const int DR_BC = 2;
+  static const int RANGER  = 1;
+  static const int DR_BC   = 2;
   //Constructor
   //Requires a collection of starting skills given class type begins with.
   ClassType(int classID, Skill **startSkills);
