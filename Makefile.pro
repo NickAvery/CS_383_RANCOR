@@ -12,7 +12,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TEMPLATE = app
 TARGET = SpaceShooter
 INCLUDEPATH += . inc inc/Jake inc/James inc/Nick inc/Baylus inc/Angelo inc/Karstin
-
+FORMS += inc/ASmenu.ui
 # The following define makes your compiler warn you if you use any
 # feature of Qt which has been marked as deprecated (the exact warnings
 # depend on your compiler). Please consult the documentation of the
