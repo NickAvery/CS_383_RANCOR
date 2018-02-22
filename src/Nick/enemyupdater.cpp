@@ -13,10 +13,10 @@ void EnemyUpdater::update(qreal charX, qreal charY)
                               sEnemies[i]->getYPos());
         if (sEnemies[i]->getYPos()-charY < 0)
             sEnemies[i]->move(sEnemies[i]->getXPos(),
-                              sEnemies[i]->getYPos()+1;
+                              sEnemies[i]->getYPos()+1);
         else
             sEnemies[i]->move(sEnemies[i]->getXPos(),
-                              sEnemies[i]->getYPos()-1;
+                              sEnemies[i]->getYPos()-1);
         //qDebug() << "Enemy " << i << ": " << sEnemies[i]->getXPos() << ", " << sEnemies[i]->getYPos();
     }
 }
