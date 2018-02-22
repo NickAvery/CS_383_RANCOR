@@ -1,8 +1,8 @@
 #include "JTmap.h"
 #include "NAenemyupdater.h"
-//#include "BTcharacter.h"
+#include "BTcharacter.h"
 #include "JAgame.h"
-//#include "ASmenu.h"
+#include "ASmenu.h"
 #include <QGraphicsTextItem>
 #include <QMediaPlayer>
 
@@ -27,8 +27,8 @@ void Game::start(int CharClass)
   scene->addItem(enemies[1]);
 
 
-  //Character * Player = new Character(CharClass);
-  //scene->addItem(Player);
+  Character * Player = new Character(CharClass);
+  scene->addItem(Player);
   
   show();
   
@@ -50,7 +50,7 @@ void Game::levelLoop()
 //}
 
 void mainMenu(){
-  //MMenu * menu = new MMenu();
-  //scene->addItem(menu);
+  MainMenu * menu = new MainMenu();
+  scene->addItem(menu);
 
 }
