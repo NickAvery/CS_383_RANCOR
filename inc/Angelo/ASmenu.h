@@ -13,7 +13,7 @@ namespace Ui{
 class MainMenu : public MainMenu
 {
 	Q_OBJECT
-}
+
 
 public:
 	explicit MainMenu(QWidget *parent = 0);
