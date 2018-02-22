@@ -24,8 +24,8 @@ void EnemyUpdater::update(qreal charX, qreal charY)
 EnemyUpdater::EnemyUpdater()
 {
     sEnemies = new Enemy*[2];
-    sEnemies[0] = new Enemy(0.0, 5.0, 5);
-    sEnemies[1] = new Enemy(7.0, 2.0, 6);
+    sEnemies[0] = new Enemy(100.0, 50.0, 10);
+    sEnemies[1] = new Enemy(100.0, 200.0, 5);
     //qDebug() << "Enemy " << 1 << ": " << sEnemies[1]->getXPos() << ", " << sEnemies[1]->getYPos();
 }
 
