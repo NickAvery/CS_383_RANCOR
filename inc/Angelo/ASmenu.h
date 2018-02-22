@@ -23,6 +23,7 @@ private slots:
 
 private:
 	Ui::MainMenu *ui;
+	Game* game1;
 
 };
 
