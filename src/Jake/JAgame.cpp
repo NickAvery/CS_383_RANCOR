@@ -42,7 +42,7 @@ void Game::start(int CharClass)
 void Game::levelLoop()
 {
     eUpdater->giveInfo(Player->getPosition().x(), Player->getPosition().y());
-    Player->move();
+    //Player->move();
 }
 
 //QGraphicsScene* getScene(){
