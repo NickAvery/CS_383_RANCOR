@@ -32,20 +32,17 @@ public:
     QPoint getPosition();   //Returns the position of the center of the
     void keyPressEvent(QKeyEvent *event);
     void keyReleaseEvent(QKeyEvent *event);
+    void move();
 private:
     //QGraphicsRectItem* player;    //ca
 
     SkillManager* skills;
-    Walls* walls;   //Stores the walls object that i need to not collide with.
+    QGraphicsRectItem* walls;   //Stores the walls object that i need to not collide with.
 
     //QPoint* position;
     //QTimer tick;
     bool moveUp, moveDown, moveRight, moveLeft;
     int speed = 10;
-public slots:
-    void move();
-    //void setSpeed(int speed); //Will use when adopting to signals/slots
-
 };
 
 #endif // PLAYER_H
