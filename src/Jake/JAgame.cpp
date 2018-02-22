@@ -49,7 +49,7 @@ void Game::levelLoop()
   
 //}
 
-void mainMenu(){
+void Game::mainMenu(){
   MainMenu * menu = new MainMenu();
   scene->addItem(menu);
 
