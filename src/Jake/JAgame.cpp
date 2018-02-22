@@ -1,6 +1,6 @@
 #include "JTmap.h"
 #include "NAenemyupdater.h"
-//#include "JTcharacter.h"
+//#include "BTcharacter.h"
 #include "JAgame.h"
 //#include "ASmenu.h"
 #include <QGraphicsTextItem>
@@ -15,23 +15,33 @@ Game::Game(QWidget *parent)
 }
 
 
-void Game::start(/*int CharClass*/)
+void Game::start(int CharClass)
 {
   scene->clear();
   Map * map = new Map(scene);
 
 
-  EnemyUpdater* eUpdater = new EnemyUpdater();
-  Enemy **enemies = eUpdater->sEnemies;
+  eUpdater = new EnemyUpdater();
+  enemies = eUpdater->sEnemies;
   scene->addItem(enemies[0]);
   scene->addItem(enemies[1]);
 
 
-  Character * Player = new Character();
-  scene->addItem(Player);
+  //Character * Player = new Character(CharClass);
+  //scene->addItem(Player);
   
   show();
   
+
+  timer = new QTimer();
+  connect(timer,SIGNAL(timeout()),this,SLOT(levelLoop()));
+  timer->start(10);
+}
+
+void Game::levelLoop()
+{
+    eUpdater->giveInfo(200.0/*Player->getPosition()->x()*/, 200.0+200/*Player->getPosition()->y()*/);
+
 }
 
 //QGraphicsScene* getScene(){
@@ -40,7 +50,7 @@ void Game::start(/*int CharClass*/)
 //}
 
 void mainMenu(){
-  MMenu * menu = new MMenu();
-  scene->clear();
-  scene->addItem(menu);
+  //MMenu * menu = new MMenu();
+  //scene->addItem(menu);
+
 }

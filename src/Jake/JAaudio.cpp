@@ -15,7 +15,7 @@ int Audio::Play_Noise(){ //sound effect that you wish to be played
 int Audio::Play_Music(){
     sound->play();
 
-return 0;
+    return 0;
 }
 
 
