@@ -28,14 +28,14 @@ Character::Character( int characterNumber )
     //player->setPos( (scene()->width() - length)/2 , (scene()->height() - length)/2 );
     setPos( 400, 300 );
 
-    setFlag(QGraphicsItem::ItemIsFocusable);
+    QGraphicsRectItem::setFlag(QGraphicsItem::ItemIsFocusable);
     setFocusPolicy(Qt::StrongFocus);
     QGraphicsRectItem::setFocus();
 
     //Get Walls Object
     //https://stackoverflow.com/questions/23533691/qt-collision-detection-with-custom-qgraphicsitem-classes
     QList<QGraphicsItem *> list = collidingItems() ;
-
+/*
     foreach(QGraphicsItem * i , list)
     {
         Walls * item= dynamic_cast<Walls *>(i);
@@ -45,7 +45,7 @@ Character::Character( int characterNumber )
             break;
         }
     }
-
+*/
     skills = new SkillManager( this, characterNumber );
     if (walls == NULL) {
         walls = new QGraphicsRectItem();
@@ -162,6 +162,7 @@ void Character::move()
             setPos( x , topWall );
         }
     }
+
     if (moveDown) {
         int newY = QGraphicsRectItem::pos().y() + moveDistance;
         qDebug() << "y = " << QGraphicsRectItem::pos().y() << "\t move = " << newY;

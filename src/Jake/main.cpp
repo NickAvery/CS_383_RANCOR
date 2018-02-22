@@ -8,8 +8,8 @@ int main(int argc, char *argv[])
   QApplication a(argc, argv);
   
   game = new Game();
-  game->start(1);
-  //game->mainMenu();
+  //game->start(1);
+  game->mainMenu();
   
   return a.exec();
 }

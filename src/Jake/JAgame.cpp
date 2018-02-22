@@ -17,7 +17,7 @@ Game::Game(QWidget *parent)
 
 void Game::start(int CharClass)
 {
-  scene->clear();
+  //scene->clear();
   Map * map = new Map(scene);
 
 
@@ -30,7 +30,8 @@ void Game::start(int CharClass)
   Player = new Character(CharClass);
 
   scene->addItem(Player);
-  
+  Player->setFlag(QGraphicsItem::ItemIsFocusable);
+  Player->QGraphicsRectItem::setFocus();
   show();
   
 
@@ -41,8 +42,9 @@ void Game::start(int CharClass)
 
 void Game::levelLoop()
 {
+    //while(1) {
     eUpdater->giveInfo(Player->getPosition().x(), Player->getPosition().y());
-    //Player->move();
+    Player->move();
 }
 
 //QGraphicsScene* getScene(){
@@ -51,7 +53,7 @@ void Game::levelLoop()
 //}
 
 void Game::mainMenu(){
-  MainMenu * menu = new MainMenu(this);
+  MainMenu * menu = new MainMenu(0 ,this);
   menu->show();
 
 }

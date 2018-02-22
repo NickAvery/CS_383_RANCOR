@@ -18,5 +18,7 @@ MainMenu::~MainMenu()
 
 void MainMenu::on_pushButton_clicked()
 {
+    hide();
+    delete ui;
 	game1->start(1);
 }
