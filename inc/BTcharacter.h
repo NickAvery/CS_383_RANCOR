@@ -14,6 +14,8 @@
 #include "KNSkillManager.h"
 #include "JTwalls.h"
 
+class SkillsManager;
+
 class Character : public QWidget, public QGraphicsRectItem
 {
     Q_OBJECT
