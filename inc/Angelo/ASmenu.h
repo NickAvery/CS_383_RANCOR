@@ -14,7 +14,7 @@ class MainMenu : public MainMenu
 
 
 public:
-	explicit MainMenu(QWidget *parent = 0, Game* game);
+	explicit MainMenu(QWidget *parent = 0, Game* game = NULL);
 	~MainMenu();
 
 private slots:
