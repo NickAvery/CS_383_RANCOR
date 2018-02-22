@@ -8,13 +8,13 @@ namespace UI{
 	class MainMenu;
 }
 
-class MainMenu : public MainMenu
+class MainMenu : public QMainWindow
 {
 	Q_OBJECT
 
 
 public:
-	explicit MainMenu(QWidget *parent = 0, Game* game);
+	explicit MainMenu(QWidget *parent = 0, Game* game = NULL);
 	~MainMenu();
 
 private slots:
