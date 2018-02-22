@@ -3,7 +3,7 @@
 #include "ui_ASmenu.h"
 #include <QGraphicsScene>
 
-MainMenu:: MainMenu(QWidget *parent, Game* game)	:
+MainMenu:: MainMenu(QWidget *parent, Game* game) :
 	QMainWindow(parent), 
 	ui(new Ui::MainMenu)
 	{
