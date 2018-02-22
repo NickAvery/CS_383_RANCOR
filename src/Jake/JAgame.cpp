@@ -27,7 +27,8 @@ void Game::start(int CharClass)
   scene->addItem(enemies[1]);
 
 
-  Character * Player = new Character(CharClass);
+  Player = new Character(CharClass);
+
   scene->addItem(Player);
   
   show();
@@ -40,8 +41,8 @@ void Game::start(int CharClass)
 
 void Game::levelLoop()
 {
-    eUpdater->giveInfo(200.0/*Player->getPosition()->x()*/, 200.0+200/*Player->getPosition()->y()*/);
-
+    eUpdater->giveInfo(Player->getPosition().x(), Player->getPosition().y());
+    Player->move();
 }
 
 //QGraphicsScene* getScene(){
@@ -50,7 +51,7 @@ void Game::levelLoop()
 //}
 
 void Game::mainMenu(){
-  MainMenu * menu = new MainMenu();
-  scene->addItem(menu);
+  //MainMenu * menu = new MainMenu();
+  //scene->addItem(menu);
 
 }
