@@ -10,7 +10,7 @@
 #ifndef __SKILLMANAGER_H__
 #define __SKILLMANAGER_H__
 
-#include "BTCharacter.h"
+#include "BTcharacter.h"
 
 //Necessary included headers
 #include "KNClassTypeDatabase.h"
