@@ -13,6 +13,7 @@
 #include <QGraphicsRectItem>
 #include "KNSkillManager.h"
 #include "JTwalls.h"
+#include "JAgame.h"
 
 class SkillManager;
 
@@ -25,7 +26,7 @@ public:
      * The second constructor will create, and intialize the player graphics, and the default stats.
      */
     //Character(QWidget *parent = 0); //Initializes Player as temporary character, starts character in
-    Character(int characterNumber = 0);
+    Character(Game* parent, int characterNumber = 0);
     ~Character();
 
     void setSpeed(int speed);
@@ -38,6 +39,7 @@ private:
 
     SkillManager* skills;
     QGraphicsRectItem* walls;   //Stores the walls object that i need to not collide with.
+    Game* game;
 
     //QPoint* position;
     //QTimer tick;

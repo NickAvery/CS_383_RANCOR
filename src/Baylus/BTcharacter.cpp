@@ -19,10 +19,10 @@ Character::Character(QWidget *parent)
 }
 */
 
-Character::Character( int characterNumber )
+Character::Character( Game *parent, int characterNumber )
 {
     int length = 100;
-
+    game = parent;
     //player = new QGraphicsRectItem();
     setRect( 0, 0, length, length );
     //player->setPos( (scene()->width() - length)/2 , (scene()->height() - length)/2 );
@@ -81,13 +81,16 @@ void Character::keyPressEvent(QKeyEvent *event)
     if (event->key() == Qt::Key_Up || event->key() == Qt::Key_W) {
         qDebug() << "Pressing up.";
         moveUp = true;
-    } else if (event->key() == Qt::Key_Down || event->key() == Qt::Key_S) {
+    }
+    if (event->key() == Qt::Key_Down || event->key() == Qt::Key_S) {
         qDebug() << "Pressing down.";
         moveDown = true;
-    } else if (event->key() == Qt::Key_Right || event->key() == Qt::Key_D) {
+    }
+    if (event->key() == Qt::Key_Right || event->key() == Qt::Key_D) {
         qDebug() << "Pressing right.";
         moveRight = true;
-    } else if (event->key() == Qt::Key_Left || event->key() == Qt::Key_A) {
+    }
+    if (event->key() == Qt::Key_Left || event->key() == Qt::Key_A) {
         qDebug() << "Pressing left.";
         moveLeft = true;
     }
@@ -98,13 +101,16 @@ void Character::keyReleaseEvent(QKeyEvent *event)
     if (event->key() == Qt::Key_Up || event->key() == Qt::Key_W) {
         qDebug() << "Releasing up.";
         moveUp = false;
-    } else if (event->key() == Qt::Key_Down || event->key() == Qt::Key_S) {
+    }
+    if (event->key() == Qt::Key_Down || event->key() == Qt::Key_S) {
         qDebug() << "Releasing down.";
         moveDown = false;
-    } else if (event->key() == Qt::Key_Right || event->key() == Qt::Key_D) {
+    }
+    if (event->key() == Qt::Key_Right || event->key() == Qt::Key_D) {
         qDebug() << "Releasing right.";
         moveRight = false;
-    } else if (event->key() == Qt::Key_Left || event->key() == Qt::Key_A) {
+    }
+    if (event->key() == Qt::Key_Left || event->key() == Qt::Key_A) {
         qDebug() << "Releasing left.";
         moveLeft = false;
     }
@@ -158,8 +164,10 @@ void Character::move()
         int topWall = walls->pos().y();
         if (newY >= topWall) {  //If not colliding with walls
             setPos( x , newY );
+            y = newY;
         } else {                //Move to wall edge instead.
             setPos( x , topWall );
+            y = topWall;
         }
     }
 
@@ -169,8 +177,10 @@ void Character::move()
         int botWall = walls->pos().y() + walls->rect().height();
         if (botWall >= newY + QGraphicsRectItem::rect().height()){    //If not colliding with walls
             setPos( x, newY );
+            y = newY;
         } else {              //move to wall edge instead.
             setPos( x, botWall - QGraphicsRectItem::rect().height());
+            y = botWall - QGraphicsRectItem::rect().height();
         }
     }
     if (moveRight) {
