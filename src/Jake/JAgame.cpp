@@ -12,12 +12,13 @@ Game::Game(QWidget *parent)
   scene = new QGraphicsScene();
   scene->setSceneRect(0,0,800,600);
   setScene(scene);
+  Pause = false;
 }
 
 
 void Game::start(int CharClass)
 {
-  //scene->clear();
+  scene->clear();
   Map * map = new Map(scene);
 
 
@@ -40,11 +41,17 @@ void Game::start(int CharClass)
   timer->start(10);
 }
 
+void Game::SetPause(bool set)
+{
+    Pause = set;
+}
+
 void Game::levelLoop()
 {
-    //while(1) {
+    if(!Pause){
     eUpdater->giveInfo(Player->getPosition().x(), Player->getPosition().y());
     Player->move();
+    }
 }
 
 //QGraphicsScene* getScene(){
