@@ -8,6 +8,8 @@
 #include "BTcharacter.h"
 #include "JTmap.h"
 
+class Character;
+
 class Game : public QGraphicsView{
   Q_OBJECT
 
