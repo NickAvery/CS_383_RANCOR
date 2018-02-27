@@ -18,6 +18,7 @@ class Game : public QGraphicsView{
   QTimer * timer;
   Enemy **enemies;
   EnemyUpdater* eUpdater;
+  bool Pause;
  public:
   Game(QWidget* parent = NULL);
 
@@ -25,6 +26,7 @@ class Game : public QGraphicsView{
   void mainMenu();
     //Initializes a new game
   void start(int CharClass);
+  void SetPause(bool);
     //int CharClass represents the class(warrior, ranger, DR.BC) that the user choose
     //this will be called by UI once the player chooses their class and presses start game
 
