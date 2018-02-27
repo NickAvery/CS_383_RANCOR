@@ -51,11 +51,14 @@ class Game : public QGraphicsView{
     //int CharClass represents the class(warrior, ranger, DR.BC) that the user choose
     //this will be called by UI once the player chooses their class and presses start game
 
-  void SetPause(bool);
+  void setPause(bool);
   //This function sets the value of the Pause variable.
   //Pause determines whether or not the game objects are being updated on the game timer.
 
   Map* getMap();
+
+  //QGraphicsScene* getScene();
+
 
 public slots:
   void levelLoop();
