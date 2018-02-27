@@ -19,7 +19,7 @@ Character::Character(QWidget *parent)
 }
 */
 
-Character::Character( Game *parent, int characterNumber )
+Character::Character(int characterNumber , Game *parent)
 {
     int length = 100;
     game = parent;

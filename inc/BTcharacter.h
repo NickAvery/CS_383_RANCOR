@@ -26,7 +26,7 @@ public:
      * The second constructor will create, and intialize the player graphics, and the default stats.
      */
     //Character(QWidget *parent = 0); //Initializes Player as temporary character, starts character in
-    Character(Game* parent, int characterNumber = 0);
+    Character(int characterNumber = 0, Game* parent);
     ~Character();
 
     void setSpeed(int speed);
