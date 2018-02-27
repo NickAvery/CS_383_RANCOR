@@ -1,6 +1,8 @@
 #include "BTcharacter.h"
 #include "JTwalls.h"
 #include "KNSkillManager.h"
+#include "JAgame.h"
+#include "JAaudio.h"
 
 #include <iostream>
 #include <QPoint>
@@ -93,6 +95,12 @@ void Character::keyPressEvent(QKeyEvent *event)
     if (event->key() == Qt::Key_Left || event->key() == Qt::Key_A) {
         qDebug() << "Pressing left.";
         moveLeft = true;
+    }
+    if (event->key() == Qt::Key_P) {
+        qDebug() << "Pressing P";
+        static bool state = false;
+        state = !state;
+        if (game != NULL) game->SetPause(state);
     }
 }
 

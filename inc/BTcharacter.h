@@ -7,13 +7,13 @@
 
 #ifndef PLAYER_H
 #define PLAYER_H
+#include "KNSkillManager.h"
+#include "JTwalls.h"
+#include "JAgame.h"
 
 #include <QWidget>
 #include <QPoint>
 #include <QGraphicsRectItem>
-#include "KNSkillManager.h"
-#include "JTwalls.h"
-#include "JAgame.h"
 
 class SkillManager;
 class Game;
@@ -30,16 +30,16 @@ public:
     Character(int characterNumber = 0, Game* parent = 0);
     ~Character();
 
-    void setSpeed(int speed);
+    void setSpeed(int speed);   //Changes The speed
     QPoint getPosition();   //Returns the position of the center of the
-    void keyPressEvent(QKeyEvent *event);
-    void keyReleaseEvent(QKeyEvent *event);
+    void keyPressEvent(QKeyEvent *event);   //Registers WASD keys, arrow keys, and 'P' for pause.
+    void keyReleaseEvent(QKeyEvent *event); //see keyPressEvent();
     void move();
 private:
     //QGraphicsRectItem* player;    //ca
 
     SkillManager* skills;
-    QGraphicsRectItem* walls;   //Stores the walls object that i need to not collide with.
+    Walls* walls;   //Stores the walls object that i need to not collide with.
     Game* game; /* Not guaranteed to exist. Check if NULL when used. */
 
     //QPoint* position;
