@@ -6,7 +6,7 @@
 #include <QTimer>
 #include "NAenemyupdater.h"
 #include "BTcharacter.h"
-
+#include "JTmap.h"
 
 class Game : public QGraphicsView{
   Q_OBJECT
@@ -17,6 +17,8 @@ class Game : public QGraphicsView{
 
   Character* Player;
   //the player object that is currently the player
+
+  Map * map;
 
   QTimer * timer;
   //The timer that loops levelLoop();
@@ -50,6 +52,8 @@ class Game : public QGraphicsView{
   void SetPause(bool);
   //This function sets the value of the Pause variable.
   //Pause determines whether or not the game objects are being updated on the game timer.
+
+  Map* getMap();
 
 public slots:
   void levelLoop();
