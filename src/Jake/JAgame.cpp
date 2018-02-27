@@ -21,7 +21,7 @@ Game::Game(QWidget *parent)
 void Game::start(int CharClass)
 {
   scene->clear();
-  Map * map = new Map(scene);
+  map = new Map(scene);
     //James(map designer) adds himself to the scene.
 
   eUpdater = new EnemyUpdater();
@@ -30,7 +30,7 @@ void Game::start(int CharClass)
   scene->addItem(enemies[1]);
     //Add's enemies to the scene.
 
-  Player = new Character(CharClass);
+  Player = new Character(CharClass, this);
     //Creates a new character CharClass represents the character that was chosen at the mainMenu.
 
   scene->addItem(Player);
@@ -50,6 +50,11 @@ void Game::SetPause(bool set)
 {
     Pause = set;
     //sets the pause variable
+}
+
+Map *Game::getMap()
+{
+    return map;
 }
 
 void Game::levelLoop()
