@@ -10,7 +10,7 @@
 #ifndef __SKILLMANAGER_H__
 #define __SKILLMANAGER_H__
 
-//#include "BTcharacter.h"
+#include "BTcharacter.h"
 class Character;
 
 //Necessary included headers
@@ -24,8 +24,7 @@ class SkillManager {
  public:
   //Constructor
   //Use Class Type ID in place of classID; example: ClassType::WARRIOR
-  SkillManager(int classID = 0);
-  //SkillManager(Character *parent = 0, int classID = 0);
+  SkillManager(Character *parent = 0, int classID = 0);
   //Destructor
   ~SkillManager();
   //Sets class type that is being used (by Class Type ID), and all base skill settings defined by selected class type.
