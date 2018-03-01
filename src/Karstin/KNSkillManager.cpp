@@ -12,11 +12,20 @@ SkillManager::~SkillManager() {
 }
 
 int SkillManager::selectClassType(int classID) {
-  
+  switch(classID) {
+  case(Skill::WARRIOR):
+    break;
+  case(Skill::RANGER):
+    break;
+  case(Skill::DR_BC):
+    break;
+  default:
+    break;
+  };
 }
 
 int SkillManager::getSelectedClassTypeID() {
-  
+  return classID;
 }
 
 int SkillManager::getSkillLevel(int skillID) {
