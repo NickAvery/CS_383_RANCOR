@@ -3,7 +3,7 @@
 
 class PowerUp {
  public:
-  PowerUp(int targetSkillID, double timeInSeconds, int levelChange);
+  PowerUp(int skillID, double timeInSeconds, int changeAmount);
   ~PowerUp();
   void activate(int state);
   int isActive();

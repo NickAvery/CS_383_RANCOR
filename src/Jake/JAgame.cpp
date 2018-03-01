@@ -46,7 +46,7 @@ void Game::start(int CharClass)
 
 }
 
-void Game::SetPause(bool set)
+void Game::setPause(bool set)
 {
     Pause = set;
     //sets the pause variable
@@ -66,11 +66,11 @@ void Game::levelLoop()
     //this loop updates the player and the enemy movements.
 }
 
-/*
-QGraphicsScene* getScene(){
-  return scene;
+
+//QGraphicsScene* getScene(){
+//  return scene;
   
-}*/
+//}
 
 
 void Game::mainMenu(){
