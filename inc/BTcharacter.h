@@ -8,6 +8,7 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 #include "KNSkillManager.h"
+#include "JTmap.h"
 #include "JTwalls.h"
 #include "JAgame.h"
 
@@ -39,8 +40,9 @@ private:
     //QGraphicsRectItem* player;    //ca
 
     SkillManager* skills;
-    Walls* walls;   //Stores the walls object that i need to not collide with.
-    Game* game; /* Not guaranteed to exist. Check if NULL when used. */
+    Walls* myWalls;   //Stores the walls object that i need to not collide with.
+    Game* myGame; /* Not guaranteed to exist. Check if NULL when used. */
+    Map* myMap;
 
     //QPoint* position;
     //QTimer tick;

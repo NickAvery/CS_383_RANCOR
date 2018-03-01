@@ -24,7 +24,7 @@ Character::Character(QWidget *parent)
 Character::Character(int characterNumber , Game *parent)
 {
     int length = 100;
-    game = parent;
+    myGame = parent;
     //player = new QGraphicsRectItem();
     setRect( 0, 0, length, length );
     //player->setPos( (scene()->width() - length)/2 , (scene()->height() - length)/2 );
@@ -36,8 +36,8 @@ Character::Character(int characterNumber , Game *parent)
 
     //Get Walls Object
     //https://stackoverflow.com/questions/23533691/qt-collision-detection-with-custom-qgraphicsitem-classes
-    QList<QGraphicsItem *> list = collidingItems() ;
-/*
+/*    QList<QGraphicsItem *> list = collidingItems() ;
+
     foreach(QGraphicsItem * i , list)
     {
         Walls * item= dynamic_cast<Walls *>(i);
@@ -48,12 +48,16 @@ Character::Character(int characterNumber , Game *parent)
         }
     }
 */
+    myMap = myGame->getMap();  //Get map from the game.
+    myWalls = myMap->walls;     //Get Walls from the map.
     skills = new SkillManager( this, characterNumber );
-    if (walls == NULL) {
-        walls = new QGraphicsRectItem();
-        walls->setRect(0,0,720,520);
-        walls->setPos(40,40);
+    /*
+    if (myWalls == NULL) {
+        myWalls = new QGraphicsRectItem();
+        myWalls->setRect(0,0,720,520);
+        myWalls->setPos(40,40);
     }
+    */
     moveUp =    false;
     moveDown =  false;
     moveRight = false;
@@ -100,7 +104,7 @@ void Character::keyPressEvent(QKeyEvent *event)
         qDebug() << "Pressing P";
         static bool state = false;
         state = !state;
-        if (game != NULL) game->SetPause(state);
+        if (myGame != NULL) myGame->setPause(state);
     }
 }
 
@@ -136,11 +140,11 @@ void Character::move()
     /*
     {
         QGraphicsRectItem * ghost = new QGraphicsRectItem();
-        ghost->setRect( player->rect() );
+        ghost->setRect( rect() );
         if (moveUp) {
             ghost->setPos( ghost->x(), ghost->y() - moveDistance );
-            QList<QGraphicsItem *> collidingItems = collidingItems(ghost,  )
-            if () {
+            QList<QGraphicsItem *> collidingItems = collidingItems( ghost, 0x0 );
+            if (  ) {
 
             }
         }
@@ -165,11 +169,12 @@ void Character::move()
     }
     */
 //If the above method has issues, just use this one.
+    // /*
     int x = QGraphicsRectItem::pos().x();  //Current x and y values, before moving player.
     int y = QGraphicsRectItem::pos().y();
     if (moveUp) {
         int newY = QGraphicsRectItem::pos().y() - moveDistance;
-        int topWall = walls->pos().y();
+        int topWall = myWalls->pos().y();
         if (newY >= topWall) {  //If not colliding with walls
             setPos( x , newY );
             y = newY;
@@ -182,7 +187,7 @@ void Character::move()
     if (moveDown) {
         int newY = QGraphicsRectItem::pos().y() + moveDistance;
         qDebug() << "y = " << QGraphicsRectItem::pos().y() << "\t move = " << newY;
-        int botWall = walls->pos().y() + walls->rect().height();
+        int botWall = myWalls->pos().y() + myWalls->rect().height();
         if (botWall >= newY + QGraphicsRectItem::rect().height()){    //If not colliding with walls
             setPos( x, newY );
             y = newY;
@@ -193,7 +198,7 @@ void Character::move()
     }
     if (moveRight) {
         int newX = QGraphicsRectItem::pos().x()  + moveDistance;
-        int rightWall = walls->pos().x() + walls->rect().width();
+        int rightWall = myWalls->pos().x() + myWalls->rect().width();
         if (newX + QGraphicsRectItem::rect().width() <= rightWall){ //If not colliding with walls
             setPos( newX, y );
         } else {                //move to wall edge intead
@@ -202,11 +207,13 @@ void Character::move()
     }
     if (moveLeft) { //if not moving past border
         int newX = QGraphicsRectItem::pos().x() - moveDistance;
-        int leftWall = walls->pos().x();
+        int leftWall = myWalls->pos().x();
         if (leftWall <= newX) { //If not colliding with walls
             setPos( newX, y );
         } else {                 //move to wall edge instead
             setPos( leftWall , y );
         }
     }
+    // */
+
 }
