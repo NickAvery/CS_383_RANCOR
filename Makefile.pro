@@ -25,7 +25,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 # Input
-HEADERS += inc/JAaudio.h inc/JAgame.h                           \
+HEADERS += inc/JAaudio.h inc/JAgame.h  inc/Jake/audio.h inc/Jake/sound.h inc/Jake/music.h                        \
            inc/JTmap.h inc/JTwalls.h                            \
            inc/NAenemyupdater.h inc/Nick/enemy.h                \
            inc/KNSkillManager.h inc/Karstin/KNClassType.h inc/Karstin/KNClassTypeDatabase.h inc/Karstin/KNPowerUp.h inc/Karstin/KNScore.h inc/Karstin/KNSkill.h   \
