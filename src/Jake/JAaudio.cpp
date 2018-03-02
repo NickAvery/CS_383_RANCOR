@@ -1,35 +1,31 @@
 #include "JAaudio.h"
+#include "music.h"
+#include "sound.h"
+#include "audio.h"
 
-Audio::Audio(int Sound_choice, QString soundpath){
-    sound = new QMediaPlayer();
-    sound->setMedia(QUrl(soundpath));
-
+AudioInter::AudioInter(int Sound_choice, QString soundpath){
+    /*if(Sound_choice == 1){
+        mClass = new Sound(soundpath);
+    }
+    else{
+        mClass = new Music(soundpath);
+    }*/
+    Sound_choice++;
+    mSound = new QMediaPlayer;
+    mSound->setMedia(QUrl(soundpath));
 }
 
-int Audio::Play_Noise(){ //sound effect that you wish to be played
-    sound->play();
+
+
+int AudioInter::PlaySound(){ //sound effect that you wish to be played
+    mSound->play();
+    //mClass->play();
     return 0;
 }
 
 
-int Audio::Play_Music(){
-    sound->play();
 
+int AudioInter::Set_CharClass(int CharClass){
+    mCharClass = CharClass;
     return 0;
-}
-
-
-int Audio::Set_GameState(int state){
-return 0;
-}
-
-int Audio::Get_gameState(){
-
-return 0;
-}
-
-
-int Audio::Set_CharClass(int CharClass){
-
-return 0;
 }
