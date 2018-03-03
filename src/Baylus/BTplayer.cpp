@@ -28,10 +28,10 @@ Player::Player(Character *parent, direction *movement, Game* thegame)
 
 
     if ( collidesWithItem(myWalls, Qt::ContainsItemShape) ) {
-        qDebug() << "Is colliding with wall.";
+//       qDebug() << "Is colliding with wall.";
     }
     if (! (ghost->collidesWithItem(myWalls, Qt::ContainsItemShape)) ) {
-        qDebug() << "ghost Is not colliding with wall.";
+//        qDebug() << "ghost Is not colliding with wall.";
     }
 }
 
@@ -47,17 +47,16 @@ void Player::move()
    // /*
     if ( Move->moveUp ^ Move->moveDown  && Move->moveRight ^ Move->moveLeft) {
         //qDebug() << "Moving Diagonally!!!!";
-        moveDistance /= (double) sqrt(2);
+        moveDistance /= (double) sqrt(2.0);
 //qDebug() << "Move Distance is " << moveDistance;
     }
 
     double x = QGraphicsRectItem::pos().x();  //Current x and y values, before moving player.
     double y = QGraphicsRectItem::pos().y();
+    //double y = QGraphicsRectItem::rect().bottom();
     if (Move->moveUp) {
         double newY = y - moveDistance;
         double topWall = myWalls->pos().y();
-qDebug() << "Moving Up";
-qDebug() << "newY = y - moveDistance :: " << newY << " = " << y << " - " << moveDistance;
         if (newY >= topWall) {  //If not colliding with walls
             setPos( x , newY );
             y = newY;   //To keep track of the real values such that movement isnt inhibited by
@@ -69,8 +68,9 @@ qDebug() << "newY = y - moveDistance :: " << newY << " = " << y << " - " << move
 
     if (Move->moveDown) {
         double newY = y + moveDistance;
-//qDebug() << "y = " << QGraphicsRectItem::pos().y() << "\t move = " << newY;
-        double botWall = myWalls->rect().bottom();
+//qDebug() << "y = " << y << "\t move = " << newY;
+        double botWall = myWalls->y() + myWalls->rect().height();
+        //qDebug() << "botWall: " << botWall << "\theight: " << rect().height() << "\ttop: " << rect().top();
         if (botWall >= newY + QGraphicsRectItem::rect().height()){    //If not colliding with walls
             setPos( x, newY );
             y = newY;
@@ -81,7 +81,7 @@ qDebug() << "newY = y - moveDistance :: " << newY << " = " << y << " - " << move
     }
     if (Move->moveRight) {
         double newX = QGraphicsRectItem::pos().x()  + moveDistance;
-        double rightWall = myWalls->rect().right();
+        double rightWall = myWalls->x() + myWalls->rect().width();
         if (newX + QGraphicsRectItem::rect().width() <= rightWall){ //If not colliding with walls
             setPos( newX, y );
         } else {                //move to wall edge intead

@@ -10,6 +10,7 @@
 #include <QGraphicsRectItem>
 #include <QGraphicsScene>
 #include <QKeyEvent>
+#include <QMouseEvent>
 #include <QDebug>
 #include <cmath>
 
@@ -41,23 +42,27 @@ Character::Character(int characterNumber , Game *parent, QGraphicsScene *s)
     myWalls = myMap->walls;     //Get Walls from the map.
     //x = 400;
     //y = 300;
-    scene = s;
+    //scene = s;
     myMove = new struct direction;
     myMove->moveUp =    false;
     myMove->moveDown =  false;
     myMove->moveRight = false;
     myMove->moveLeft =  false;
-    myPlayer = new Player(this, myMove, myGame);
-    //myPlayer->setRect( 0, 0, length, length );
-    //myPlayer->setPos( 400, 300 );
 
-    scene->addItem(myPlayer);
+    //Make Player and add them to scene.
+    myPlayer = new Player(this, myMove, myGame);
+
+    s->addItem(myPlayer);
     //myPlayer->setFlag(QGraphicsItem::ItemIsFocusable);
+
+    //Set up focus events for grabbing input
     setFocusPolicy(Qt::StrongFocus);
     //myPlayer->QGraphicsRectItem::setFocus();
 
     grabKeyboard();
-    //Get Walls Object
+    grabMouse();
+
+    setMouseTracking(true);
 
     //https://stackoverflow.com/questions/23533691/qt-collision-detection-with-custom-qgraphicsitem-classes
 }
@@ -89,7 +94,6 @@ QRectF Character::getRect()
 
 void Character::keyPressEvent(QKeyEvent *event)
 {
-    qDebug() << "Key was pressed.";
     switch ( event->key() ) {
         case Qt::Key_Up:
         case Qt::Key_W:
@@ -120,7 +124,6 @@ void Character::keyPressEvent(QKeyEvent *event)
 
 void Character::keyReleaseEvent(QKeyEvent *event)
 {
-qDebug() << "Key was released.";
     switch ( event->key() ) {
         case Qt::Key_Up:
         case Qt::Key_W:
@@ -141,7 +144,12 @@ qDebug() << "Key was released.";
         default:
             event->ignore();
             break;
-        }
+    }
+}
+
+void Character::mouseMoveEvent(QMouseEvent *event)
+{
+
 }
 
 //Obsolete
@@ -154,6 +162,7 @@ void Character::move()
 void Character::update()
 {
     myPlayer->move();
+    emit(SIGNAL(tick));
 }
 
 void Character::doDamage(double damage)

@@ -19,7 +19,7 @@
 #include <QPoint>
 #include <QGraphicsRectItem>
 #include <QGraphicsScene>
-#include <QGraphicsItem>
+//#include <QGraphicsItem>
 
 class SkillManager;
 class Game;
@@ -42,6 +42,7 @@ public:
     QRectF getRect();
     void keyPressEvent(QKeyEvent *event);   //Registers WASD keys, arrow keys, and 'P' for pause.
     void keyReleaseEvent(QKeyEvent *event); //see keyPressEvent();
+    void mouseMoveEvent(QMouseEvent *event);
     virtual void move();    //Moves player and ghost to appropriate positions.
     void update();
     void doDamage(double damage);
@@ -55,6 +56,8 @@ private:
     Player *myPlayer;
     Walls* myWalls;   //Stores the walls object that i need to not collide with.
 //protected:
+signals:
+    void tick();
 };
 
 #endif // CHARACTER_H
