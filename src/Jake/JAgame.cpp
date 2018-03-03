@@ -30,12 +30,9 @@ void Game::start(int CharClass)
   scene->addItem(enemies[1]);
     //Add's enemies to the scene.
 
-  Player = new Character(CharClass, this);
+  Player = new Character(CharClass, this, scene);
     //Creates a new character CharClass represents the character that was chosen at the mainMenu.
 
-  scene->addItem(Player);
-  Player->setFlag(QGraphicsItem::ItemIsFocusable);
-  Player->QGraphicsRectItem::setFocus();
   show();
     //Add's Player to scene and set him to be the focus.
 
