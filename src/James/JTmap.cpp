@@ -19,7 +19,10 @@ int Map::maxy=101;
 
 //consider making the floor array static within class
 
-Map::Map(QGraphicsScene* scene){
+Map::Map(QGraphicsScene* scene, bool Demo){
+    if(Demo){
+        qDebug() << "Call debug functions here!";
+    } else{
     //add in when map gen is finished
     //srand(time(NULL));
     //int goalx=10-rand()%10;      //the 10 in these two lines is the path length
@@ -46,6 +49,7 @@ Map::Map(QGraphicsScene* scene){
     scene->addItem(floorarray[roomy][roomx]->rDoor);
     scene->addItem(floorarray[roomy][roomx]->tDoor);
     scene->addItem(floorarray[roomy][roomx]->bDoor);
+    }
 }
 
 Room * Map::selectRoom(int selection, QGraphicsScene* scene){
