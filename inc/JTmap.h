@@ -12,7 +12,7 @@ private:
 public:
     QGraphicsScene * scene;
     Walls * walls;
-    Map(QGraphicsScene* scene);
+    Map(QGraphicsScene* scene, bool Demo);
     Room * selectRoom(int selection, QGraphicsScene* scene);
     static int roomx;
     static int roomy;
