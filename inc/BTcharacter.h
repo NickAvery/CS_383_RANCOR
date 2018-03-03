@@ -38,11 +38,12 @@ public:
     ~Character();
 
     void setSpeed(double speed);   //Changes The speed
-    QPointF getPosition();   //Returns the position of the center of the
+    QPointF getPosition();   //Returns the position of the player
+    void setPostition(QPointF point);     //sets the position for the player.
     QRectF getRect();
     void keyPressEvent(QKeyEvent *event);   //Registers WASD keys, arrow keys, and 'P' for pause.
     void keyReleaseEvent(QKeyEvent *event); //see keyPressEvent();
-    void mouseMoveEvent(QMouseEvent *event);
+    void mousePressEvent(QMouseEvent *event);
     virtual void move();    //Moves player and ghost to appropriate positions.
     void update();
     void doDamage(double damage);

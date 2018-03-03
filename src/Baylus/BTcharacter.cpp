@@ -62,7 +62,7 @@ Character::Character(int characterNumber , Game *parent, QGraphicsScene *s)
     grabKeyboard();
     grabMouse();
 
-    setMouseTracking(true);
+    //setMouseTracking(true);
 
     //https://stackoverflow.com/questions/23533691/qt-collision-detection-with-custom-qgraphicsitem-classes
 }
@@ -85,6 +85,11 @@ void Character::setSpeed(double newSpeed)
 QPointF Character::getPosition()
 {
     return myPlayer->QGraphicsRectItem::pos();
+}
+
+void Character::setPostition(QPointF point)
+{
+    myPlayer->setPos(point);
 }
 
 QRectF Character::getRect()
@@ -147,7 +152,7 @@ void Character::keyReleaseEvent(QKeyEvent *event)
     }
 }
 
-void Character::mouseMoveEvent(QMouseEvent *event)
+void Character::mousePressEvent(QMouseEvent *event)
 {
 
 }
