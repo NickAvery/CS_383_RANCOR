@@ -1,0 +1,19 @@
+<RCC>
+    <qresource prefix="/sounds">
+        <file>Sounds/walking.wav</file>
+        <file>Sounds/The-Creeping-Blob.mp3</file>
+        <file>Sounds/Robot_more_angry.wav</file>
+        <file>Sounds/Robot_less_angry.wav</file>
+        <file>Sounds/Robot_hit.wav</file>
+        <file>Sounds/piston.wav</file>
+        <file>Sounds/Light-Years_v001.mp3</file>
+        <file>Sounds/Laser.wav</file>
+        <file>Sounds/Door_Opening.wav</file>
+        <file>Sounds/Door_Closing.wav</file>
+        <file>Sounds/damage3.wav</file>
+        <file>Sounds/damage2.wav</file>
+        <file>Sounds/damage1.wav</file>
+        <file>Sounds/Button.wav</file>
+        <file>Sounds/Break-Down.mp3</file>
+    </qresource>
+</RCC>
