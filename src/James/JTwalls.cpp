@@ -1,6 +1,6 @@
 #include "JTwalls.h"
 
-Walls::Walls(): QObject(), QGraphicsRectItem(){
-    setRect(0,0,720,520);
+Walls::Walls(): QObject(), QGraphicsPixmapItem(){
+    setPixmap(QPixmap(":/images/Room.ai"));
     setPos(40,40);
 }
