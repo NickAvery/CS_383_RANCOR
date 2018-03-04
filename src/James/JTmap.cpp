@@ -14,8 +14,6 @@
 
 int Map::roomx=51;
 int Map::roomy=51;
-int Map::maxx=101;
-int Map::maxy=101;
 
 //consider making the floor array static within class
 
@@ -33,7 +31,6 @@ Map::Map(QGraphicsScene* scene, bool Demo){
 
 
     //qDebug() << coords;
-    Room * floorarray[maxy][maxx];
    //room = selectRoom(1, scene);
     selectRoom(1,scene);
 
@@ -111,15 +108,30 @@ void Map::selectRoom(int selection, QGraphicsScene* scene){
 }
 
 void Map::switchRooms(QString name){
+    //scene->removeItem(floorarray[roomy][roomx]->walls);
+    scene->removeItem(floorarray[roomy][roomx]->lDoor);
+    //scene->removeItem(floorarray[roomy][roomx]->rDoor);
+    //scene->removeItem(floorarray[roomy][roomx]->tDoor);
+    //scene->removeItem(floorarray[roomy][roomx]->bDoor);
+
     if(name=="Top"){
         qDebug() << "Move up.";
+        //roomx--;
     } else if(name=="Bottom"){
         qDebug() << "Move down.";
+        //room++;
     } else if(name=="Right"){
         qDebug() << "Move right.";
+        //roomy++;
     } else if(name=="Left"){
+        //roomy--;
         qDebug() << "Move left.";
     } else {
         qDebug() << "Failed to match a room";
     }
+    //scene->addItem(floorarray[roomy][roomx]->walls);
+    //scene->addItem(floorarray[roomy][roomx]->lDoor);
+    //scene->addItem(floorarray[roomy][roomx]->rDoor);
+    //scene->addItem(floorarray[roomy][roomx]->tDoor);
+    //scene->addItem(floorarray[roomy][roomx]->bDoor);
 }
