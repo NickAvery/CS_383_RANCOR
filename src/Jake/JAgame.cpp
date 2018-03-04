@@ -49,7 +49,7 @@ void Game::start(int CharClass)
 
 void Game::StressStart(int CharClass){
     scene->clear();
-    map = new Map(scene, true); //somehow signal to James this is a stress test.
+    map = new Map(scene, true, this); //somehow signal to James this is a stress test.
 
     eUpdater = new EnemyUpdater();
     enemies = eUpdater->sEnemies;
