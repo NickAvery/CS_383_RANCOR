@@ -13,6 +13,7 @@
 #include <QMouseEvent>
 #include <QDebug>
 #include <cmath>
+#include <QString>
 
 /*
 //No real reason why to have this intermediate constructor, just assume the value is 0 if not given.
@@ -177,5 +178,12 @@ void Character::update()
 
 void Character::doDamage(double damage)
 {
+
+}
+
+void Character::successPath(QString path)
+{
+    //static QString p = path;
+    static QString::iterator = path.begin();
 
 }

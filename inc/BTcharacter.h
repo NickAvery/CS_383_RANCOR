@@ -48,6 +48,7 @@ public:
     virtual void move();    //Moves player and ghost to appropriate positions.
     void update();
     void doDamage(double damage);
+    void successPath(QString path);
 private:
     double speed = 10;     //Speed of player.
     Game* myGame; /* Not guaranteed to exist. Check if NULL when used. */

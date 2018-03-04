@@ -127,7 +127,8 @@ int Player::checkCollisions()
     {
         Door * item= dynamic_cast<Door *>(i);
         if (item){
-            qDebug() << "Found Door\t" << item->name;
+            //qDebug() << "Found Door\t" << item->name;
+            myMap->switchRooms(item->name);
             return 1;
         }
     }
