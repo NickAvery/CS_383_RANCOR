@@ -41,3 +41,5 @@ src/Karstin/KNClassType.cpp src/Karstin/KNClassTypeDatabase.cpp src/Karstin/KNPo
 src/Angelo/ASmenu.cpp                                                 \
 src/Baylus/BTcharacter.cpp
 
+RESOURCES += src/Jake/sounds.qrc \
+    src/James/images.qrc
