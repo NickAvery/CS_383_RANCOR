@@ -92,6 +92,8 @@ QPointF Character::getPosition()
 
 void Character::setPostition(QPointF point)
 {
+    //emit(shotKill());
+    shotKill(); //Clean room of shots.
     myPlayer->put(point);
 }
 
@@ -159,8 +161,21 @@ void Character::mousePressEvent(QMouseEvent *event)
 {
     switch(event->button()) {
         case Qt::LeftButton:
-            //Fire a shot
-            //Shot* new
+            {
+                //Fire a shot
+                //QRectF r = myPlayer->rect();
+                //QPointF c = mapToGlobal(r.center().toPoint());
+                //QPointF t( c.x(), c.y() + 1 );
+                QPointF p = myPlayer->QGraphicsRectItem::pos();
+                qDebug() << "Firing a shot" << p << " to " << event->windowPos();
+                Shot* s = new Shot( 3, QLineF(p , event->windowPos()) );
+                connect(this, SIGNAL(shotTick()), s, SLOT(shotUpdate()));
+                connect(this, SIGNAL(shotKill()), s, SLOT(kill()));
+
+                scene->addItem(s);
+
+
+            }
             break;
         default:
             event->ignore();
@@ -183,7 +198,8 @@ void Character::move()
 void Character::update()
 {
     myPlayer->move();
-    emit(SIGNAL(shotTick));
+    //emit(SIGNAL(shotTick()));
+    shotTick();
 }
 
 void Character::doDamage(double damage)
