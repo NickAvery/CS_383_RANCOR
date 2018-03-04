@@ -41,3 +41,5 @@ src/Nick/enemy.cpp src/Nick/enemyupdater.cpp                          \
 src/Karstin/KNClassType.cpp src/Karstin/KNClassTypeDatabase.cpp src/Karstin/KNPowerUp.cpp src/Karstin/KNScore.cpp src/Karstin/KNSkill.cpp src/Karstin/KNSkillManager.cpp  \
 src/Angelo/ASmenu.cpp                                                 \
 src/Baylus/BTcharacter.cpp src/Baylus/BTplayer.cpp
+
+RESOURCES += src/Jake/sounds.qrc
