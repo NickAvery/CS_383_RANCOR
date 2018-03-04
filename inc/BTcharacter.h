@@ -25,6 +25,7 @@ class SkillManager;
 class Game;
 class Player;
 struct direction;
+class Map;
 
 class Character : public QWidget
 {
