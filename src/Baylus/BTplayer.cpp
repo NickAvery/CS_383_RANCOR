@@ -98,7 +98,7 @@ void Player::move()
     if (Move->moveDown) {
         double newY = y + moveDistance;
 //qDebug() << "y = " << y << "\t move = " << newY;
-        double botWall = myWalls->y() + myWalls->rect().height();
+        double botWall = myWalls->y() + myWalls->pixmap().height();
         //qDebug() << "botWall: " << botWall << "\theight: " << rect().height() << "\ttop: " << rect().top();
         if (botWall >= newY + QGraphicsRectItem::rect().height()){    //If not colliding with walls
             setPos( x, newY );
@@ -110,7 +110,7 @@ void Player::move()
     }
     if (Move->moveRight) {
         double newX = QGraphicsRectItem::pos().x()  + moveDistance;
-        double rightWall = myWalls->x() + myWalls->rect().width();
+        double rightWall = myWalls->x() + myWalls->pixmap().width();
         if (newX + QGraphicsRectItem::rect().width() <= rightWall){ //If not colliding with walls
             setPos( newX, y );
         } else {                //move to wall edge intead
