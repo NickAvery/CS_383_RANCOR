@@ -3,6 +3,7 @@
 #include "BTcharacter.h"
 #include "JAgame.h"
 #include "ASmenu.h"
+#include <JAgame.h>
 #include <QGraphicsTextItem>
 #include <QMediaPlayer>
 
@@ -21,7 +22,7 @@ Game::Game(QWidget *parent)
 void Game::start(int CharClass)
 {
   scene->clear();
-  map = new Map(scene);
+  map = new Map(scene, false);
     //James(map designer) adds himself to the scene.
 
   eUpdater = new EnemyUpdater();
@@ -43,6 +44,26 @@ void Game::start(int CharClass)
 
 }
 
+void Game::StressStart(int CharClass){
+    scene->clear();
+    map = new Map(scene, true); //somehow signal to James this is a stress test.
+
+    eUpdater = new EnemyUpdater();
+    enemies = eUpdater->sEnemies;
+    scene->addItem(enemies[0]);
+    scene->addItem(enemies[1]);
+
+    Player = new Character(CharClass, this, scene);
+      //Creates a new character CharClass represents the character that was chosen at the mainMenu.
+
+    show();
+
+    timer = new QTimer();
+    connect(timer,SIGNAL(timeout()),this,SLOT(levelLoop()));
+    timer->start(10);
+
+}
+
 void Game::setPause(bool set)
 {
     Pause = set;
@@ -58,7 +79,7 @@ void Game::levelLoop()
 {
     if(!Pause){
     eUpdater->giveInfo(Player->getPosition().x(), Player->getPosition().y());
-    Player->move();
+    Player->update();
     }
     //this loop updates the player and the enemy movements.
 }
