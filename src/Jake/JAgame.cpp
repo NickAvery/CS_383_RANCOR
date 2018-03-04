@@ -7,7 +7,7 @@
 #include <QMediaPlayer>
 #include "JAaudio.h"
 
-Game::Game(QWidget *parent)
+Game::Game()
 {
   scene = new QGraphicsScene();
   scene->setSceneRect(0,0,800,600);
@@ -76,6 +76,10 @@ void Game::setPause(bool set)
 Map *Game::getMap()
 {
     return map;
+}
+
+Character* Game::getCharacter(){
+    return Player;
 }
 
 void Game::levelLoop()
