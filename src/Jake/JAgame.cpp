@@ -3,10 +3,9 @@
 #include "BTcharacter.h"
 #include "JAgame.h"
 #include "ASmenu.h"
-#include <JAgame.h>
 #include <QGraphicsTextItem>
 #include <QMediaPlayer>
-
+#include "JAaudio.h"
 
 Game::Game(QWidget *parent)
 {
@@ -16,6 +15,9 @@ Game::Game(QWidget *parent)
     //creates a new scene object.
   Pause = false;
     //Set Pause to be false initially.
+  AudioInter * music = new AudioInter(0, "qrc:/sounds/Sounds/Break-Down.mp3");
+  music->PlaySound();
+
 }
 
 
