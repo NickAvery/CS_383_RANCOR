@@ -29,6 +29,8 @@ public:
     //QPoint getPosition();   //Returns the position of the center of the
     void move();
 private:
+    int checkCollisions();
+
     QGraphicsRectItem* ghost;
     Game* myGame;
     //Character* myCharacter;

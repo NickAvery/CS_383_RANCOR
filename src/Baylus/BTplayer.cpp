@@ -24,6 +24,8 @@ Player::Player(Character *parent, direction *movement, Game* thegame)
     //myGame = thegame;
     myMap = thegame->getMap();
     //myWalls = myMap->room->walls;
+
+    //Get Walls
     myWalls = NULL;
     QList<QGraphicsItem *> list = collidingItems(Qt::ContainsItemShape) ;
 
@@ -32,7 +34,6 @@ Player::Player(Character *parent, direction *movement, Game* thegame)
         Walls * item= dynamic_cast<Walls *>(i);
         if (item) myWalls = item;
     }
-
 
     if (myWalls == NULL) {
         qDebug() << "Failed to find Walls";
@@ -114,6 +115,23 @@ void Player::move()
             setPos( leftWall , y );
         }
     }
+    checkCollisions();
+}
+
+int Player::checkCollisions()
+{
+    //Door* d = NULL;
+    QList<QGraphicsItem *> list = collidingItems() ;
+
+    foreach(QGraphicsItem * i , list)
+    {
+        Door * item= dynamic_cast<Door *>(i);
+        if (item){
+            qDebug() << "Found Door\t" << item->name;
+            return 1;
+        }
+    }
+    return 0;
 }
 
 /*
