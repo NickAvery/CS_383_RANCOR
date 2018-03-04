@@ -11,6 +11,7 @@ class Door: public QObject, public QGraphicsRectItem{
 public:
     Door * door;
     QString name;
+    //int direction;
     Door(bool sides, QString n);
 };
 

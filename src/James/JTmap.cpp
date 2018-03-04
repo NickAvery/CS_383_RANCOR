@@ -109,3 +109,17 @@ void Map::selectRoom(int selection, QGraphicsScene* scene){
     }
     //return room1;
 }
+
+void Map::switchRooms(QString name){
+    if(name=="Top"){
+        qDebug() << "Move up.";
+    } else if(name=="Bottom"){
+        qDebug() << "Move down.";
+    } else if(name=="Right"){
+        qDebug() << "Move right.";
+    } else if(name=="Left"){
+        qDebug() << "Move left.";
+    } else {
+        qDebug() << "Failed to match a room";
+    }
+}

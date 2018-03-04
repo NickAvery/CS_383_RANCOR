@@ -15,6 +15,7 @@ public:
     Room * room;
     Map(QGraphicsScene* scene, bool Demo);
     void selectRoom(int selection, QGraphicsScene* scene);
+    void switchRooms(QString name);
     static int roomx;
     static int roomy;
     static int maxx;
