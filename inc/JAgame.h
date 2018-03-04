@@ -7,7 +7,7 @@
 #include "NAenemyupdater.h"
 #include "BTcharacter.h"
 #include "JTmap.h"
-
+class Map;
 class Character;
 
 class Game : public QGraphicsView{
