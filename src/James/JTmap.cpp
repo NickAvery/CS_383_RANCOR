@@ -11,14 +11,16 @@
 #include "JTwalls.h"
 #include "JAgame.h"
 #include "JTroom.h"
+#include "JAgame.h"
 
 int Map::roomx=51;
 int Map::roomy=51;
 
 //consider making the floor array static within class
 
-Map::Map(QGraphicsScene* a, bool Demo){
+Map::Map(QGraphicsScene* a, bool Demo, Game * b){
     scene=a;
+    game=b;
     if(Demo){
         qDebug() << "Call debug functions here!";
     } else{
@@ -131,21 +133,26 @@ void Map::switchRooms(QString name){
     room->bDoor=NULL;
     delete room;
     room=NULL;
-    selectRoom(5, scene);
+    selectRoom(2, scene);
 
     if(name=="Top"){
+        game->getCharacter()->setPostition(QPointF(400,650));
         qDebug() << "Move up.";
         roomx--;
     } else if(name=="Bottom"){
+        game->getCharacter()->setPostition(QPointF(400,175));
         qDebug() << "Move down.";
         room++;
     } else if(name=="Right"){
+        game->getCharacter()->setPostition(QPointF(75,275));
         qDebug() << "Move right.";
         roomy++;
     } else if(name=="Left"){
+        game->getCharacter()->setPostition(QPointF(675,275));
         roomy--;
         qDebug() << "Move left.";
     } else {
+        game->getCharacter()->setPostition(QPointF(400,300));
         qDebug() << "Failed to match a room";
     }
 }
