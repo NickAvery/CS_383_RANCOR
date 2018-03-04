@@ -19,13 +19,15 @@ Room::Room(QGraphicsScene* scene, bool topDoor, bool rightDoor, bool bottomDoor,
         sides=true;
         pass="Right";
         rDoor = new Door(sides,pass);
-        rDoor->setPos(730,260);
+        //rDoor->setPos(730,260);
+        rDoor->setPos(750,260);
     }
     if(bottomDoor){
         sides=false;
         pass="Bottom";
         bDoor = new Door(sides,pass);
-        bDoor->setPos(360, 530);
+        //bDoor->setPos(360, 530);
+        bDoor->setPos(360, 550);
     }
     if(leftDoor){
         sides=true;
