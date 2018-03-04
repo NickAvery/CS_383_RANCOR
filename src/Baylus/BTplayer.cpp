@@ -3,7 +3,7 @@
 #include "JAgame.h"
 #include "JTmap.h"
 #include "JTwalls.h"
-
+#include "JTroom.h"
 
 
 Player::Player(Character *parent, direction *movement, Game* thegame)
@@ -23,20 +23,37 @@ Player::Player(Character *parent, direction *movement, Game* thegame)
 
     //myGame = thegame;
     myMap = thegame->getMap();
-    myWalls = myMap->walls;
+    //myWalls = myMap->room->walls;
+    myWalls = NULL;
+    QList<QGraphicsItem *> list = collidingItems(Qt::ContainsItemShape) ;
+
+    foreach(QGraphicsItem * i , list)
+    {
+        Walls * item= dynamic_cast<Walls *>(i);
+        if (item) myWalls = item;
+    }
 
 
-
+    if (myWalls == NULL) {
+        qDebug() << "Failed to find Walls";
+        myWalls = myMap->room->walls;
+    }
+/*
     if ( collidesWithItem(myWalls, Qt::ContainsItemShape) ) {
 //       qDebug() << "Is colliding with wall.";
     }
     if (! (ghost->collidesWithItem(myWalls, Qt::ContainsItemShape)) ) {
 //        qDebug() << "ghost Is not colliding with wall.";
     }
+    */
 }
 
 void Player::move()
 {
+    if (myWalls == NULL) {
+        qDebug() << "Not within Walls.";
+        //return;
+    }
     double moveDistance = speed * 1;
     int forwardTime = 10; //# of ticks that the "ghost" is ahead of the player.
     /* Alternate way that movement can be controlled, uses collisions to ensure that

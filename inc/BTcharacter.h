@@ -44,6 +44,7 @@ public:
     void keyPressEvent(QKeyEvent *event);   //Registers WASD keys, arrow keys, and 'P' for pause.
     void keyReleaseEvent(QKeyEvent *event); //see keyPressEvent();
     void mousePressEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent *event);
     virtual void move();    //Moves player and ghost to appropriate positions.
     void update();
     void doDamage(double damage);
