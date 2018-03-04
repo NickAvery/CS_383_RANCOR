@@ -140,31 +140,36 @@ void Map::switchRooms(QString name){
     room=NULL;
     //selectRoom(1, scene);
     int roomchoice;
-    selectRoom(roomchoice, scene);
+
     if(name=="Top"){
-        game->getCharacter()->setPostition(QPointF(400,500));
         roomx--;
         qDebug() << roomx<<" "<<roomy;
         roomchoice=floorarray[roomy][roomx];
+        selectRoom(roomchoice, scene);
+        game->getCharacter()->setPostition(QPointF(400,500));
     } else if(name=="Bottom"){
-        game->getCharacter()->setPostition(QPointF(400,175));
         roomx++;
         qDebug() << roomx<<" "<<roomy;
         roomchoice=floorarray[roomy][roomx];
+        selectRoom(roomchoice, scene);
+        game->getCharacter()->setPostition(QPointF(400,175));
     } else if(name=="Right"){
-        game->getCharacter()->setPostition(QPointF(175,275));
         roomy++;
         qDebug() << roomx<<" "<<roomy;
         roomchoice=floorarray[roomy][roomx];
+        selectRoom(roomchoice, scene);
+        game->getCharacter()->setPostition(QPointF(175,275));
     } else if(name=="Left"){
-        game->getCharacter()->setPostition(QPointF(675,275));
         roomy--;
         qDebug() << roomx<<" "<<roomy;
         roomchoice=floorarray[roomy][roomx];
+        selectRoom(roomchoice, scene);
+        game->getCharacter()->setPostition(QPointF(675,275));
     } else {
-        game->getCharacter()->setPostition(QPointF(400,300));
         qDebug() << "Failed to match a room";
         roomchoice=floorarray[roomy][roomx];
+        selectRoom(roomchoice, scene);
+        game->getCharacter()->setPostition(QPointF(400,300));
     }
     //selectRoom(roomchoice, scene);
 }
