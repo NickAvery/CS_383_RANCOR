@@ -9,8 +9,8 @@
  *
  */
 
-#define SHOT_H
 #ifndef SHOT_H
+#define SHOT_H
 
 #include "NAenemyupdater.h"
 //#include "BTcharacter.h"
@@ -18,7 +18,7 @@
 #include <QLineF>
 
 
-class Shot: public QGraphicsRectItem , public QObject
+class Shot: public QObject, public QGraphicsRectItem
 {
     Q_OBJECT
 

@@ -9,7 +9,7 @@
  *
  */
 
-/*
+
 
 #include "BTshot.h"
 #include "NAenemyupdater.h"
@@ -20,6 +20,7 @@
 #include <ctgmath>
 
 #define PI 3.14159265358979323846264
+
 
 Shot::Shot(double s, QLineF *l)
     :QGraphicsRectItem(0, 0, size, size)
@@ -42,7 +43,7 @@ Shot::~Shot()
  * Moves shot according to shotSpeed,
  * Checks for collisions with enemies and
  * Wall objects.
- * /
+ */
 int Shot::update()
 {
     //Move shot.
@@ -65,5 +66,3 @@ int Shot::update()
     }
 
 }
-
-*/
