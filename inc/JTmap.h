@@ -3,9 +3,12 @@
 
 #include "JTwalls.h"
 #include "JTroom.h"
+#include "JAgame.h"
 #include <QGraphicsView>
 #include <QWidget>
 #include <QGraphicsScene>
+
+class Game;
 
 class Map: public QGraphicsView{
 private:
@@ -13,7 +16,8 @@ public:
     QGraphicsScene * scene;
     //Walls * walls;
     Room * room;
-    Map(QGraphicsScene* a, bool Demo);
+    Game * game;
+    Map(QGraphicsScene* a, bool Demo, Game * b);
     void selectRoom(int selection, QGraphicsScene* a);
     void switchRooms(QString name);
     static int roomx;
