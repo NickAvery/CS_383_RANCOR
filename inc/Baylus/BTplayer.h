@@ -28,12 +28,14 @@ public:
     Player(Character *parent, struct direction* movement, Game *thegame);
     //QPoint getPosition();   //Returns the position of the center of the
     void move();
+
+    void put(QPointF p); //Puts player in new room.
 private:
     int checkCollisions();
 
     QGraphicsRectItem* ghost;
     Game* myGame;
-    //Character* myCharacter;
+    Character* myCharacter;
     Walls *myWalls;
     Map* myMap;
     struct direction *Move;

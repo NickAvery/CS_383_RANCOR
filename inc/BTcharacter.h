@@ -49,6 +49,7 @@ public:
     void update();
     void doDamage(double damage);
     void successPath(QString path);
+    void playerLeaveRoom(QString name);
 private:
     double speed = 10;     //Speed of player.
     Game* myGame; /* Not guaranteed to exist. Check if NULL when used. */
@@ -58,9 +59,15 @@ private:
     struct direction* myMove;    //Passing into the Player Object.
     Player *myPlayer;
     Walls* myWalls;   //Stores the walls object that i need to not collide with.
+
+    //Temporary until Stats are up and running.
+    double Thealth = 100;
+    double Chealth = Thealth;
+    double shotSpeed = 2.5;
 //protected:
 signals:
-    void tick();
+    void shotTick();
+    void shotKill();
 };
 
 #endif // CHARACTER_H

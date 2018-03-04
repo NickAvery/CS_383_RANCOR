@@ -1,5 +1,7 @@
 #include "BTcharacter.h"
 #include "BTplayer.h"
+#include "BTshot.h"
+
 #include "JTwalls.h"
 #include "KNSkillManager.h"
 #include "JAgame.h"
@@ -40,10 +42,10 @@ Character::Character(int characterNumber , Game *parent, QGraphicsScene *s)
     //player = new QGraphicsRectItem();
     mySkillManager = new SkillManager( this, characterNumber );
     myMap = myGame->getMap();  //Get map from the game.
-    myWalls = myMap->walls;     //Get Walls from the map.
+    //myWalls = myMap->walls;     //Get Walls from the map.
     //x = 400;
     //y = 300;
-    //scene = s;
+    scene = s;
     myMove = new struct direction;
     myMove->moveUp =    false;
     myMove->moveDown =  false;
@@ -90,7 +92,7 @@ QPointF Character::getPosition()
 
 void Character::setPostition(QPointF point)
 {
-    myPlayer->setPos(point);
+    myPlayer->put(point);
 }
 
 QRectF Character::getRect()
@@ -155,12 +157,19 @@ void Character::keyReleaseEvent(QKeyEvent *event)
 
 void Character::mousePressEvent(QMouseEvent *event)
 {
-
+    switch(event->button()) {
+        case Qt::LeftButton:
+            //Fire a shot
+            break;
+        default:
+            event->ignore();
+            break;
+    }
 }
 
 void Character::mouseMoveEvent(QMouseEvent *event)
 {
-
+    //BT::windowPos();
 }
 
 //Obsolete
@@ -173,17 +182,23 @@ void Character::move()
 void Character::update()
 {
     myPlayer->move();
-    emit(SIGNAL(tick));
+    emit(SIGNAL(shotTick));
 }
 
 void Character::doDamage(double damage)
 {
-
+//scene->removeItem();
 }
 
 void Character::successPath(QString path)
 {
-    //static QString p = path;
-    static QString::iterator = path.begin();
+    //static QChar* p = path.begin();
+    static QString::iterator i = path.begin();
+    //static QString::iterator = path.begin();
 
+}
+
+void Character::playerLeaveRoom(QString name)
+{
+    myMap->switchRooms(name);
 }
