@@ -47,9 +47,14 @@ Map::Map(QGraphicsScene* a, bool Demo, Game * b){
         //make sure to always add to the solution string
         for(int i=0; i<maxy; i++){
             for(int j=0; j<maxx; j++){
-                floorarray[i][j]=room;
+                floorarray[i][j]=16;
             }
         }
+        floorarray[51][51]=1;
+        floorarray[51][50]=4;
+        floorarray[51][52]=2;
+        floorarray[50][51]=3;
+        floorarray[52][51]=5;
     }
 }
 
@@ -133,26 +138,33 @@ void Map::switchRooms(QString name){
     room->bDoor=NULL;
     delete room;
     room=NULL;
-    selectRoom(2, scene);
+    //selectRoom(1, scene);
+    int roomchoice;
 
     if(name=="Top"){
-        game->getCharacter()->setPostition(QPointF(400,650));
-        qDebug() << "Move up.";
+        game->getCharacter()->setPostition(QPointF(400,500));
         roomx--;
+        qDebug() << roomx<<" "<<roomy;
+        roomchoice=floorarray[roomy][roomx];
     } else if(name=="Bottom"){
         game->getCharacter()->setPostition(QPointF(400,175));
-        qDebug() << "Move down.";
         room++;
+        qDebug() << roomx<<" "<<roomy;
+        roomchoice=floorarray[roomy][roomx];
     } else if(name=="Right"){
-        game->getCharacter()->setPostition(QPointF(75,275));
-        qDebug() << "Move right.";
+        game->getCharacter()->setPostition(QPointF(175,275));
         roomy++;
+        qDebug() << roomx<<" "<<roomy;
+        roomchoice=floorarray[roomy][roomx];
     } else if(name=="Left"){
         game->getCharacter()->setPostition(QPointF(675,275));
         roomy--;
-        qDebug() << "Move left.";
+        qDebug() << roomx<<" "<<roomy;
+        roomchoice=floorarray[roomy][roomx];
     } else {
         game->getCharacter()->setPostition(QPointF(400,300));
         qDebug() << "Failed to match a room";
+        roomchoice=floorarray[roomy][roomx];
     }
+    selectRoom(roomchoice, scene);
 }
