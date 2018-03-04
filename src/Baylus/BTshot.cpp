@@ -13,6 +13,7 @@
 
 #include "BTshot.h"
 #include "NAenemyupdater.h"
+#include "JTwalls.h"
 
 #include <QLineF>
 #include <QGraphicsRectItem>
@@ -22,21 +23,23 @@
 #define PI 3.14159265358979323846264
 
 
-Shot::Shot(double s, QLineF *l)
-    :QGraphicsRectItem(0, 0, size, size)
+Shot::Shot(double s, QLineF l)
+    :QGraphicsRectItem(l.x1(), l.y1(), size, size)
 {
     shotSpeed = s;
     line = l;
-
-    angle = (l->angle() * PI ) / 180;
-   // QGraphicsRectItem::setRect( 0, 0, size, size );
-    QGraphicsRectItem::setPos( l->x1(), l->y1() );
+    //angle = l.angleTo(QLineF( 0.0,0.0,1.0, 0.0 ));
+    //angle = l.angle();
+    angle = (l.angle() * PI ) / 180;
+    QGraphicsRectItem::setRect( 0, 0, size, size );
+    QGraphicsRectItem::setPos( l.x1(), l.y1() );
     //myCharacter = c;
 }
 
 Shot::~Shot()
 {
-    delete(this);
+    //delete(this);
+    qDebug() << "Shot death." << pos();
 }
 
 /* update()
@@ -44,17 +47,19 @@ Shot::~Shot()
  * Checks for collisions with enemies and
  * Wall objects.
  */
-int Shot::update()
+int Shot::shotUpdate()
 {
     //Move shot.
     double newX = QGraphicsRectItem::x() + ( shotSpeed * cos(angle));
-    double newY = QGraphicsRectItem::y() + ( shotSpeed * sin(angle));
+    double newY = QGraphicsRectItem::y() - ( shotSpeed * sin(angle));
+   //see header for details for why this ^ signage
 
     setPos( newX, newY );
 
     //Check collisions.
     QList<QGraphicsItem *> list = collidingItems() ;
-
+    bool die = false;
+    bool walls = false;
     foreach(QGraphicsItem * i , list)
     {
         Enemy * item= dynamic_cast<Enemy *>(i);
@@ -62,12 +67,29 @@ int Shot::update()
             //Signal enemy Damage,
 
             //Remove Shot.
-            delete this;    //Note: Scary stuff to do this, handle with extreme care.
+            //delete this;    //Note: Scary stuff to do this, handle with extreme care.
+            die = true;
+        }
+        Walls* wall = dynamic_cast<Walls *>(i);
+        if (wall) {
+            walls = true;
         }
     }
-    if (!list.isEmpty()) {
+    if (die || !walls) {
         qDebug() << "Hit Something!";
         delete this;
     }
 
+}
+
+/* This slot is initialized by calling function
+ * It is used so that a single signal can be
+ * connected to the shots to tell them to die,
+ * that way control over them does not require
+ * the pointer to the object.
+ *
+ */
+void Shot::kill()
+{
+    delete this;
 }

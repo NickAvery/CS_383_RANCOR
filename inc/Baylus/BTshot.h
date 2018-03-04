@@ -23,18 +23,21 @@ class Shot: public QObject, public QGraphicsRectItem
     Q_OBJECT
 
 public:
-    Shot( double s = 2.5, QLineF* l = NULL);
+    Shot(double s = 2.5, QLineF l = QLineF(0,0,0,1));
     ~Shot();
     //Shot(Character* c, double s = 2.5, QLineF* l);
     //Shot();
     /* Update moves the shots and checks collisions.  */
-    int update();
 private:
     double shotSpeed;
-    QLineF* line;
+    QLineF line;
+    //Note: This angle is not how you think it works, have to reverse the y axis.
     double angle;   //angle in radians
     double damage = 30;
     double size = 10;
     //Character* myCharacter;
+public slots:
+    int shotUpdate();
+    void kill();
 };
 #endif
