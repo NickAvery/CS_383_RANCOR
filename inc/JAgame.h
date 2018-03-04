@@ -43,7 +43,6 @@ class Game : public QGraphicsView{
   void mainMenu();
     //mainMenu creates a new main menu object and shows it.
 
-  void StressStart(int CharClass);
 
   void start(int CharClass);
     //Start is called by the MainMenu when the user clicks the start button for the game
