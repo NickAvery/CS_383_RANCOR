@@ -18,8 +18,9 @@ public:
     void switchRooms(QString name);
     static int roomx;
     static int roomy;
-    static int maxx;
-    static int maxy;
+    const static int maxx=101;
+    const static int maxy=101;
+    Room * floorarray[101][101];
 };
 
 #endif // JTMAP_H
