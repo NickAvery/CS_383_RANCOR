@@ -11,7 +11,7 @@ class Map: public QGraphicsView{
 private:
 public:
     QGraphicsScene * scene;
-    Walls * walls;
+    //Walls * walls;
     Room * room;
     Map(QGraphicsScene* scene, bool Demo);
     void selectRoom(int selection, QGraphicsScene* scene);
