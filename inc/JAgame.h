@@ -36,7 +36,7 @@ class Game : public QGraphicsView{
 
 
  public:
-  Game(QWidget* parent = NULL);
+  Game();
     //Initializes a new game
     //Creates a new scene object
 
