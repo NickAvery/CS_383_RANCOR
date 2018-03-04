@@ -62,8 +62,8 @@ private:
     Walls* myWalls;   //Stores the walls object that i need to not collide with.
 
     //Temporary until Stats are up and running.
-    double Thealth = 100;
-    double Chealth = Thealth;
+    double tHealth = 100;
+    double cHealth = tHealth;
     double shotSpeed = 2.5;
 //protected:
 signals:

@@ -58,11 +58,16 @@ int Shot::update()
     foreach(QGraphicsItem * i , list)
     {
         Enemy * item= dynamic_cast<Enemy *>(i);
-        //if (item) myWalls = item;
+        if (item) {
+            //Signal enemy Damage,
+
+            //Remove Shot.
+            delete this;    //Note: Scary stuff to do this, handle with extreme care.
+        }
     }
     if (!list.isEmpty()) {
         qDebug() << "Hit Something!";
-       // free(this);
+        delete this;
     }
 
 }

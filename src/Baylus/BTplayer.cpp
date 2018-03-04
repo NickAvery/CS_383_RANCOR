@@ -38,8 +38,8 @@ Player::Player(Character *parent, direction *movement, Game* thegame)
 
     //Get Walls
     myWalls = NULL;
-    QList<QGraphicsItem *> list = collidingItems(Qt::ContainsItemShape) ;
-
+    //QList<QGraphicsItem *> list = collidingItems(Qt::ContainsItemShape) ;
+    QList<QGraphicsItem *> list = collidingItems() ;
     foreach(QGraphicsItem * i , list)
     {
         Walls * item= dynamic_cast<Walls *>(i);
@@ -141,7 +141,7 @@ void Player::put(QPointF p)
 
     //Get new Walls
     myWalls = NULL;
-    QList<QGraphicsItem *> list = collidingItems(Qt::ContainsItemShape) ;
+    QList<QGraphicsItem *> list = collidingItems() ;
 
     foreach(QGraphicsItem * i , list)
     {
@@ -165,19 +165,21 @@ int Player::checkCollisions()
     //Door* d = NULL;
     int r = 0;
     QList<QGraphicsItem *> list = collidingItems() ;
-
+    QString name;
     foreach(QGraphicsItem * i , list)
     {
-        Door * item= dynamic_cast<Door *>(i);
-        if (item){
-            //qDebug() << "Found Door\t" << item->name;
-            //myMap->switchRooms(item->name);
-            myCharacter->playerLeaveRoom(item->name);
+        Door * door= dynamic_cast<Door *>(i);
+        if (door){
+            name = door->name;
+            //cant return here, since i want to check all collisions.
             //return 1;
             r += 1;
         }
     }
     //return 0;
+    if (r & 1) { //Check this condition last, needs to happen
+        myCharacter->playerLeaveRoom(name);
+    }
     return r;
 }
 

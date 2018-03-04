@@ -160,6 +160,7 @@ void Character::mousePressEvent(QMouseEvent *event)
     switch(event->button()) {
         case Qt::LeftButton:
             //Fire a shot
+            //Shot* new
             break;
         default:
             event->ignore();
