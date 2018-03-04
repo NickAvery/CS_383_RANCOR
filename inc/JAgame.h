@@ -43,6 +43,8 @@ class Game : public QGraphicsView{
   void mainMenu();
     //mainMenu creates a new main menu object and shows it.
 
+
+  Character* getCharacter();
   void StressStart(int CharClass);
 
   void start(int CharClass);
