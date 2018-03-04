@@ -17,6 +17,7 @@ Game::Game(QWidget *parent)
     //Set Pause to be false initially.
   AudioInter * music = new AudioInter(0, "qrc:/sounds/Sounds/Break-Down.mp3");
   music->PlaySound();
+  music->SetVolume(50);
 
 }
 
