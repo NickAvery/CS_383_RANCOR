@@ -1,4 +1,13 @@
-
+/*
+ * BTplayer.cpp
+ * Baylus Tunnicliff    3/3/2018
+ * Team Rancor      Space Shooter X
+ * Player Class Implementation
+ *
+ *
+ *
+ *
+ */
 #include "BTplayer.h"
 #include "JAgame.h"
 #include "JTmap.h"
@@ -13,6 +22,8 @@ Player::Player(Character *parent, direction *movement, Game* thegame)
     Move = movement;
     setRect( 0, 0, length, length );
     setPos( 400, 300 );
+
+    myCharacter = parent;
 
     //setFlag(QGraphicsItem::ItemIsFocusable);
     //setFocusPolicy(Qt::StrongFocus);
@@ -118,9 +129,41 @@ void Player::move()
     checkCollisions();
 }
 
+/* put()
+ * sets players position (into new room)
+ * finds new walls.
+ */
+void Player::put(QPointF p)
+{
+    //Place player in new room.
+    setPos(p);
+
+
+    //Get new Walls
+    myWalls = NULL;
+    QList<QGraphicsItem *> list = collidingItems(Qt::ContainsItemShape) ;
+
+    foreach(QGraphicsItem * i , list)
+    {
+        Walls * item= dynamic_cast<Walls *>(i);
+        if (item) myWalls = item;
+    }
+
+    if (myWalls == NULL) {
+        qDebug() << "Failed to find Walls";
+        myWalls = myMap->room->walls;
+    }
+}
+
+/*
+ * Similar to chmod, this function returns a number with
+ *
+ *
+ */
 int Player::checkCollisions()
 {
     //Door* d = NULL;
+    int r = 0;
     QList<QGraphicsItem *> list = collidingItems() ;
 
     foreach(QGraphicsItem * i , list)
@@ -128,11 +171,14 @@ int Player::checkCollisions()
         Door * item= dynamic_cast<Door *>(i);
         if (item){
             //qDebug() << "Found Door\t" << item->name;
-            myMap->switchRooms(item->name);
-            return 1;
+            //myMap->switchRooms(item->name);
+            myCharacter->playerLeaveRoom(item->name);
+            //return 1;
+            r += 1;
         }
     }
-    return 0;
+    //return 0;
+    return r;
 }
 
 /*
