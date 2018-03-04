@@ -13,8 +13,8 @@ public:
     QGraphicsScene * scene;
     //Walls * walls;
     Room * room;
-    Map(QGraphicsScene* scene, bool Demo);
-    void selectRoom(int selection, QGraphicsScene* scene);
+    Map(QGraphicsScene* a, bool Demo);
+    void selectRoom(int selection, QGraphicsScene* a);
     void switchRooms(QString name);
     static int roomx;
     static int roomy;
