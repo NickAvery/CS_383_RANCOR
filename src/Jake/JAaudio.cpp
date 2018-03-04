@@ -2,6 +2,16 @@
 #include "music.h"
 #include "sound.h"
 #include "audio.h"
+#include <QTime>
+
+void delay()
+{
+    QTime dieTime= QTime::currentTime().addSecs(1);
+    while (QTime::currentTime() < dieTime)
+        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+}
+
+
 
 AudioInter::AudioInter(int Sound_choice, QString soundpath){
     /*if(Sound_choice == 1){
@@ -28,4 +38,76 @@ int AudioInter::PlaySound(){ //sound effect that you wish to be played
 int AudioInter::Set_CharClass(int CharClass){
     mCharClass = CharClass;
     return 0;
+}
+
+int AudioInter::SetVolume(int volume)
+{
+      mSound->setVolume(volume);
+    return 0;
+}
+
+void AudioInter::StressTest(){
+    QMediaPlayer * mSound1 = new QMediaPlayer();
+    QMediaPlayer * mSound2 = new QMediaPlayer();
+    QMediaPlayer * mSound3 = new QMediaPlayer();
+    QMediaPlayer * mSound4 = new QMediaPlayer();
+    QMediaPlayer * mSound5 = new QMediaPlayer();
+    QMediaPlayer * mSound6 = new QMediaPlayer();
+    QMediaPlayer * mSound7 = new QMediaPlayer();
+    QMediaPlayer * mSound8 = new QMediaPlayer();
+    QMediaPlayer * mSound9 = new QMediaPlayer();
+    QMediaPlayer * mSound10 = new QMediaPlayer();
+    QMediaPlayer * mSound11 = new QMediaPlayer();
+    QMediaPlayer * mSound12 = new QMediaPlayer();
+    QMediaPlayer * mSound13 = new QMediaPlayer();
+    QMediaPlayer * mSound14 = new QMediaPlayer();
+    QMediaPlayer * mSound15 = new QMediaPlayer();
+    mSound1->setMedia(QUrl("qrc:/sounds/Sounds/Break-Down.mp3"));
+     mSound1->setVolume(20);
+    mSound2->setMedia(QUrl("qrc:/sounds/Sounds/Button.wav"));
+    mSound3->setMedia(QUrl("qrc:/sounds/Sounds/damage1.wav"));
+    mSound4->setMedia(QUrl("qrc:/sounds/Sounds/damage2.wav"));
+    mSound5->setMedia(QUrl("qrc:/sounds/Sounds/damage3.wav"));
+    mSound6->setMedia(QUrl("qrc:/sounds/Sounds/Door_Closing.wav"));
+    mSound7->setMedia(QUrl("qrc:/sounds/Sounds/Door_Opening.wav"));
+    mSound8->setMedia(QUrl("qrc:/sounds/Sounds/Laser.wav"));
+    mSound9->setMedia(QUrl("qrc:/sounds/Sounds/Light-Years_v001.mp3"));
+     mSound9->setVolume(20);
+    mSound10->setMedia(QUrl("qrc:/sounds/Sounds/piston.wav"));
+    mSound11->setMedia(QUrl("qrc:/sounds/Sounds/Robot_hit.wav"));
+    mSound12->setMedia(QUrl("qrc:/sounds/Sounds/Robot_less_angry.wav"));
+    mSound13->setMedia(QUrl("qrc:/sounds/Sounds/Robot_more_angry.wav"));
+    mSound14->setMedia(QUrl("qrc:/sounds/Sounds/The-Creeping-Blob.mp3"));
+    mSound14->setVolume(20);
+    mSound15->setMedia(QUrl("qrc:/sounds/Sounds/walking.wav"));
+    mSound1->play();
+    delay();
+    mSound2->play();
+    delay();
+    mSound3->play();
+    delay();
+    mSound4->play();
+    delay();
+    mSound5->play();
+    delay();
+    mSound6->play();
+    delay();
+    mSound7->play();
+    delay();
+    mSound8->play();
+    delay();
+    mSound9->play();
+    delay();
+    mSound10->play();
+    delay();
+    mSound11->play();
+    delay();
+    mSound12->play();
+    delay();
+    mSound13->play();
+    delay();
+    mSound14->play();
+    delay();
+    mSound15->play();
+    delay();
 }
