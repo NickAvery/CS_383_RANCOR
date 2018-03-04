@@ -14,7 +14,7 @@ public:
     Walls * walls;
     Room * room;
     Map(QGraphicsScene* scene, bool Demo);
-    Room * selectRoom(int selection, QGraphicsScene* scene);
+    void selectRoom(int selection, QGraphicsScene* scene);
     static int roomx;
     static int roomy;
     static int maxx;
