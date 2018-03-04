@@ -7,7 +7,7 @@
 class Walls: public QObject, public QGraphicsRectItem{
     Q_OBJECT
 public:
-    Walls * walls;
+    //Walls * walls;
     Walls();
 };
 
