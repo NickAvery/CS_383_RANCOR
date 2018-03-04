@@ -96,6 +96,7 @@ void Game::levelLoop()
 void Game::mainMenu(){
   MainMenu * menu = new MainMenu(0 ,this);
   menu->show();
+
     //creates new menu object, 0 stands for the initial value of parent to zero.
     //this passes in the current Game* object so that he can call the start method when the user presses play.
 }
