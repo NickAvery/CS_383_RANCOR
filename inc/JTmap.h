@@ -24,7 +24,7 @@ public:
     static int roomy;
     const static int maxx=101;
     const static int maxy=101;
-    Room * floorarray[101][101];
+    int floorarray[101][101];
 };
 
 #endif // JTMAP_H
