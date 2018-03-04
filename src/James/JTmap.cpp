@@ -17,40 +17,41 @@ int Map::roomy=51;
 
 //consider making the floor array static within class
 
-Map::Map(QGraphicsScene* scene, bool Demo){
+Map::Map(QGraphicsScene* a, bool Demo){
+    scene=a;
     if(Demo){
         qDebug() << "Call debug functions here!";
     } else{
-    //add in when map gen is finished
-    //srand(time(NULL));
-    //int goalx=10-rand()%10;      //the 10 in these two lines is the path length
-    //int goaly=10-goalx;
-    //goalx+=51;
-    //goaly+=51;
-    //QString coords = QString::number(roomx)+" "+QString::number(roomy);
+        //add in when map gen is finished
+        //srand(time(NULL));
+        //int goalx=10-rand()%10;      //the 10 in these two lines is the path length
+        //int goaly=10-goalx;
+        //goalx+=51;
+        //goaly+=51;
+        //QString coords = QString::number(roomx)+" "+QString::number(roomy);
 
 
-    //qDebug() << coords;
-   //room = selectRoom(1, scene);
-    selectRoom(1,scene);
-
-    //later, switch this out for real map creation
-    //make sure to always add to the solution string
-    for(int i=0; i<maxy; i++){
-        for(int j=0; j<maxx; j++){
-            floorarray[i][j]=room;
+        //qDebug() << coords;
+        //room = selectRoom(1, scene);
+        selectRoom(1,scene);
+        /*
+        scene->addItem(room->walls);
+        scene->addItem(room->lDoor);
+        scene->addItem(room->rDoor);
+        scene->addItem(room->tDoor);
+        scene->addItem(room->bDoor);
+        */
+        //later, switch this out for real map creation
+        //make sure to always add to the solution string
+        for(int i=0; i<maxy; i++){
+            for(int j=0; j<maxx; j++){
+                floorarray[i][j]=room;
+            }
         }
-    }
-
-    scene->addItem(floorarray[roomy][roomx]->walls);
-    scene->addItem(floorarray[roomy][roomx]->lDoor);
-    scene->addItem(floorarray[roomy][roomx]->rDoor);
-    scene->addItem(floorarray[roomy][roomx]->tDoor);
-    scene->addItem(floorarray[roomy][roomx]->bDoor);
     }
 }
 
-void Map::selectRoom(int selection, QGraphicsScene* scene){
+void Map::selectRoom(int selection, QGraphicsScene* a){
     //Room * room1;
     switch(selection){
     case 1:
@@ -104,34 +105,47 @@ void Map::selectRoom(int selection, QGraphicsScene* scene){
         break;
 
     }
-    //return room1;
+    if(room->walls != NULL)
+        scene->addItem(room->walls);
+    if(room->lDoor != NULL)
+        scene->addItem(room->lDoor);
+    if(room->rDoor != NULL)
+        scene->addItem(room->rDoor);
+    if(room->tDoor != NULL)
+        scene->addItem(room->tDoor);
+    if(room->bDoor != NULL)
+        scene->addItem(room->bDoor);
 }
 
 void Map::switchRooms(QString name){
     //scene->removeItem(floorarray[roomy][roomx]->walls);
-    scene->removeItem(floorarray[roomy][roomx]->lDoor);
-    //scene->removeItem(floorarray[roomy][roomx]->rDoor);
-    //scene->removeItem(floorarray[roomy][roomx]->tDoor);
-    //scene->removeItem(floorarray[roomy][roomx]->bDoor);
+    delete room->walls;
+    room->walls=NULL;
+    delete room->rDoor;
+    room->rDoor=NULL;
+    delete room->lDoor;
+    room->lDoor=NULL;
+    delete room->tDoor;
+    room->tDoor=NULL;
+    delete room->bDoor;
+    room->bDoor=NULL;
+    delete room;
+    room=NULL;
+    selectRoom(5, scene);
 
     if(name=="Top"){
         qDebug() << "Move up.";
-        //roomx--;
+        roomx--;
     } else if(name=="Bottom"){
         qDebug() << "Move down.";
-        //room++;
+        room++;
     } else if(name=="Right"){
         qDebug() << "Move right.";
-        //roomy++;
+        roomy++;
     } else if(name=="Left"){
-        //roomy--;
+        roomy--;
         qDebug() << "Move left.";
     } else {
         qDebug() << "Failed to match a room";
     }
-    //scene->addItem(floorarray[roomy][roomx]->walls);
-    //scene->addItem(floorarray[roomy][roomx]->lDoor);
-    //scene->addItem(floorarray[roomy][roomx]->rDoor);
-    //scene->addItem(floorarray[roomy][roomx]->tDoor);
-    //scene->addItem(floorarray[roomy][roomx]->bDoor);
 }
