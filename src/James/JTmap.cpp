@@ -140,7 +140,7 @@ void Map::switchRooms(QString name){
     room=NULL;
     //selectRoom(1, scene);
     int roomchoice;
-
+    selectRoom(roomchoice, scene);
     if(name=="Top"){
         game->getCharacter()->setPostition(QPointF(400,500));
         roomx--;
@@ -148,7 +148,7 @@ void Map::switchRooms(QString name){
         roomchoice=floorarray[roomy][roomx];
     } else if(name=="Bottom"){
         game->getCharacter()->setPostition(QPointF(400,175));
-        room++;
+        roomx++;
         qDebug() << roomx<<" "<<roomy;
         roomchoice=floorarray[roomy][roomx];
     } else if(name=="Right"){
@@ -166,5 +166,5 @@ void Map::switchRooms(QString name){
         qDebug() << "Failed to match a room";
         roomchoice=floorarray[roomy][roomx];
     }
-    selectRoom(roomchoice, scene);
+    //selectRoom(roomchoice, scene);
 }
