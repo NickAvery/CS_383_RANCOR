@@ -25,7 +25,7 @@ Game::Game()
 void Game::start(int CharClass)
 {
   scene->clear();
-  map = new Map(scene, false);
+  map = new Map(scene, false, this);
     //James(map designer) adds himself to the scene.
 
   eUpdater = new EnemyUpdater();
