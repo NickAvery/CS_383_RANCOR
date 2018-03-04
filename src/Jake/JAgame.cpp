@@ -69,7 +69,7 @@ void Game::StressStart(int CharClass){
 
 EnemyUpdater *Game::getEnemies()
 {
-   return enemies;
+   return eUpdater;
 }
 
 void Game::setPause(bool set)
