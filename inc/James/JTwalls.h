@@ -3,8 +3,9 @@
 
 #include <QGraphicsItem>
 #include <QObject>
+#include <QGraphicsPixmapItem>
 
-class Walls: public QObject, public QGraphicsRectItem{
+class Walls: public QObject, public QGraphicsPixmapItem{
     Q_OBJECT
 public:
     //Walls * walls;
