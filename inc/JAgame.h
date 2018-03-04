@@ -7,9 +7,9 @@
 #include "NAenemyupdater.h"
 #include "BTcharacter.h"
 #include "JTmap.h"
-class Map;
-class Character;
 
+class Character;
+class Map;
 class Game : public QGraphicsView{
   Q_OBJECT
 
@@ -46,7 +46,7 @@ class Game : public QGraphicsView{
 
   Character* getCharacter();
   void StressStart(int CharClass);
-
+  EnemyUpdater* getEnemies();
   void start(int CharClass);
     //Start is called by the MainMenu when the user clicks the start button for the game
     //It creates a Map/Character/Enemy objects and sets them into the scene.
