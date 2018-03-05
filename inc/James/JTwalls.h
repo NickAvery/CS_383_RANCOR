@@ -3,7 +3,6 @@
 
 #include <QGraphicsItem>
 #include <QObject>
-#include <QGraphicsPixmapItem>
 
 class Walls: public QObject, public QGraphicsRectItem{
     Q_OBJECT
