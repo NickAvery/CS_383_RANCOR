@@ -19,6 +19,16 @@ class Character;
 #include "KNScore.h"
 #include "KNPowerUp.h"
 
+struct DataBank {
+  int size;
+  int totalHealth;
+  int currentHealth;
+  int speed;
+  int damage;
+  int fireRate;
+  int shotSpeed;
+};
+
 class SkillManager {
   //Visible methods
  public:
@@ -49,8 +59,13 @@ class SkillManager {
   //Tick down all PowerUp timers; destroys and removes PowerUps which have been depleted
   void tickDownPowerUps(double seconds);
  private:
+  struct DataBank *DB;
   //Collection of skills
-  Skill **skills;
+  Skill *healthSkill;
+  Skill *speedSkill;
+  Skill *damageSkill;
+  Skill *fireRateSkill;
+  Skill *shotSpeedSkill;
   //Reference to ClassTypeDatabase object
   ClassType *classTypeDatabase;
   //Reference to currently selected ClassType
@@ -65,6 +80,7 @@ class SkillManager {
   int experience;
   //Amount of total experience which will give next level up
   int nextLevelExperience;
+  void updateDataBank();
 };
 
 #endif //SKILLMANAGER_H
