@@ -18,10 +18,11 @@ class Skill {
   //To be used whenever a skillID field is required to reference a given skill.
   //Static and constant, so should be available whenever "KNSkill.h" is included.
   //Use: Skill::SPEED to reference "speed", etc.
-  static const int STRENGTH   = 0;
-  static const int SPEED      = 1;
-  static const int ACCURACY   = 2;
-  static const int RESILIENCE = 3;
+  static const int HEALTH    = 0;
+  static const int SPEED     = 1;
+  static const int DAMAGE    = 2;
+  static const int FIRERATE  = 3;
+  static const int SHOTSPEED = 4;
   //Constructor
   //Requires a Skill ID
   Skill(int skillID);
@@ -40,6 +41,8 @@ class Skill {
  private:
   //Current skill level
   int level;
+  //Modification from skill level
+  int mod;
   //Skill ID
   int ID;
 };
