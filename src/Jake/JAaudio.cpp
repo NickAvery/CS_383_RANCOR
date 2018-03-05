@@ -2,9 +2,10 @@
 #include "music.h"
 #include "sound.h"
 #include "audio.h"
+
 #include <QTime>
 
-void delay()
+void AudioInter::delay()
 {
     QTime dieTime= QTime::currentTime().addSecs(1);
     while (QTime::currentTime() < dieTime)
@@ -81,33 +82,33 @@ void AudioInter::StressTest(){
     mSound14->setVolume(20);
     mSound15->setMedia(QUrl("qrc:/sounds/Sounds/walking.wav"));
     mSound1->play();
-    delay();
+ //   delay();
     mSound2->play();
-    delay();
+   // delay();
     mSound3->play();
-    delay();
+   // delay();
     mSound4->play();
-    delay();
+   // delay();
     mSound5->play();
-    delay();
+    //delay();
     mSound6->play();
-    delay();
+    //delay();
     mSound7->play();
-    delay();
+    //delay();
     mSound8->play();
-    delay();
+    //delay();
     mSound9->play();
-    delay();
+    //delay();
     mSound10->play();
-    delay();
+    //delay();
     mSound11->play();
-    delay();
+    //delay();
     mSound12->play();
-    delay();
+    //delay();
     mSound13->play();
-    delay();
+    //delay();
     mSound14->play();
-    delay();
+    //delay();
     mSound15->play();
-    delay();
+    //delay();
 }
