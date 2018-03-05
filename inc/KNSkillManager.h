@@ -10,7 +10,7 @@
 #ifndef __SKILLMANAGER_H__
 #define __SKILLMANAGER_H__
 
-#include "BTcharacter.h"
+//#include "BTcharacter.h"
 class Character;
 
 //Necessary included headers
@@ -20,7 +20,7 @@ class Character;
 #include "KNPowerUp.h"
 
 struct DataBank {
-  int size[];
+  int size[2];
   int totalHealth;
   int speed;
   int damage;
@@ -33,7 +33,8 @@ class SkillManager {
  public:
   //Constructor
   //Use Class Type ID in place of classID; example: ClassType::WARRIOR
-  SkillManager(Character *parent = 0, int classID = 0);
+  //  SkillManager(Character *parent = 0, int classID = 0);
+  SkillManager(int classID = 0);
   //Destructor
   ~SkillManager();
   //Sets class type that is being used (by Class Type ID), and all base skill settings defined by selected class type.
@@ -41,9 +42,6 @@ class SkillManager {
   //Use: int success = skillManager.selectClassType(ClassType::WARRIOR);
   //Note: See KNClassType.h for full list of Class Type ID's
   int selectClassType(int classID);
-  //Returns the Class Type ID of the currently selected class type
-  //Returns -1 if no class type is currently selected
-  int getSelectedClassTypeID();
   //Returns current level of skill with given Skill ID
   //Returns -1 if skillID is invalid
   //Use: int speedLevel = skillManager.getSkillLevel(Skill::SPEED);
