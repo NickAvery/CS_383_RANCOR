@@ -30,6 +30,7 @@ Shot::Shot(double s, QLineF l)
     line = l;
     //angle = l.angleTo(QLineF( 0.0,0.0,1.0, 0.0 ));
     //angle = l.angle();
+    setRotation(l.angle());
     angle = (l.angle() * PI ) / 180;
     QGraphicsRectItem::setRect( 0, 0, size, size );
     QGraphicsRectItem::setPos( l.x1(), l.y1() );
@@ -39,8 +40,23 @@ Shot::Shot(double s, QLineF l)
 Shot::~Shot()
 {
     //delete(this);
-    qDebug() << "Shot death." << pos();
+//qDebug() << "Shot death." << pos();
 }
+
+/*  mapToSpread()
+ *
+ *
+ *
+ */
+double Shot::mapToSpread(double x, double spread, double inputStart, double inputEnd)
+{
+    //          static bool first = true;
+    //https://stackoverflow.com/questions/5731863/mapping-a-numeric-range-onto-another
+    //slope = 1.0 * (output_end - output_start) / (input_end - input_start)
+    static double slope = 1.0 * (spread * 2) / (inputEnd - inputStart);
+    return ( (slope * (x - inputStart)) - spread );
+}
+
 
 /* update()
  * Moves shot according to shotSpeed,
@@ -76,7 +92,7 @@ int Shot::shotUpdate()
         }
     }
     if (die || !walls) {
-        qDebug() << "Hit Something!";
+        //qDebug() << "Hit Something!";
         delete this;
     }
 

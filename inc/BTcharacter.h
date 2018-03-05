@@ -13,6 +13,7 @@
 #include "JTmap.h"
 #include "JTwalls.h"
 #include "JAgame.h"
+#include "JAaudio.h"
 //#include "BTplayer.h"
 
 #include <QWidget>
@@ -33,15 +34,19 @@ class Character : public QWidget
 
 public:
     /* The first constructor calls the second, with a default "characterNum" of 0.
-     * The second constructor will create, and intialize the player graphics, and the default stats.
+     * characterNumber: the integer related to the character that was chosen.
+     * inputState: whether or not the player's input will be used in the game. see "Demo Mode"
      */
-    Character(int characterNumber = 0, Game* parent = 0, QGraphicsScene* s = NULL);
+    Character(int characterNumber = 0, int inputState = 0, Game* parent = 0, QGraphicsScene* s = NULL);
+    Character(int characterNumber = 0, Game* parent = NULL, QGraphicsScene* s = NULL) : Character(characterNumber, 0, parent, s) {}
     ~Character();
 
     void setSpeed(double speed);   //Changes The speed
-    QPointF getPosition();   //Returns the position of the player
     void setPostition(QPointF point);     //sets the position for the player.
+    QPointF getPosition();   //Returns the position of the player
+    QPointF getCenter();
     QRectF getRect();
+
     void keyPressEvent(QKeyEvent *event);   //Registers WASD keys, arrow keys, and 'P' for pause.
     void keyReleaseEvent(QKeyEvent *event); //see keyPressEvent();
     void mousePressEvent(QMouseEvent *event);
@@ -50,6 +55,8 @@ public:
     void update();
     void doDamage(double damage);
     void successPath(QString path);
+
+
     void playerLeaveRoom(QString name);
 private:
     double speed = 10;     //Speed of player.
@@ -65,6 +72,9 @@ private:
     double tHealth = 100;
     double cHealth = tHealth;
     double shotSpeed = 2.5;
+
+    //Sounds
+    AudioInter* mLaser;
 //protected:
 signals:
     void shotTick();
