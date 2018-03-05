@@ -22,6 +22,7 @@ class Character;
 struct DataBank {
   int size[2];
   int totalHealth;
+  int currentHealth;
   int speed;
   int damage;
   int fireRate;
