@@ -37,7 +37,7 @@ HEADERS += inc/JAaudio.h inc/JAgame.h  inc/Jake/audio.h inc/Jake/sound.h inc/Jak
 
 SOURCES +=                                                            \
 src/Jake/JAaudio.cpp src/Jake/JAgame.cpp src/Jake/main.cpp            \
-src/James/JTmap.cpp src/James/JTwalls.cpp src/James/JTroom.cpp src/James/JTdoor.cpp \
+src/James/JTmap.cpp src/James/JTwalls.cpp src/James/JTroom.cpp src/James/JTdoor.cpp src/James/JTgoal.cpp\
 src/Nick/enemy.cpp src/Nick/enemyupdater.cpp                          \
 src/Karstin/KNClassType.cpp src/Karstin/KNClassTypeDatabase.cpp src/Karstin/KNPowerUp.cpp src/Karstin/KNScore.cpp src/Karstin/KNSkill.cpp src/Karstin/KNSkillManager.cpp  \
 src/Angelo/ASmenu.cpp                                                 \
