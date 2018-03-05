@@ -25,5 +25,6 @@ class AudioInter{
   //Audio* mClass;
   QMediaPlayer * mSound;                               //holds the sound information
 
+  void delay();
 };
 #endif
