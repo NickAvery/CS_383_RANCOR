@@ -3,7 +3,7 @@
 
 SkillManager::SkillManager(Character *parent, int classID) {
   DB = new DataBank();
-  DB->size = 40;
+  DB->size = new int[] {40, 40};
   totalLevel = 1;
   if (this->selectClassType(classID) == 0) {
     //Incorrect class type selection
@@ -28,7 +28,6 @@ int SkillManager::selectClassType(int classID) {
     fireRateSkill  = new Skill(Skill::FIRERATE,  ct->getSkillLevel(Skill::FIRERATE));
     shotSpeedSkill = new Skill(Skill::SHOTSPEED, ct->getSkillLevel(Skill::SHOTSPEED));
     this->updateDataBank();
-    DB->totalHealth = healthSkill->getLevel();
     return 1;
   }
   return 0;
@@ -72,7 +71,7 @@ void SkillManager::tickDownPowerUps(double seconds) {
 }
 
 void SkillManager::updateDataBank() {
-  DB->currentHealth = healthSkill->getLevel();
+  DB->totalHealth = healthSkill->getLevel();
   DB->speed = speedSkill->getLevel();
   DB->damage = damageSkill->getLevel();
   DB->fireRate = fireRateSkill->getLevel();
