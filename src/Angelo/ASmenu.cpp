@@ -16,9 +16,21 @@ MainMenu::~MainMenu()
 	delete ui;
 }
 
-void MainMenu::on_pushButton_clicked()
+void MainMenu::on_pushButton_clicked() //start
 {
     hide();
     delete ui;
-	game1->start(1);
+    game1->start(1);
+}
+
+void MainMenu::on_pushButton_2_clicked() //test
+{
+   hide();
+   delete ui;
+   game1->StressStart(1);
+}
+
+void MainMenu::on_pushButton_3_clicked() //quit
+{
+    exit( EXIT_SUCCESS );
 }
