@@ -32,6 +32,7 @@ int SkillManager::selectClassType(int classID) {
     fireRateSkill  = new Skill(Skill::FIRERATE,  ct->getSkillLevel(Skill::FIRERATE));
     shotSpeedSkill = new Skill(Skill::SHOTSPEED, ct->getSkillLevel(Skill::SHOTSPEED));
     this->updateDataBank();
+    DB->currentHealth = DB->totalHealth;
     return 1;
   }
   return 0;
