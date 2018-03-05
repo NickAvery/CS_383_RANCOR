@@ -16,7 +16,7 @@
 //#include "BTcharacter.h"
 
 #include <QLineF>
-
+#include <QGraphicsPixmapItem>
 
 class Shot: public QObject, public QGraphicsRectItem
 {
@@ -31,11 +31,13 @@ public:
 private:
     double shotSpeed;
     QLineF line;
+    double mapToSpread(double x = 0, double spread = 5.0, double inputStart = 0, double inputEnd = 1);
     //Note: This angle is not how you think it works, have to reverse the y axis.
     double angle;   //angle in radians
     double damage = 30;
     double size = 10;
-    //Character* myCharacter;
+    double spread = 5.0;
+    //Character* myCharacters;
 public slots:
     int shotUpdate();
     void kill();

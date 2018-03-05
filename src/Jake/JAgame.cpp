@@ -56,7 +56,7 @@ void Game::StressStart(int CharClass){
     scene->addItem(enemies[0]);
     scene->addItem(enemies[1]);
 
-    Player = new Character(CharClass, this, scene);
+    Player = new Character(CharClass, 1, this, scene);
       //Creates a new character CharClass represents the character that was chosen at the mainMenu.
 
     show();

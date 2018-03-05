@@ -35,7 +35,7 @@ Character::Character(QWidget *parent)
 
 class Player;
 
-Character::Character(int characterNumber , Game *parent, QGraphicsScene *s)
+Character::Character(int characterNumber , int inputState, Game *parent, QGraphicsScene *s)
 {
     //int length = 40;
     Character::myGame = parent;
@@ -68,6 +68,10 @@ Character::Character(int characterNumber , Game *parent, QGraphicsScene *s)
     setMouseTracking(true);
 
     //https://stackoverflow.com/questions/23533691/qt-collision-detection-with-custom-qgraphicsitem-classes
+
+    //Set up Audio Objects
+    mLaser = new AudioInter(0, "qrc:/sounds/Sounds/Laser.wav");
+    mLaser->SetVolume(5);
 }
 
 Character::~Character()
@@ -87,7 +91,16 @@ void Character::setSpeed(double newSpeed)
 
 QPointF Character::getPosition()
 {
-    return myPlayer->QGraphicsRectItem::pos();
+    if( myPlayer ) {
+        return myPlayer->QGraphicsRectItem::pos();
+    } else {
+        qDebug() << "Real bad errors.";
+    }
+}
+
+QPointF Character::getCenter()
+{
+    return QPointF( (myPlayer->pos().x() + (myPlayer->rect().width() / 2)) , (myPlayer->pos(),y() + (myPlayer->rect().height()/2)) );
 }
 
 void Character::setPostition(QPointF point)
@@ -167,13 +180,13 @@ void Character::mousePressEvent(QMouseEvent *event)
                 //QPointF c = mapToGlobal(r.center().toPoint());
                 //QPointF t( c.x(), c.y() + 1 );
                 QPointF p = myPlayer->QGraphicsRectItem::pos();
-                qDebug() << "Firing a shot" << p << " to " << event->windowPos();
+//qDebug() << "Firing a shot" << p << " to " << event->windowPos();
                 Shot* s = new Shot( 3, QLineF(p , event->windowPos()) );
                 connect(this, SIGNAL(shotTick()), s, SLOT(shotUpdate()));
                 connect(this, SIGNAL(shotKill()), s, SLOT(kill()));
 
                 scene->addItem(s);
-
+                mLaser->PlaySound();
 
             }
             break;
