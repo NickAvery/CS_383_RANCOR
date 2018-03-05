@@ -24,18 +24,22 @@ class ClassType {
   static const int DR_BC   = 2;
   //Constructor
   //Requires a collection of starting skills given class type begins with.
-  ClassType(int classID, Skill **startSkills);
+  ClassType(int classID, Skill *hlth, Skill *spd, Skill *dmg, Skill *fire, Skill *shot);
   //Destructor
   ~ClassType();
-  //Returns collection of starting skill data assigned to this class type
-  Skill **getStartingSkills();
+  //Returns level of skill with given Skill ID assigned to this class type
+  int getSkillLevel(int skillID);
   //Returns 0 if classID is not this class type, returns 1 if it is.
   int hasID(int classID);
  private:
   //Class Type ID
   int ID;
   //Collection of starting skills
-  Skill **startingSkills;
+  Skill *healthSkill;
+  Skill *speedSkill;
+  Skill *damageSkill;
+  Skill *fireRateSkill;
+  Skill *shotSpeedSkill;
 };
 
 #endif //CLASSTYPE_H
