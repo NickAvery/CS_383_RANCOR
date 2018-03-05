@@ -1,21 +1,33 @@
 #include "KNClassType.h"
-#include <iostream>
 
-ClassType::ClassType(int classID, Skill **startSkills) {
+ClassType::ClassType(int classID, int hlth, int spd, int dmg, int fire, int shot) {
   ID = classID;
-  startingSkills = new Skill*[5];
-  startingSkills[4] = NULL;
-  for (int i=0; i < 4; i++) {
-    startingSkills[i] = startSkills[i];
-  }
+  healthSkill    = new Skill(Skill::HEALTH, hlth);
+  speedSkill     = new Skill(Skill::SPEED, spd);
+  damageSkill    = new Skill(Skill::DAMAGE, dmg);
+  fireRateSkill  = new Skill(Skill::FIRERATE, fire);
+  shotSpeedSkill = new Skill(Skill::SHOTSPEED, shot);
 }
 
 ClassType::~ClassType() {
   
 }
 
-Skill **ClassType::getStartingSkills() {
-  return startingSkills;
+int ClassType::getSkillLevel(int skillID) {
+  switch(skillID) {
+  case(Skill::HEALTH):
+    return healthSkill->getLevel();
+  case(Skill::SPEED):
+    return speedSkill->getLevel();
+  case(Skill::DAMAGE):
+    return damageSkill->getLevel();
+  case(Skill::FIRERATE):
+    return fireRateSkill->getLevel();
+  case(Skill::SHOTSPEED):
+    return shotSpeedSkill->getLevel();
+  default:
+    return -1;
+  };
 }
 
 int ClassType::hasID(int classID) {
