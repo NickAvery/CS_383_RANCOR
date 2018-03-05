@@ -10,6 +10,7 @@
 #include "JTmap.h"
 #include "JTwalls.h"
 #include "JTroom.h"
+#include "JTgoal.h"
 #include "JAgame.h"
 #include "JAaudio.h"
 
@@ -164,6 +165,8 @@ void Map::switchRooms(QString name){
     room->bDoor=NULL;
     delete room;
     room=NULL;
+    delete goal;
+    goal=NULL;
     //selectRoom(1, scene);
     int roomchoice;
 
@@ -190,6 +193,11 @@ void Map::switchRooms(QString name){
                 qDebug() << "Audio Stress Test";
                 AudioInter * test = new AudioInter(1,"");
                 test->StressTest();
+            } else if(roomy==56){
+                Goal * g = new Goal();
+                goal = g;
+                goal->setPos(360,260);
+                scene->addItem(goal);
             }
         }
     } else if(name=="Left"){
