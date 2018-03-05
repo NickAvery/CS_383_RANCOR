@@ -20,9 +20,8 @@ class Character;
 #include "KNPowerUp.h"
 
 struct DataBank {
-  int size;
+  int size[];
   int totalHealth;
-  int currentHealth;
   int speed;
   int damage;
   int fireRate;
