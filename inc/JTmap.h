@@ -9,6 +9,7 @@
 #include <QGraphicsScene>
 
 class Game;
+class EnemyUpdater;
 
 class Map: public QGraphicsView{
 private:
@@ -17,14 +18,18 @@ public:
     //Walls * walls;
     Room * room;
     Game * game;
-    Map(QGraphicsScene* a, bool Demo, Game * b, EnemyUpdater* c);
+    EnemyUpdater * enemies;
+    static bool Demo;
+    Map(QGraphicsScene* a, bool D, Game * b);
     void selectRoom(int selection, QGraphicsScene* a);
     void switchRooms(QString name);
+    QString getSuccessPath();
     static int roomx;
     static int roomy;
     const static int maxx=101;
     const static int maxy=101;
     int floorarray[101][101];
+    QString successPath;
 };
 
 #endif // JTMAP_H
