@@ -228,6 +228,16 @@ void Character::successPath(QString path)
 
 }
 
+void Character::setPlayerStats(DataBank* p)
+{
+    mStats = p;
+}
+
+void Character::KNStressTest()
+{
+
+}
+
 void Character::playerLeaveRoom(QString name)
 {
     myMap->switchRooms(name);

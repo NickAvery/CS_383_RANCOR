@@ -16,7 +16,8 @@
 #include "JTwalls.h"
 
 #include <QLineF>
-#include <QGraphicsRectItem>
+//#include <QGraphicsRectItem>
+#include <QGraphicsPixmapItem>
 #include <cmath>
 #include <ctgmath>
 
@@ -24,16 +25,21 @@
 
 
 Shot::Shot(double s, QLineF l)
-    :QGraphicsRectItem(l.x1(), l.y1(), size, size)
+    //:QGraphicsRectItem(l.x1(), l.y1(), size, size)
 {
+    //Draw Graphics
+    setPixmap(QPixmap(":/images/Graphics/Lasers/laserGreen04.png"));
+
     shotSpeed = s;
     line = l;
     //angle = l.angleTo(QLineF( 0.0,0.0,1.0, 0.0 ));
     //angle = l.angle();
-    setRotation(l.angle());
+    setRotation( 90-l.angle());
+    qDebug() << "Angle" << 90-l.angle();
     angle = (l.angle() * PI ) / 180;
-    QGraphicsRectItem::setRect( 0, 0, size, size );
-    QGraphicsRectItem::setPos( l.x1(), l.y1() );
+    //QGraphicsRectItem::setRect( 0, 0, size, size );
+    //QGraphicsRectItem::setPos( l.x1(), l.y1() );
+    setPos( l.x1(), l.y1() );
     //myCharacter = c;
 }
 
@@ -66,8 +72,8 @@ double Shot::mapToSpread(double x, double spread, double inputStart, double inpu
 int Shot::shotUpdate()
 {
     //Move shot.
-    double newX = QGraphicsRectItem::x() + ( shotSpeed * cos(angle));
-    double newY = QGraphicsRectItem::y() - ( shotSpeed * sin(angle));
+    double newX = x() + ( shotSpeed * cos(angle));
+    double newY = y() - ( shotSpeed * sin(angle));
    //see header for details for why this ^ signage
 
     setPos( newX, newY );

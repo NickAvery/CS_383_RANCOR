@@ -18,7 +18,7 @@
 #include <QLineF>
 #include <QGraphicsPixmapItem>
 
-class Shot: public QObject, public QGraphicsRectItem
+class Shot: public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
 
