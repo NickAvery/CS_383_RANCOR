@@ -26,6 +26,7 @@ class SkillManager;
 class Game;
 class Player;
 struct direction;
+struct DataBank;
 class Map;
 
 class Character : public QWidget
@@ -54,9 +55,13 @@ public:
     virtual void move();    //Moves player and ghost to appropriate positions.
     void update();
     void doDamage(double damage);
+
+    //Called by outside Classes to give info
     void successPath(QString path);
+    void setPlayerStats(DataBank *p );
+    void KNStressTest();    //Karstin's stress Test.
 
-
+    //Called by player object.
     void playerLeaveRoom(QString name);
 private:
     double speed = 10;     //Speed of player.
@@ -68,10 +73,12 @@ private:
     Player *myPlayer;
     Walls* myWalls;   //Stores the walls object that i need to not collide with.
 
+    //Player Stats
     //Temporary until Stats are up and running.
-    double tHealth = 100;
-    double cHealth = tHealth;
-    double shotSpeed = 2.5;
+    //double tHealth = 100;
+    //double cHealth = tHealth;
+    //double shotSpeed = 2.5;
+    struct DataBank* mStats;
 
     //Sounds
     AudioInter* mLaser;

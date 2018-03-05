@@ -45,4 +45,5 @@ src/Baylus/BTcharacter.cpp src/Baylus/BTplayer.cpp src/Baylus/BTshot.cpp
 
 
 RESOURCES += src/Jake/sounds.qrc \
-    src/James/images.qrc
+    src/James/images.qrc    \
+    src/Baylus/BTimages.qrc
