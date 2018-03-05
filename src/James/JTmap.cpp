@@ -21,6 +21,7 @@ bool Map::Demo;
 //consider making the floor array static within class
 
 Map::Map(QGraphicsScene* a, bool D, Game * b){
+    goal=NULL;
     Demo=D;
     enemies = b->getEnemies();
     scene=a;
@@ -165,7 +166,8 @@ void Map::switchRooms(QString name){
     room->bDoor=NULL;
     delete room;
     room=NULL;
-    delete goal;
+    if(goal!=NULL)
+        delete goal;
     goal=NULL;
     //selectRoom(1, scene);
     int roomchoice;
