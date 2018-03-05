@@ -4,6 +4,7 @@
 #include "JTwalls.h"
 #include "JTroom.h"
 #include "JAgame.h"
+#include "JTgoal.h"
 #include <QGraphicsView>
 #include <QWidget>
 #include <QGraphicsScene>
@@ -18,6 +19,7 @@ public:
     //Walls * walls;
     Room * room;
     Game * game;
+    Goal * goal;
     EnemyUpdater * enemies;
     static bool Demo;
     Map(QGraphicsScene* a, bool D, Game * b);
