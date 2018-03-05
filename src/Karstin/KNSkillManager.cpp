@@ -1,8 +1,7 @@
 #include "KNSkillManager.h"
 #include <iostream>
 
-//SkillManager::SkillManager(Character *parent, int classID) {
-SkillManager::SkillManager(int classID) {
+SkillManager::SkillManager(Character *parent, int classID) {
   DB = new DataBank();
   classTypeDatabase = new ClassTypeDatabase();
   score = new Score();
