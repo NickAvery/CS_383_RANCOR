@@ -26,7 +26,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 # Input
 HEADERS += inc/JAaudio.h inc/JAgame.h  inc/Jake/audio.h inc/Jake/sound.h inc/Jake/music.h                        \
-           inc/JTmap.h inc/James/JTdoor.h inc/James/JTroom.h inc/James/JTwalls.h    \
+           inc/JTmap.h inc/James/JTdoor.h inc/James/JTroom.h inc/James/JTwalls.h inc/James/JTgoal.h\
            inc/NAenemyupdater.h inc/Nick/enemy.h                \
            inc/KNSkillManager.h inc/Karstin/KNClassType.h inc/Karstin/KNClassTypeDatabase.h inc/Karstin/KNPowerUp.h inc/Karstin/KNScore.h inc/Karstin/KNSkill.h   \
            inc/Angelo/ASmenu.h                                  \
