@@ -8,12 +8,13 @@ class Room: public QGraphicsView{
 private:
 public:
     Room(QGraphicsScene* scene, bool topDoor, bool rightDoor, bool bottomDoor, bool leftDoor);
+    //Room(bool topDoor, bool rightDoor, bool bottomDoor, bool leftDoor){
     Walls * walls;
     Door * lDoor;
     Door * rDoor;
     Door * bDoor;
     Door * tDoor;
-    QList<QPoint> spawnPoints;
+
 };
 
 #endif // JTROOM_H
