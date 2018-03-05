@@ -18,7 +18,7 @@ int Map::roomy=51;
 
 //consider making the floor array static within class
 
-Map::Map(QGraphicsScene* a, bool Demo, Game * b){
+Map::Map(QGraphicsScene* a, bool Demo, Game * b, EnemyUpdater *c){
     scene=a;
     game=b;
     if(Demo){
@@ -60,17 +60,22 @@ Map::Map(QGraphicsScene* a, bool Demo, Game * b){
 
 void Map::selectRoom(int selection, QGraphicsScene* a){
     //Room * room1;
+    QList<QPoint> enemies;
     switch(selection){
     case 1:
+        enemies << QPoint(70,70) << QPoint(600,600) << QPoint(400,400);
         room = new Room(scene, true, true, true, true);         //this will be attached to the 4 door case
         break;
     case 2:
+        enemies << QPoint(300, 300) << QPoint(500,500);
         room = new Room(scene, true, false, false, false);         //this will be attached to the top door case
         break;
     case 3:
+        enemies << QPoint(250,600);
         room = new Room(scene, false, true, false, false);         //this will be attached to the right door case
         break;
     case 4:
+        enemies << QPoint(200,400);
         room = new Room(scene, false, false, true, false);         //this will be attached to the bottom door case
         break;
     case 5:
