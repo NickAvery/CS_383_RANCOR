@@ -29,7 +29,14 @@ AudioInter::AudioInter(int Sound_choice, QString soundpath){
 
 
 int AudioInter::PlaySound(){ //sound effect that you wish to be played
-    mSound->play();
+     if(mSound->state()==QMediaPlayer::PlayingState){
+                mSound->setPosition(0);
+            }
+            else if(mSound->state() == QMediaPlayer::StoppedState){
+            mSound->play();
+           }
+    
+    //mSound->play();
     //mClass->play();
     return 0;
 }
