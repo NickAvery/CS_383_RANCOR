@@ -3,14 +3,17 @@
 
 SkillManager::SkillManager(Character *parent, int classID) {
   DB = new DataBank();
+  classTypeDatabase = new ClassTypeDatabase();
+  score = new Score();
   DB->size = new int[] {40, 40};
   totalLevel = 1;
   if (this->selectClassType(classID) == 0) {
     //Incorrect class type selection
-    return NULL;
   }
-  //Give parent a copy of the data struct
-  parent->setData(DB);
+  else {
+    //Give parent a copy of the data struct
+    //parent->setData(DB);
+  }
 }
 
 SkillManager::~SkillManager() {
