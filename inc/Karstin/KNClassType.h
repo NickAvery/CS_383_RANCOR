@@ -24,7 +24,7 @@ class ClassType {
   static const int DR_BC   = 2;
   //Constructor
   //Requires a collection of starting skills given class type begins with.
-  ClassType(int classID, Skill *hlth, Skill *spd, Skill *dmg, Skill *fire, Skill *shot);
+  ClassType(int classID, int hlth, int spd, int dmg, int fire, int shot);
   //Destructor
   ~ClassType();
   //Returns level of skill with given Skill ID assigned to this class type
