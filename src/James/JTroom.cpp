@@ -5,7 +5,6 @@
 Room::Room(QGraphicsScene* scene, bool topDoor, bool rightDoor, bool bottomDoor, bool leftDoor){
 //Room::Room(bool topDoor, bool rightDoor, bool bottomDoor, bool leftDoor){
     //add walls
-
     walls = new Walls();
     bool sides;
     QString pass;

@@ -9,21 +9,40 @@
 
 #include "JTmap.h"
 #include "JTwalls.h"
-#include "JAgame.h"
 #include "JTroom.h"
 #include "JAgame.h"
+#include "JAaudio.h"
 
 int Map::roomx=51;
 int Map::roomy=51;
+bool Map::Demo;
 
 //consider making the floor array static within class
 
-Map::Map(QGraphicsScene* a, bool Demo, Game * b, EnemyUpdater *c){
+Map::Map(QGraphicsScene* a, bool D, Game * b){
+    Demo=D;
+    enemies = b->getEnemies();
     scene=a;
     game=b;
     if(Demo){
+        successPath="RRRRR";
+        selectRoom(3,scene);
+        for(int i=0; i<maxy; i++){
+            for(int j=0; j<maxx; j++){
+                floorarray[i][j]=16;
+            }
+        }
+
+        floorarray[51][51]=3;
+        floorarray[52][51]=10;
+        floorarray[53][51]=10;
+        floorarray[54][51]=10;
+        floorarray[55][51]=10;
+        floorarray[56][51]=5;
+
         qDebug() << "Call debug functions here!";
     } else{
+        successPath="";
         //add in when map gen is finished
         //srand(time(NULL));
         //int goalx=10-rand()%10;      //the 10 in these two lines is the path length
@@ -60,22 +79,23 @@ Map::Map(QGraphicsScene* a, bool Demo, Game * b, EnemyUpdater *c){
 
 void Map::selectRoom(int selection, QGraphicsScene* a){
     //Room * room1;
-    QList<QPoint> enemies;
+    QList<QPoint> enemyCoords;
+
     switch(selection){
     case 1:
-        enemies << QPoint(70,70) << QPoint(600,600) << QPoint(400,400);
+        enemyCoords << QPoint(70,70) << QPoint(600,600) << QPoint(400,400);
         room = new Room(scene, true, true, true, true);         //this will be attached to the 4 door case
         break;
     case 2:
-        enemies << QPoint(300, 300) << QPoint(500,500);
+        enemyCoords << QPoint(300, 300) << QPoint(500,500);
         room = new Room(scene, true, false, false, false);         //this will be attached to the top door case
         break;
     case 3:
-        enemies << QPoint(250,600);
+        enemyCoords << QPoint(250,600);
         room = new Room(scene, false, true, false, false);         //this will be attached to the right door case
         break;
     case 4:
-        enemies << QPoint(200,400);
+        enemyCoords << QPoint(200,400);
         room = new Room(scene, false, false, true, false);         //this will be attached to the bottom door case
         break;
     case 5:
@@ -130,6 +150,7 @@ void Map::selectRoom(int selection, QGraphicsScene* a){
 }
 
 void Map::switchRooms(QString name){
+
     //scene->removeItem(floorarray[roomy][roomx]->walls);
     delete room->walls;
     room->walls=NULL;
@@ -164,12 +185,26 @@ void Map::switchRooms(QString name){
         roomchoice=floorarray[roomy][roomx];
         selectRoom(roomchoice, scene);
         game->getCharacter()->setPostition(QPointF(175,275));
+        if(Demo){
+            if(roomy==52){
+                qDebug() << "Audio Stress Test";
+                AudioInter * test = new AudioInter(1,"");
+                test->StressTest();
+            }
+        }
     } else if(name=="Left"){
         roomy--;
         qDebug() << roomx<<" "<<roomy;
         roomchoice=floorarray[roomy][roomx];
         selectRoom(roomchoice, scene);
         game->getCharacter()->setPostition(QPointF(675,275));
+        if(Demo){
+            if(roomy==52){
+                qDebug() << "Audio Stress Test";
+                AudioInter * test = new AudioInter(1,"");
+                test->StressTest();
+            }
+        }
     } else {
         qDebug() << "Failed to match a room";
         roomchoice=floorarray[roomy][roomx];
@@ -178,3 +213,7 @@ void Map::switchRooms(QString name){
     }
     //selectRoom(roomchoice, scene);
 }
+
+QString Map::getSuccessPath(){
+    return successPath;
+};
