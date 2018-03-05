@@ -1,11 +1,13 @@
 #include "KNSkillManager.h"
 #include <iostream>
 
-SkillManager::SkillManager(Character *parent, int classID) {
+//SkillManager::SkillManager(Character *parent, int classID) {
+SkillManager::SkillManager(int classID) {
   DB = new DataBank();
   classTypeDatabase = new ClassTypeDatabase();
   score = new Score();
-  DB->size = new int[] {40, 40};
+  DB->size[0] = 40;
+  DB->size[1] = 40;
   totalLevel = 1;
   if (this->selectClassType(classID) == 0) {
     //Incorrect class type selection
@@ -34,10 +36,6 @@ int SkillManager::selectClassType(int classID) {
     return 1;
   }
   return 0;
-}
-
-int SkillManager::getSelectedClassTypeID() {
-  return classID;
 }
 
 int SkillManager::getSkillLevel(int skillID) {
