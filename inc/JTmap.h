@@ -17,7 +17,7 @@ public:
     //Walls * walls;
     Room * room;
     Game * game;
-    Map(QGraphicsScene* a, bool Demo, Game * b);
+    Map(QGraphicsScene* a, bool Demo, Game * b, EnemyUpdater* c);
     void selectRoom(int selection, QGraphicsScene* a);
     void switchRooms(QString name);
     static int roomx;
