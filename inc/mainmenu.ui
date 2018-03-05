@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWindow</class>
+ <class>MainMenu</class>
  <widget class="QMainWindow" name="MainMenu">
   <property name="geometry">
    <rect>
@@ -14,7 +14,7 @@
    <cursorShape>ArrowCursor</cursorShape>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>MainMenu</string>
   </property>
   <property name="autoFillBackground">
    <bool>false</bool>
