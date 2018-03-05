@@ -66,7 +66,7 @@ class SkillManager {
   Skill *fireRateSkill;
   Skill *shotSpeedSkill;
   //Reference to ClassTypeDatabase object
-  ClassType *classTypeDatabase;
+  ClassTypeDatabase *classTypeDatabase;
   //Reference to currently selected ClassType
   ClassType *selectedClassType;
   //Collection of active PowerUps
