@@ -38,8 +38,8 @@ public:
      * characterNumber: the integer related to the character that was chosen.
      * inputState: whether or not the player's input will be used in the game. see "Demo Mode"
      */
-    Character(int characterNumber = 0, int inputState = 0, Game* parent = 0, QGraphicsScene* s = NULL);
-    Character(int characterNumber = 0, Game* parent = NULL, QGraphicsScene* s = NULL) : Character(characterNumber, 0, parent, s) {}
+    Character(int characterNumber = 0, bool autopilot = false, bool successPath = false, Game* parent = 0, QGraphicsScene* s = NULL);
+    Character(int characterNumber = 0, Game* parent = NULL, QGraphicsScene* s = NULL) : Character(characterNumber, false, false, parent, s) {}
     ~Character();
 
     void setSpeed(double speed);   //Changes The speed
@@ -51,6 +51,7 @@ public:
     void keyPressEvent(QKeyEvent *event);   //Registers WASD keys, arrow keys, and 'P' for pause.
     void keyReleaseEvent(QKeyEvent *event); //see keyPressEvent();
     void mousePressEvent(QMouseEvent *event);
+    void mouseReleaseEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
     virtual void move();    //Moves player and ghost to appropriate positions.
     void update();
@@ -64,6 +65,18 @@ public:
     //Called by player object.
     void playerLeaveRoom(QString name);
 private:
+    bool invincibilityFrameCount();
+    bool shotCooldownCount();
+    int shoot();
+    //Handles a counter that handles invicibility frames.
+    bool isInvulnernable = false;
+    bool mIsShooting = false;
+    bool mShotCooldown = false;
+    bool mKNStressTest = false;
+
+    QMouseEvent* mMoveEvent = NULL;
+    QPointF mMousePoint;
+
     double speed = 10;     //Speed of player.
     Game* myGame; /* Not guaranteed to exist. Check if NULL when used. */
     Map* myMap;

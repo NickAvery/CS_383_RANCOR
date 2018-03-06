@@ -226,4 +226,4 @@ void Map::switchRooms(QString name){
 
 QString Map::getSuccessPath(){
     return successPath;
-};
+}

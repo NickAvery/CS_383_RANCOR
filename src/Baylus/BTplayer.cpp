@@ -13,7 +13,7 @@
 #include "JTmap.h"
 #include "JTwalls.h"
 #include "JTroom.h"
-
+#include "JTgoal.h"
 
 Player::Player(Character *parent, direction *movement, Game* thegame)
 {
@@ -23,7 +23,7 @@ Player::Player(Character *parent, direction *movement, Game* thegame)
     setRect( 0, 0, length, length );
     setPos( 400, 300 );
 
-    myCharacter = parent;
+    mCharacter = parent;
 
     //setFlag(QGraphicsItem::ItemIsFocusable);
     //setFocusPolicy(Qt::StrongFocus);
@@ -175,10 +175,27 @@ int Player::checkCollisions()
             //return 1;
             r += 1;
         }
+
+        Enemy *e = dynamic_cast<Enemy *>(i);
+        if (e) {
+            //Coliding with Enemy.
+            int d = e->getAtkValue();
+            mCharacter->doDamage(d);
+        }
+
+        Goal *g = dynamic_cast<Goal *>(i);
+        if (g) {
+            //Goal Reached
+            //Signal Map Next Level
+
+            //Temporary Solution to problem.
+            //display();
+            exit( EXIT_SUCCESS );
+        }
     }
     //return 0;
     if (r & 1) { //Check this condition last, needs to happen
-        myCharacter->playerLeaveRoom(name);
+        mCharacter->playerLeaveRoom(name);
     }
     return r;
 }
