@@ -25,8 +25,6 @@ class Game : public QGraphicsView{
   QTimer * timer;
   //The timer that loops levelLoop();
 
-  Enemy **enemies;
-  //The enemies that are currently loaded into memory.
 
   EnemyUpdater* eUpdater;
   //The updater object that allows for access to updating the enemy movements
