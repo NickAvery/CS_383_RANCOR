@@ -13,7 +13,7 @@ VictoryScreen::~VictoryScreen()
     delete ui;
 }
 
-void VictoryScreen::on_pushButton_clicked() //return
+void VictoryScreen::on_pushButton_clicked() //return (doesn't do anything yet)
 {
 
 }
