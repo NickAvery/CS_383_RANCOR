@@ -64,6 +64,8 @@ Character::Character(int characterNumber , bool autopilot, bool successPath, Gam
     //Make Player and add them to scene.
     myPlayer = new Player(this, myMove, myGame);
 
+
+
     s->addItem(myPlayer);
     //myPlayer->setFlag(QGraphicsItem::ItemIsFocusable);
 
@@ -260,6 +262,8 @@ void Character::update()
 
         //Face Player Towards Firing.
         QLineF fireLine = QLineF( myPlayer->pos(), mMousePoint  );
+
+
         myPlayer->setRotation( 90 - fireLine.angle() );
 
         if (mShotCooldown) {

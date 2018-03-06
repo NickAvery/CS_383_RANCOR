@@ -25,8 +25,10 @@ Player::Player(Character *parent, direction *movement, Game* thegame)
     setPixmap(QPixmap(":/images/Graphics/Player/SmallEngiOnly.png"));
     setPos( 400, 300 );
 
+    //Sets the rotation origin point around center of graphic instead of top left corner.
+    setTransformOriginPoint( QPointF( pixmap().rect().width() / 2 , pixmap().rect().height() / 2 ) );
     qDebug() << "player rect = " << pixmap().rect();
-
+    qDebug() << "player transform point " << transformOriginPoint();
     mCharacter = parent;
 
     //setFlag(QGraphicsItem::ItemIsFocusable);

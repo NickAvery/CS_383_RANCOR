@@ -30,6 +30,8 @@ Shot::Shot(double s, QLineF l)
     //Draw Graphics
     setPixmap(QPixmap(":/images/Graphics/Lasers/laserGreen04.png"));
 
+
+    //this->pixmap().rect().center();
     shotSpeed = s;
     line = l;
     //angle = l.angleTo(QLineF( 0.0,0.0,1.0, 0.0 ));
