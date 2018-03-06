@@ -35,7 +35,7 @@ private:
 
     QGraphicsRectItem* ghost;
     Game* myGame;
-    Character* myCharacter;
+    Character* mCharacter;
     Walls *myWalls;
     Map* myMap;
     struct direction *Move;

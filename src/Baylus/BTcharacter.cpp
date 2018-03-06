@@ -9,13 +9,16 @@
 
 #include <iostream>
 #include <QPoint>
+#include <QWidget>
 #include <QGraphicsRectItem>
+#include <QGraphicsPixmapItem>
 #include <QGraphicsScene>
 #include <QKeyEvent>
 #include <QMouseEvent>
 #include <QDebug>
 #include <cmath>
 #include <QString>
+#include <QCursor>  //QCursor:: pos()[ Shooting ],
 
 /*
 //No real reason why to have this intermediate constructor, just assume the value is 0 if not given.
@@ -35,8 +38,14 @@ Character::Character(QWidget *parent)
 
 class Player;
 
-Character::Character(int characterNumber , int inputState, Game *parent, QGraphicsScene *s)
+Character::Character(int characterNumber , bool autopilot, bool successPath, Game *parent, QGraphicsScene *s)
 {
+    if (autopilot) {
+        qDebug() << "Autopilot activated!";
+    }
+    if (successPath) {
+        qDebug() << "and I know the way to victory!";
+    }
     //int length = 40;
     Character::myGame = parent;
     //player = new QGraphicsRectItem();
@@ -72,6 +81,14 @@ Character::Character(int characterNumber , int inputState, Game *parent, QGraphi
     //Set up Audio Objects
     mLaser = new AudioInter(0, "qrc:/sounds/Sounds/Laser.wav");
     mLaser->SetVolume(5);
+
+    //Load the shot image into cache
+    //QPixmap::load(":/images/Graphics/Lasers/laserGreen04.png");
+
+    mMousePoint = QPointF(0,0);
+
+    //Fire initial shot to load graphics
+    Shot();
 }
 
 Character::~Character()
@@ -176,17 +193,36 @@ void Character::mousePressEvent(QMouseEvent *event)
         case Qt::LeftButton:
             {
                 //Fire a shot
+                mIsShooting = true;
                 //QRectF r = myPlayer->rect();
                 //QPointF c = mapToGlobal(r.center().toPoint());
                 //QPointF t( c.x(), c.y() + 1 );
-                QPointF p = myPlayer->QGraphicsRectItem::pos();
-//qDebug() << "Firing a shot" << p << " to " << event->windowPos();
-                Shot* s = new Shot( 3, QLineF(p , event->windowPos()) );
-                connect(this, SIGNAL(shotTick()), s, SLOT(shotUpdate()));
-                connect(this, SIGNAL(shotKill()), s, SLOT(kill()));
+                if ( 0 ) {                              //Temporary Until shooting fix is ensured.
+                    QPointF p = myPlayer->QGraphicsRectItem::pos();
+                    //qDebug() << "Firing a shot" << p << " to " << event->windowPos();
+                    Shot* s = new Shot( 3, QLineF(p , event->windowPos()) );
+                    connect(this, SIGNAL(shotTick()), s, SLOT(shotUpdate()));
+                    connect(this, SIGNAL(shotKill()), s, SLOT(kill()));
 
-                scene->addItem(s);
-                mLaser->PlaySound();
+                    scene->addItem(s);
+                    mLaser->PlaySound();
+                }
+
+            }
+            break;
+        default:
+            event->ignore();
+            break;
+    }
+}
+
+void Character::mouseReleaseEvent(QMouseEvent *event)
+{
+    switch(event->button()) {
+        case Qt::LeftButton:
+            {
+                //Not firing.
+                mIsShooting = false;
 
             }
             break;
@@ -199,6 +235,8 @@ void Character::mousePressEvent(QMouseEvent *event)
 void Character::mouseMoveEvent(QMouseEvent *event)
 {
     //BT::windowPos();
+    mMoveEvent = event;
+    mMousePoint = event->windowPos();
 }
 
 //Obsolete
@@ -211,12 +249,56 @@ void Character::move()
 void Character::update()
 {
     myPlayer->move();
+    if (isInvulnernable) {
+        isInvulnernable = invincibilityFrameCount();
+    }
     //emit(SIGNAL(shotTick()));
+    if (mIsShooting) {
+        //Trying to shoot a bullet.
+        if (mShotCooldown) {
+            //Shot is on Cooldown.
+            mShotCooldown = shotCooldownCount();
+        } else {
+            //Shot is not on cooldown.
+            //Shoot a bullet.
+            QPointF p = myPlayer->QGraphicsRectItem::pos();
+            //qDebug() << "Firing a shot" << p << " to " << event->windowPos();
+            //Shot* s = new Shot( mStats->shotSpeed, QLineF(p , QCursor::pos()) );
+            //Shot* s = new Shot( mStats->shotSpeed, QLineF(p , mMoveEvent->windowPos()) );
+            Shot* s = new Shot( mStats->shotSpeed, QLineF(p , mMousePoint) );
+            connect(this, SIGNAL(shotTick()), s, SLOT(shotUpdate()));
+            connect(this, SIGNAL(shotKill()), s, SLOT(kill()));
+
+            scene->addItem(s);
+            mLaser->PlaySound();
+            mShotCooldown = true;
+        }
+    }
     shotTick();
+    //Karstin's stress Test
+    if (mKNStressTest) {
+        mySkillManager->addExperience(1);
+    }
 }
 
 void Character::doDamage(double damage)
 {
+    if (isInvulnernable) return;
+
+    //qDebug() << "Before Damage: " << mStats->currentHealth;
+    if ((mStats->currentHealth -= damage) <= 0 ) {
+        //Player Died
+
+        //Signal Player Death
+
+
+        //Temporary Solution
+        exit( EXIT_FAILURE );
+    }
+    //qDebug() << "After Damgage: " << mStats->currentHealth;
+
+    isInvulnernable = true;
+
 //scene->removeItem();
 }
 
@@ -235,10 +317,46 @@ void Character::setPlayerStats(DataBank* p)
 
 void Character::KNStressTest()
 {
-
+    mKNStressTest = true;
 }
 
 void Character::playerLeaveRoom(QString name)
 {
     myMap->switchRooms(name);
+}
+
+#define INVINC_FRAMES 100
+/*  invincFrame()
+ *  INVINC_FRAMES represents how many ticks the player
+ *      will be invulnerable for (Ticks defined as 10 miliseconds currently).
+ *  Intended to be called in update() if the player is invulnerable. Will be called
+ *      every tick, and return the boolean value of whether the player is invulnerable.
+ */
+bool Character::invincibilityFrameCount()
+{
+    static int i = 0;
+
+    i = ++i % INVINC_FRAMES;
+    if (i == 0) {
+        //Invulnerability over.
+        return false;
+    }
+    return true;
+}
+
+#define CONST_FIRE_MODIFIER 10
+/*  shotCooldownCount()
+ *  Very similar to invicibilityFrameCount()
+ *
+ */
+bool Character::shotCooldownCount()
+{
+    static int i = 0;
+
+    i = ++i % (mStats->fireRate * CONST_FIRE_MODIFIER );
+    if (i == 0) {
+        //Cooldown over.
+        return false;
+    }
+    return true;
 }

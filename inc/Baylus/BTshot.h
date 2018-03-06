@@ -24,6 +24,7 @@ class Shot: public QObject, public QGraphicsPixmapItem
 
 public:
     Shot(double s = 2.5, QLineF l = QLineF(0,0,0,1));
+    //Shot() : Shot(2.5 , QLineF(0,0,0,1) ) {}
     ~Shot();
     //Shot(Character* c, double s = 2.5, QLineF* l);
     //Shot();
