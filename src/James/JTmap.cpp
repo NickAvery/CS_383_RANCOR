@@ -27,7 +27,7 @@ Map::Map(QGraphicsScene* a, bool D, Game * b){
     scene=a;
     game=b;
     if(Demo){
-        successPath="RRRRR";
+        successPath="RR";
         selectRoom(3,scene);
         for(int i=0; i<maxy; i++){
             for(int j=0; j<maxx; j++){
@@ -36,11 +36,12 @@ Map::Map(QGraphicsScene* a, bool D, Game * b){
         }
 
         floorarray[51][51]=3;
-        floorarray[52][51]=10;
-        floorarray[53][51]=10;
-        floorarray[54][51]=10;
-        floorarray[55][51]=10;
-        floorarray[56][51]=5;
+        floorarray[52][50]=4;
+        floorarray[52][51]=14;
+        //floorarray[53][51]=10;
+        //floorarray[54][51]=10;
+        //floorarray[55][51]=10;
+        floorarray[53][51]=5;
 
         qDebug() << "Call debug functions here!";
     } else{
@@ -174,16 +175,38 @@ void Map::switchRooms(QString name){
 
     if(name=="Top"){
         roomx--;
+        qDebug() << "TESTING AGAINST: " << roomx;
         qDebug() << roomx<<" "<<roomy;
         roomchoice=floorarray[roomy][roomx];
         selectRoom(roomchoice, scene);
         game->getCharacter()->setPostition(QPointF(400,500));
+        if(Demo){
+            if (roomx==50){
+                qDebug()<<"Enemy test.";
+                enemies->testCase(scene);
+            }
+        }
     } else if(name=="Bottom"){
         roomx++;
         qDebug() << roomx<<" "<<roomy;
         roomchoice=floorarray[roomy][roomx];
         selectRoom(roomchoice, scene);
         game->getCharacter()->setPostition(QPointF(400,175));
+        if(Demo){
+            if(roomy==52){
+                qDebug() << "Audio Stress Test";
+                AudioInter * test = new AudioInter(1,"");
+                test->StressTest();
+            } else if(roomy==53){
+                Goal * g = new Goal();
+                goal = g;
+                goal->setPos(360,260);
+                scene->addItem(goal);
+            } else if (roomx==51){
+                qDebug()<<"Enemy test.";
+                enemies->testCase(scene);
+            }
+        }
     } else if(name=="Right"){
         roomy++;
         qDebug() << roomx<<" "<<roomy;
@@ -195,13 +218,14 @@ void Map::switchRooms(QString name){
                 qDebug() << "Audio Stress Test";
                 AudioInter * test = new AudioInter(1,"");
                 test->StressTest();
-            } else if(roomy==56){
+            } else if(roomy==53){
                 Goal * g = new Goal();
                 goal = g;
                 goal->setPos(360,260);
                 scene->addItem(goal);
-            } else if (roomy==53){
-                //eU->testCase(scene);
+            } else if (roomx==51){
+                qDebug()<<"Enemy test.";
+                enemies->testCase(scene);
             }
         }
     } else if(name=="Left"){
@@ -215,13 +239,14 @@ void Map::switchRooms(QString name){
                 qDebug() << "Audio Stress Test";
                 AudioInter * test = new AudioInter(1,"");
                 test->StressTest();
-            } else if(roomy==56){
+            } else if(roomy==53){
                 Goal * g = new Goal();
                 goal = g;
                 goal->setPos(360,260);
                 scene->addItem(goal);
-            }else if (roomy==53){
-                //eU->testCase(scene);
+            }else if (roomx==51){
+                qDebug()<<"Enemy test.";
+                enemies->testCase(scene);
             }
         }
     } else {
