@@ -70,8 +70,10 @@ void AudioInter::StressTest(){
     QMediaPlayer * mSound13 = new QMediaPlayer();
     QMediaPlayer * mSound14 = new QMediaPlayer();
     QMediaPlayer * mSound15 = new QMediaPlayer();
+    QMediaPlayer * mSound16 = new QMediaPlayer();
+
     mSound1->setMedia(QUrl("qrc:/sounds/Sounds/Break-Down.mp3"));
-     mSound1->setVolume(20);
+    mSound1->setVolume(20);
     mSound2->setMedia(QUrl("qrc:/sounds/Sounds/Button.wav"));
     mSound3->setMedia(QUrl("qrc:/sounds/Sounds/damage1.wav"));
     mSound4->setMedia(QUrl("qrc:/sounds/Sounds/damage2.wav"));
@@ -80,7 +82,7 @@ void AudioInter::StressTest(){
     mSound7->setMedia(QUrl("qrc:/sounds/Sounds/Door_Opening.wav"));
     mSound8->setMedia(QUrl("qrc:/sounds/Sounds/Laser.wav"));
     mSound9->setMedia(QUrl("qrc:/sounds/Sounds/Light-Years_v001.mp3"));
-     mSound9->setVolume(20);
+    mSound9->setVolume(20);
     mSound10->setMedia(QUrl("qrc:/sounds/Sounds/piston.wav"));
     mSound11->setMedia(QUrl("qrc:/sounds/Sounds/Robot_hit.wav"));
     mSound12->setMedia(QUrl("qrc:/sounds/Sounds/Robot_less_angry.wav"));
@@ -88,6 +90,8 @@ void AudioInter::StressTest(){
     mSound14->setMedia(QUrl("qrc:/sounds/Sounds/The-Creeping-Blob.mp3"));
     mSound14->setVolume(20);
     mSound15->setMedia(QUrl("qrc:/sounds/Sounds/walking.wav"));
+    mSound16->setMedia(QUrl("qrc:/sounds/Sounds/Scream.wav"));
+
     mSound1->play();
  //   delay();
     mSound2->play();
@@ -118,4 +122,6 @@ void AudioInter::StressTest(){
     //delay();
     mSound15->play();
     //delay();
+    mSound16->play();
 }
+
