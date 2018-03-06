@@ -77,6 +77,7 @@ class SkillManager {
   int experience;
   //Amount of total experience which will give next level up
   int nextLevelExperience;
+  double growthMultiplier;
   void updateDataBank();
 };
 
