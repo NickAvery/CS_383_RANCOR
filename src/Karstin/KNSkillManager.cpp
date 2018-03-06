@@ -1,5 +1,8 @@
 #include "KNSkillManager.h"
 #include <iostream>
+#include <cstdlib>
+
+using namespace std;
 
 SkillManager::SkillManager(Character *parent, int classID) {
   DB = new DataBank();
@@ -8,6 +11,9 @@ SkillManager::SkillManager(Character *parent, int classID) {
   DB->size[0] = 40;
   DB->size[1] = 40;
   totalLevel = 1;
+  experience = 0;
+  nextLevelExperience = 1000;
+  growthMultiplier = 1.15;
   if (this->selectClassType(classID) == 0) {
     //Incorrect class type selection
   }
@@ -60,7 +66,41 @@ int SkillManager::getTotalLevel() {
 }
 
 void SkillManager::addExperience(int amount) {
-  
+  experience += amount;
+  if (experience >= nextLevelExperience) {
+    totalLevel++;
+    nextLevelExperience += nextLevelExperience * growthMultiplier;
+    cout << "LEVEL UP (" << totalLevel << ")!\nnextLevelExperience: " << nextLevelExperience << endl;
+    healthSkill->levelUp(1);
+    DB->currentHealth += 10;
+    //level up 1-2 random skills
+    int choice = rand() % 4;
+    switch(choice) {
+    case(0):
+      damageSkill->levelUp(1);
+      break;
+    case(1):
+      speedSkill->levelUp(1);
+      break;
+    case(2):
+      fireRateSkill->levelUp(1);
+      break;
+    case(3):
+      shotSpeedSkill->levelUp(1);
+      break;
+    default:
+      break;
+    };
+    this->updateDataBank();
+    
+    cout << "DB contents:" << endl;
+    cout << "totalHealth:   " << DB->totalHealth << endl;
+    cout << "currentHealth: " << DB->currentHealth << endl;
+    cout << "damage:        " << DB->damage << endl;
+    cout << "speed:         " << DB->speed << endl;
+    cout << "fireRate:      " << DB->fireRate << endl;
+    cout << "shotSpeed:     " << DB->shotSpeed << endl;
+  }
 }
 
 void SkillManager::applyPowerUp(PowerUp *p) {
@@ -72,7 +112,7 @@ void SkillManager::tickDownPowerUps(double seconds) {
 }
 
 void SkillManager::updateDataBank() {
-  DB->totalHealth = healthSkill->getLevel();
+  DB->totalHealth = 100+(10*(healthSkill->getLevel()-1));
   DB->speed = speedSkill->getLevel();
   DB->damage = damageSkill->getLevel();
   DB->fireRate = fireRateSkill->getLevel();
