@@ -12,7 +12,7 @@ SkillManager::SkillManager(Character *parent, int classID) {
   DB->size[1] = 40;
   totalLevel = 1;
   experience = 0;
-  nextLevelExperience = 1000;
+  nextLevelExperience = 100;
   growthMultiplier = 1.15;
   if (this->selectClassType(classID) == 0) {
     //Incorrect class type selection
