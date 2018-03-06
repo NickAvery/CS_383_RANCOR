@@ -19,6 +19,7 @@
 #include <cmath>
 #include <QString>
 #include <QCursor>  //QCursor:: pos()[ Shooting ],
+#include <BTcharacter.h>
 
 /*
 //No real reason why to have this intermediate constructor, just assume the value is 0 if not given.
@@ -46,6 +47,8 @@ Character::Character(int characterNumber , bool autopilot, bool successPath, Gam
     if (successPath) {
         qDebug() << "and I know the way to victory!";
     }
+    mIsAutopilot = autopilot;
+    mSuccessPath = successPath;
     //int length = 40;
     Character::myGame = parent;
     //player = new QGraphicsRectItem();
@@ -64,7 +67,7 @@ Character::Character(int characterNumber , bool autopilot, bool successPath, Gam
     //Make Player and add them to scene.
     myPlayer = new Player(this, myMove, myGame);
 
-
+    mEnemyUpdater = myGame->getEnemies();
 
     s->addItem(myPlayer);
     //myPlayer->setFlag(QGraphicsItem::ItemIsFocusable);
@@ -84,6 +87,9 @@ Character::Character(int characterNumber , bool autopilot, bool successPath, Gam
     mLaser = new AudioInter(0, "qrc:/sounds/Sounds/Laser.wav");
     mLaser->SetVolume(5);
 
+    sDamage = new AudioInter(0, "qrc:/sounds/Sounds/damage1.wav");
+    sDamage->SetVolume(15);
+
     //Load the shot image into cache
     //QPixmap::load(":/images/Graphics/Lasers/laserGreen04.png");
 
@@ -91,6 +97,14 @@ Character::Character(int characterNumber , bool autopilot, bool successPath, Gam
 
     //Fire initial shot to load graphics
     Shot();
+
+    if (autopilot) {
+        if (successPath) {
+            mAP = new Autopilot(this, myGame, myMap->getSuccessPath(), myMove);
+        } else {
+            mAP = new Autopilot(this, myGame, QString(), myMove);
+        }
+    }
 }
 
 Character::~Character()
@@ -129,6 +143,9 @@ void Character::setPostition(QPointF point)
     //emit(shotKill());
     shotKill(); //Clean room of shots.
     myPlayer->put(point);
+    if (mAP) {
+        mAP->newRoom();
+    }
 }
 
 QRectF Character::getRect()
@@ -252,6 +269,9 @@ void Character::move()
 
 void Character::update()
 {
+    if (mAP) {
+        mAP->autopilotUpdate();
+    }
     myPlayer->move();
     if (isInvulnernable) {
         isInvulnernable = invincibilityFrameCount();
@@ -300,7 +320,7 @@ void Character::doDamage(double damage)
 {
     if (isInvulnernable) return;
 
-    //qDebug() << "Before Damage: " << mStats->currentHealth;
+    qDebug() << "Before Damage: " << mStats->currentHealth;
     if ((mStats->currentHealth -= damage) <= 0 ) {
         //Player Died
 
@@ -310,6 +330,7 @@ void Character::doDamage(double damage)
         //Temporary Solution
         exit( EXIT_FAILURE );
     }
+    sDamage->PlaySound();
     //qDebug() << "After Damgage: " << mStats->currentHealth;
 
     isInvulnernable = true;
@@ -332,7 +353,28 @@ void Character::setPlayerStats(DataBank* p)
 
 void Character::KNStressTest()
 {
-    mKNStressTest = true;
+    mKNStressTest = !mKNStressTest;
+}
+
+void Character::setMousePoint(QPointF p)
+{
+    mMousePoint = p;
+}
+
+void Character::toggleShooting()
+{
+    mIsShooting = !mIsShooting;
+}
+
+bool Character::Contains(QPointF& p, bool proper)
+{
+    /*
+    //return myPlayer->pixmap().rect().contains(p, proper);
+    //return myPlayer->pixmap().rect().contains( p.x(), p.y());
+    QLineF line = QLineF ( myPlayer->pos(), QPointF(p.x(), p.y()) );
+    if (line.length() < 25) {
+        return true;
+    }*/
 }
 
 void Character::playerLeaveRoom(QString name)

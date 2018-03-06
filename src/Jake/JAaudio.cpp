@@ -91,7 +91,7 @@ void AudioInter::StressTest(){
     mSound14->setVolume(20);
     mSound15->setMedia(QUrl("qrc:/sounds/Sounds/walking.wav"));
     mSound16->setMedia(QUrl("qrc:/sounds/Sounds/Scream.wav"));
-
+    mSound16->setVolume(10);
     mSound1->play();
  //   delay();
     mSound2->play();

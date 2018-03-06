@@ -21,6 +21,7 @@ void MainMenu::on_pushButton_clicked() //start
     hide();
     delete ui;
     game1->start(1);
+    qDebug() << "start pushed";
 }
 
 void MainMenu::on_pushButton_2_clicked() //test success path
@@ -28,6 +29,7 @@ void MainMenu::on_pushButton_2_clicked() //test success path
    hide();
    delete ui;
    game1->StressStart(1, true, true);
+   qDebug() << "test success pushed";
 }
 
 void MainMenu::on_pushButton_3_clicked() //quit
@@ -40,4 +42,5 @@ void MainMenu::on_pushButton_4_clicked() //test failure path
    hide();
    delete ui;
    game1->StressStart(1, true, false);
+   qDebug() << "test fail pushed";
 }
