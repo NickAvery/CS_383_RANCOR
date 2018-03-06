@@ -19,7 +19,7 @@ SkillManager::SkillManager(Character *parent, int classID) {
   }
   else {
     //Give parent a copy of the data struct
-    //parent->setData(DB);
+    parent->setPlayerStats(DB);
   }
 }
 
