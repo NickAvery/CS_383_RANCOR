@@ -14,7 +14,7 @@
    <cursorShape>ArrowCursor</cursorShape>
   </property>
   <property name="windowTitle">
-   <string>MainMenu</string>
+   <string>MainWindow</string>
   </property>
   <property name="autoFillBackground">
    <bool>false</bool>
@@ -63,7 +63,7 @@ background-color: rgb(255, 255, 255);</string>
     <property name="geometry">
      <rect>
       <x>360</x>
-      <y>300</y>
+      <y>290</y>
       <width>211</width>
       <height>31</height>
      </rect>
@@ -73,14 +73,14 @@ background-color: rgb(255, 255, 255);</string>
 background-color: rgb(255, 255, 255);</string>
     </property>
     <property name="text">
-     <string>TEST</string>
+     <string>TEST (SUCCESS)</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_3">
     <property name="geometry">
      <rect>
       <x>360</x>
-      <y>350</y>
+      <y>370</y>
       <width>211</width>
       <height>31</height>
      </rect>
@@ -93,10 +93,28 @@ background-color: rgb(255, 255, 255);</string>
      <string>QUIT</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="pushButton_4">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>330</y>
+      <width>211</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 75 12pt &quot;System&quot;;
+background-color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string>TEST (FAIL)</string>
+    </property>
+   </widget>
    <zorder>label</zorder>
    <zorder>pushButton_3</zorder>
    <zorder>pushButton_2</zorder>
    <zorder>pushButton</zorder>
+   <zorder>pushButton_4</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
