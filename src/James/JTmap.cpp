@@ -28,7 +28,7 @@ Map::Map(QGraphicsScene* a, bool D, Game * b){
     scene=a;
     game=b;
     if(Demo){
-        successPath="RR";
+        successPath="RRR";
         selectRoom(3,scene);
         for(int i=0; i<maxy; i++){
             for(int j=0; j<maxx; j++){
