@@ -17,6 +17,7 @@
 int Map::roomx=51;
 int Map::roomy=51;
 bool Map::Demo;
+bool Map::storage=false;
 
 //consider making the floor array static within class
 
@@ -41,7 +42,8 @@ Map::Map(QGraphicsScene* a, bool D, Game * b){
         //floorarray[53][51]=10;
         //floorarray[54][51]=10;
         //floorarray[55][51]=10;
-        floorarray[53][51]=5;
+        floorarray[53][51]=10;
+        floorarray[54][51]=5;
 
         qDebug() << "Call debug functions here!";
     } else{
@@ -153,7 +155,10 @@ void Map::selectRoom(int selection, QGraphicsScene* a){
 }
 
 void Map::switchRooms(QString name){
-
+    if(storage){
+        storage=false;
+        game->getCharacter()->KNStressTest();
+    }
     //scene->removeItem(floorarray[roomy][roomx]->walls);
     delete room->walls;
     room->walls=NULL;
@@ -197,7 +202,7 @@ void Map::switchRooms(QString name){
                 qDebug() << "Audio Stress Test";
                 AudioInter * test = new AudioInter(1,"");
                 test->StressTest();
-            } else if(roomy==53){
+            } else if(roomy==54){
                 Goal * g = new Goal();
                 goal = g;
                 goal->setPos(360,260);
@@ -218,14 +223,15 @@ void Map::switchRooms(QString name){
                 qDebug() << "Audio Stress Test";
                 AudioInter * test = new AudioInter(1,"");
                 test->StressTest();
-            } else if(roomy==53){
+            }else if(roomy==53){
+                qDebug() <<"Character stress test";
+                storage=true;
+                game->getCharacter()->KNStressTest();
+            }else if(roomy==54){
                 Goal * g = new Goal();
                 goal = g;
                 goal->setPos(360,260);
                 scene->addItem(goal);
-            } else if (roomx==51){
-                qDebug()<<"Enemy test.";
-                enemies->testCase(scene);
             }
         }
     } else if(name=="Left"){
@@ -239,14 +245,11 @@ void Map::switchRooms(QString name){
                 qDebug() << "Audio Stress Test";
                 AudioInter * test = new AudioInter(1,"");
                 test->StressTest();
-            } else if(roomy==53){
+            } else if(roomy==54){
                 Goal * g = new Goal();
                 goal = g;
                 goal->setPos(360,260);
                 scene->addItem(goal);
-            }else if (roomx==51){
-                qDebug()<<"Enemy test.";
-                enemies->testCase(scene);
             }
         }
     } else {
