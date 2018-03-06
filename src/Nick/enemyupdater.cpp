@@ -3,7 +3,7 @@
 EnemyUpdater::EnemyUpdater()
 {
     mSpawner = new EnemySpawner();
-    testCaseMax = 100;
+    testCaseMax = 500;
     testCaseNum = 0;
     //qDebug() << "Enemy " << 1 << ": " << sEnemies.value(1)->getXPos() << ", " << sEnemies.value(1)->getYPos();
 }
