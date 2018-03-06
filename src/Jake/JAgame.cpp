@@ -43,13 +43,13 @@ void Game::start(int CharClass)
 
 }
 
-void Game::StressStart(int CharClass){
+void Game::StressStart(int CharClass, bool autoPilot){
     scene->clear();
     map = new Map(scene, true, this); //somehow signal to James this is a stress test.
 
     eUpdater = new EnemyUpdater();
 
-    Player = new Character(CharClass, 1, this, scene);
+    Player = new Character(CharClass, autoPilot, this, scene);
       //Creates a new character CharClass represents the character that was chosen at the mainMenu.
 
     show();
