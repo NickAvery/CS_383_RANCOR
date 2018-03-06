@@ -200,6 +200,8 @@ void Map::switchRooms(QString name){
                 goal = g;
                 goal->setPos(360,260);
                 scene->addItem(goal);
+            } else if (roomy==53){
+                //eU->testCase(scene);
             }
         }
     } else if(name=="Left"){
@@ -213,6 +215,13 @@ void Map::switchRooms(QString name){
                 qDebug() << "Audio Stress Test";
                 AudioInter * test = new AudioInter(1,"");
                 test->StressTest();
+            } else if(roomy==56){
+                Goal * g = new Goal();
+                goal = g;
+                goal->setPos(360,260);
+                scene->addItem(goal);
+            }else if (roomy==53){
+                //eU->testCase(scene);
             }
         }
     } else {
@@ -226,4 +235,4 @@ void Map::switchRooms(QString name){
 
 QString Map::getSuccessPath(){
     return successPath;
-}
+};
