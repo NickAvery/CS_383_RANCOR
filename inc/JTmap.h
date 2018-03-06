@@ -20,6 +20,7 @@ public:
     Room * room;
     Game * game;
     Goal * goal;
+    static bool storage;
     EnemyUpdater * enemies;
     static bool Demo;
     Map(QGraphicsScene* a, bool D, Game * b);
