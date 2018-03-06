@@ -109,7 +109,9 @@ void Character::setSpeed(double newSpeed)
 QPointF Character::getPosition()
 {
     if( myPlayer ) {
-        return myPlayer->QGraphicsRectItem::pos();
+        //return myPlayer->pixmap().rect().center();
+        //return QPointF( myPlayer->pixmap().rect().x() , myPlayer->pixmap().rect().y() );
+        return myPlayer->pos();
     } else {
         qDebug() << "Real bad errors.";
     }
@@ -117,7 +119,7 @@ QPointF Character::getPosition()
 
 QPointF Character::getCenter()
 {
-    return QPointF( (myPlayer->pos().x() + (myPlayer->rect().width() / 2)) , (myPlayer->pos(),y() + (myPlayer->rect().height()/2)) );
+    return QPointF( (myPlayer->pos().x() + (myPlayer->pixmap().rect().width() / 2)) , (myPlayer->pos().y() + (myPlayer->pixmap().rect().height()/2)) );
 }
 
 void Character::setPostition(QPointF point)
@@ -129,7 +131,7 @@ void Character::setPostition(QPointF point)
 
 QRectF Character::getRect()
 {
-    return myPlayer->QGraphicsRectItem::rect();
+    return myPlayer->pixmap().rect();
 }
 
 void Character::keyPressEvent(QKeyEvent *event)
@@ -198,7 +200,7 @@ void Character::mousePressEvent(QMouseEvent *event)
                 //QPointF c = mapToGlobal(r.center().toPoint());
                 //QPointF t( c.x(), c.y() + 1 );
                 if ( 0 ) {                              //Temporary Until shooting fix is ensured.
-                    QPointF p = myPlayer->QGraphicsRectItem::pos();
+                    QPointF p = myPlayer->pos();
                     //qDebug() << "Firing a shot" << p << " to " << event->windowPos();
                     Shot* s = new Shot( 3, QLineF(p , event->windowPos()) );
                     connect(this, SIGNAL(shotTick()), s, SLOT(shotUpdate()));
@@ -255,13 +257,18 @@ void Character::update()
     //emit(SIGNAL(shotTick()));
     if (mIsShooting) {
         //Trying to shoot a bullet.
+
+        //Face Player Towards Firing.
+        QLineF fireLine = QLineF( myPlayer->pos(), mMousePoint  );
+        myPlayer->setRotation( 90 - fireLine.angle() );
+
         if (mShotCooldown) {
             //Shot is on Cooldown.
             mShotCooldown = shotCooldownCount();
         } else {
             //Shot is not on cooldown.
             //Shoot a bullet.
-            QPointF p = myPlayer->QGraphicsRectItem::pos();
+            QPointF p = myPlayer->pos();
             //qDebug() << "Firing a shot" << p << " to " << event->windowPos();
             //Shot* s = new Shot( mStats->shotSpeed, QLineF(p , QCursor::pos()) );
             //Shot* s = new Shot( mStats->shotSpeed, QLineF(p , mMoveEvent->windowPos()) );
@@ -273,6 +280,10 @@ void Character::update()
             mLaser->PlaySound();
             mShotCooldown = true;
         }
+    } else {
+        //Player not trying to shoot.
+        //Player faces move direction.
+
     }
     shotTick();
     //Karstin's stress Test

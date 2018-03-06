@@ -49,5 +49,7 @@
         <file>Graphics/Lasers/laserRed15.png</file>
         <file>Graphics/Lasers/laserRed16.png</file>
         <file>Graphics/Player/Player.png</file>
+        <file>Graphics/Player/EngiOnly.png</file>
+        <file>Graphics/Player/SmallEngiOnly.png</file>
     </qresource>
 </RCC>

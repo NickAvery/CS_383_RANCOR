@@ -11,6 +11,7 @@
 #include <QWidget>
 #include <QPoint>
 #include <QGraphicsRectItem>
+#include <QGraphicsPixmapItem>
 
 class Walls;
 class Character;
@@ -22,7 +23,7 @@ struct direction {
     bool moveLeft;
 };
 
-class Player: public QGraphicsRectItem {
+class Player: public QGraphicsPixmapItem {
 
 public:
     Player(Character *parent, struct direction* movement, Game *thegame);

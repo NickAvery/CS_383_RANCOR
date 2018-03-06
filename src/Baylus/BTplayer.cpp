@@ -20,8 +20,12 @@ Player::Player(Character *parent, direction *movement, Game* thegame)
     int length = 40;
     //myCharacter = parent;
     Move = movement;
-    setRect( 0, 0, length, length );
+    //setRect( 0, 0, length, length );
+    //Draw Graphics
+    setPixmap(QPixmap(":/images/Graphics/Player/SmallEngiOnly.png"));
     setPos( 400, 300 );
+
+    qDebug() << "player rect = " << pixmap().rect();
 
     mCharacter = parent;
 
@@ -80,8 +84,8 @@ void Player::move()
 //qDebug() << "Move Distance is " << moveDistance;
     }
 
-    double x = QGraphicsRectItem::pos().x();  //Current x and y values, before moving player.
-    double y = QGraphicsRectItem::pos().y();
+    double x = pos().x();  //Current x and y values, before moving player.
+    double y = pos().y();
     //double y = QGraphicsRectItem::rect().bottom();
     if (Move->moveUp) {
         double newY = y - moveDistance;
@@ -100,25 +104,25 @@ void Player::move()
 //qDebug() << "y = " << y << "\t move = " << newY;
         double botWall = myWalls->y() + myWalls->rect().height();
         //qDebug() << "botWall: " << botWall << "\theight: " << rect().height() << "\ttop: " << rect().top();
-        if (botWall >= newY + QGraphicsRectItem::rect().height()){    //If not colliding with walls
+        if (botWall >= newY + pixmap().rect().height()){    //If not colliding with walls
             setPos( x, newY );
             y = newY;
         } else {              //move to wall edge instead.
-            setPos( x, botWall - QGraphicsRectItem::rect().height());
-            y = botWall - QGraphicsRectItem::rect().height();
+            setPos( x, botWall - pixmap().rect().height());
+            y = botWall - pixmap().rect().height();
         }
     }
     if (Move->moveRight) {
-        double newX = QGraphicsRectItem::pos().x()  + moveDistance;
+        double newX = pos().x()  + moveDistance;
         double rightWall = myWalls->x() + myWalls->rect().width();
-        if (newX + QGraphicsRectItem::rect().width() <= rightWall){ //If not colliding with walls
+        if (newX + pixmap().rect().width() <= rightWall){ //If not colliding with walls
             setPos( newX, y );
         } else {                //move to wall edge intead
-            setPos( rightWall - QGraphicsRectItem::rect().width(), y ); //move to wall's edge.
+            setPos( rightWall - pixmap().rect().width(), y ); //move to wall's edge.
         }
     }
     if (Move->moveLeft) { //if not moving past border
-        double newX = QGraphicsRectItem::pos().x() - moveDistance;
+        double newX = pos().x() - moveDistance;
         double leftWall = myWalls->pos().x();
         if (leftWall <= newX) { //If not colliding with walls
             setPos( newX, y );
