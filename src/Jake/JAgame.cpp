@@ -25,10 +25,13 @@ Game::Game()
 void Game::start(int CharClass)
 {
   scene->clear();
+  
+  eUpdater = new EnemyUpdater();
+  
   map = new Map(scene, false, this);
     //James(map designer) adds himself to the scene.
 
-  eUpdater = new EnemyUpdater();
+  
 
   Player = new Character(CharClass, this, scene);
     //Creates a new character CharClass represents the character that was chosen at the mainMenu.
@@ -45,9 +48,10 @@ void Game::start(int CharClass)
 
 void Game::StressStart(int CharClass, bool autoPilot, bool successPath){
     scene->clear();
+    eUpdater = new EnemyUpdater();
     map = new Map(scene, true, this); //somehow signal to James this is a stress test.
 
-    eUpdater = new EnemyUpdater();
+    
 
     Player = new Character(CharClass, autoPilot, successPath, this, scene);
       //Creates a new character CharClass represents the character that was chosen at the mainMenu.
