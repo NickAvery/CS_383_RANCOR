@@ -14,7 +14,7 @@
    <cursorShape>ArrowCursor</cursorShape>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>MainMenu</string>
   </property>
   <property name="autoFillBackground">
    <bool>false</bool>
