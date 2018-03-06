@@ -43,7 +43,7 @@ class Game : public QGraphicsView{
 
 
   Character* getCharacter();
-  void StressStart(int CharClass, bool autoPilot);
+  void StressStart(int CharClass, bool autoPilot, bool successPath);
   EnemyUpdater* getEnemies();
   void start(int CharClass);
     //Start is called by the MainMenu when the user clicks the start button for the game
