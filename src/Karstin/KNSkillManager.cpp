@@ -12,17 +12,16 @@ SkillManager::~SkillManager() {
 }
 
 int SkillManager::selectClassType(int classID) {
-  /* Will complete soon, but not done yet.
-  skills = new Skill*[5];
-  skills[4] = NULL;
-  Skill **startSkills;
-
-  if (classTypeDatabase->hasClassType(classID)) {
-    ClassType *ct = classTypeDatabase->getClassType(classID);
-    startSkills = ct->getStartingSkills();
-  }
-  */
-  return 0;
+  switch(classID) {
+  case(Skill::WARRIOR):
+    break;
+  case(Skill::RANGER):
+    break;
+  case(Skill::DR_BC):
+    break;
+  default:
+    break;
+  };
 }
 
 int SkillManager::getSelectedClassTypeID() {
