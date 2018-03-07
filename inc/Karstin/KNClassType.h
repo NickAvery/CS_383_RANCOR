@@ -25,10 +25,14 @@ class ClassType {
   //Constructor
   //Requires a collection of starting skills given class type begins with.
 <<<<<<< HEAD
+<<<<<<< HEAD
   ClassType(int classID, Skill **startSkills);
 =======
   ClassType(int classID, Skill *hlth, Skill *spd, Skill *dmg, Skill *fire, Skill *shot);
 >>>>>>> parent of 55a5cd8... update header files
+=======
+  ClassType(int classID, Skill **startSkills);
+>>>>>>> parent of 558c052... update header files
   //Destructor
   ~ClassType();
   //Returns collection of starting skill data assigned to this class type
