@@ -3,13 +3,11 @@
 Skill::Skill(int skillID) {
   ID = skillID;
   level = 0;
-  mod = 0;
 }
 
 Skill::Skill(int skillID, int startingLevel) {
   ID = skillID;
   level = startingLevel;
-  mod = 0;
 }
 
 Skill::~Skill() {
@@ -24,15 +22,15 @@ int Skill::hasID(int skillID) {
 }
 
 int Skill::getLevel() {
-  return level + mod;
+  return level;
 }
 
 void Skill::levelUp(int amount) {
-  mod += amount;
-  if (level + mod < 0) mod = -level;
+  level += amount;
+  if (level < 0) level = 0;
 }
 
 void Skill::setLevel(int value) {
   level = value;
-  if (level + mod < 0) mod = -level;
+  if (level < 0) level = 0;
 }
