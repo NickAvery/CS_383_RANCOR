@@ -8,6 +8,7 @@
 #ifndef CHARACTER_H
 #define CHARACTER_H
 
+#include "autopilot.h"
 
 #include "KNSkillManager.h"
 #include "JTmap.h"
@@ -28,6 +29,7 @@ class Player;
 struct direction;
 struct DataBank;
 class Map;
+class Autopilot;
 
 class Character : public QWidget
 {
@@ -55,12 +57,15 @@ public:
     void mouseMoveEvent(QMouseEvent *event);
     virtual void move();    //Moves player and ghost to appropriate positions.
     void update();
-    void doDamage(double damage);
+    void doDamage(double sDamage);
 
     //Called by outside Classes to give info
     void successPath(QString path);
     void setPlayerStats(DataBank *p );
     void KNStressTest();    //Karstin's stress Test.
+    void setMousePoint(QPointF p);
+    void toggleShooting();
+    bool Contains(QPointF &p, bool);
 
     //Called by player object.
     void playerLeaveRoom(QString name);
@@ -73,6 +78,8 @@ private:
     bool mIsShooting = false;
     bool mShotCooldown = false;
     bool mKNStressTest = false;
+    bool mIsAutopilot = false;
+    bool mSuccessPath = false;
 
     QMouseEvent* mMoveEvent = NULL;
     QPointF mMousePoint;
@@ -85,7 +92,7 @@ private:
     struct direction* myMove;    //Passing into the Player Object.
     Player *myPlayer;
     Walls* myWalls;   //Stores the walls object that i need to not collide with.
-
+    EnemyUpdater* mEnemyUpdater;
     //Player Stats
     //Temporary until Stats are up and running.
     //double tHealth = 100;
@@ -93,8 +100,12 @@ private:
     //double shotSpeed = 2.5;
     struct DataBank* mStats;
 
+
+    Autopilot* mAP = NULL;
     //Sounds
     AudioInter* mLaser;
+    AudioInter* sDamage;
+    //Audiointer* damage[3];
 //protected:
 signals:
     void shotTick();

@@ -5,7 +5,7 @@ Enemy::Enemy(qreal x, qreal y, int size)
     //qDebug() << x << " " << y;
     mSize = size;
     mHealth = size;
-    mAtkValue = 1;
+    mAtkValue = 10;
 
     QPixmap p = QPixmap(":/images/enemy.png");
     p = p.scaled(size, size, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);

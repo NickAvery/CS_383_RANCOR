@@ -15,6 +15,8 @@
 
 class Walls;
 class Character;
+class Game;
+class Map;
 
 struct direction {
     bool moveUp;

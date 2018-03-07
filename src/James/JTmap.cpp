@@ -217,7 +217,7 @@ void Map::switchRooms(QString name){
         qDebug() << roomx<<" "<<roomy;
         roomchoice=floorarray[roomy][roomx];
         selectRoom(roomchoice, scene);
-        game->getCharacter()->setPostition(QPointF(175,275));
+        game->getCharacter()->setPostition(QPointF(100,275));
         if(Demo){
             if(roomy==52){
                 qDebug() << "Audio Stress Test";
