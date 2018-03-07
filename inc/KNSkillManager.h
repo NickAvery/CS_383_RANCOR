@@ -19,6 +19,16 @@ class Character;
 #include "KNScore.h"
 #include "KNPowerUp.h"
 
+struct DataBank {
+  int size[2];
+  int totalHealth;
+  int currentHealth;
+  int speed;
+  int damage;
+  int fireRate;
+  int shotSpeed;
+};
+
 class SkillManager {
   //Visible methods
  public:
@@ -32,9 +42,6 @@ class SkillManager {
   //Use: int success = skillManager.selectClassType(ClassType::WARRIOR);
   //Note: See KNClassType.h for full list of Class Type ID's
   int selectClassType(int classID);
-  //Returns the Class Type ID of the currently selected class type
-  //Returns -1 if no class type is currently selected
-  int getSelectedClassTypeID();
   //Returns current level of skill with given Skill ID
   //Returns -1 if skillID is invalid
   //Use: int speedLevel = skillManager.getSkillLevel(Skill::SPEED);
@@ -49,10 +56,15 @@ class SkillManager {
   //Tick down all PowerUp timers; destroys and removes PowerUps which have been depleted
   void tickDownPowerUps(double seconds);
  private:
+  struct DataBank *DB;
   //Collection of skills
-  Skill **skills;
+  Skill *healthSkill;
+  Skill *speedSkill;
+  Skill *damageSkill;
+  Skill *fireRateSkill;
+  Skill *shotSpeedSkill;
   //Reference to ClassTypeDatabase object
-  ClassType *classTypeDatabase;
+  ClassTypeDatabase *classTypeDatabase;
   //Reference to currently selected ClassType
   ClassType *selectedClassType;
   //Collection of active PowerUps
@@ -65,6 +77,8 @@ class SkillManager {
   int experience;
   //Amount of total experience which will give next level up
   int nextLevelExperience;
+  double growthMultiplier;
+  void updateDataBank();
 };
 
 #endif //SKILLMANAGER_H

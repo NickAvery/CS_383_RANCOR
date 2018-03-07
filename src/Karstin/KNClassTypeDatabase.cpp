@@ -2,28 +2,13 @@
 #include <iostream>
 
 ClassTypeDatabase::ClassTypeDatabase() {
-  classTypes = new ClassType*[4];
-  classTypes[3] = NULL;
-  Skill **skillSet = new Skill*[5];
-  skillSet[4] = NULL;
+  classTypes = new ClassType*[3];
   //WARRIOR creation
-  skillSet[0] = new Skill(Skill::STRENGTH, 3);
-  skillSet[1] = new Skill(Skill::SPEED, 1);
-  skillSet[2] = new Skill(Skill::ACCURACY, 2);
-  skillSet[3] = new Skill(Skill::RESILIENCE, 3);
-  classTypes[0] = new ClassType(ClassType::WARRIOR, skillSet);
+  classTypes[0] = new ClassType(ClassType::WARRIOR, 3, 1, 2, 3, 5);
   //RANGER creation
-  skillSet[0] = new Skill(Skill::STRENGTH, 1);
-  skillSet[1] = new Skill(Skill::SPEED, 3);
-  skillSet[2] = new Skill(Skill::ACCURACY, 3);
-  skillSet[3] = new Skill(Skill::RESILIENCE, 2);
-  classTypes[1] = new ClassType(ClassType::RANGER, skillSet);
+  classTypes[1] = new ClassType(ClassType::RANGER, 3, 1, 2, 3, 5);
   //DR_BC creation
-  skillSet[0] = new Skill(Skill::STRENGTH, 3);
-  skillSet[1] = new Skill(Skill::SPEED, 3);
-  skillSet[2] = new Skill(Skill::ACCURACY, 3);
-  skillSet[3] = new Skill(Skill::RESILIENCE, 4);
-  classTypes[2] = new ClassType(ClassType::DR_BC, skillSet);
+  classTypes[2] = new ClassType(ClassType::DR_BC, 3, 1, 2, 3, 5);
 }
 
 ClassTypeDatabase::~ClassTypeDatabase() {

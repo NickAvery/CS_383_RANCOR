@@ -25,19 +25,30 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 # Input
-HEADERS += inc/JAaudio.h inc/JAgame.h                           \
-           inc/JTmap.h inc/JTwalls.h                            \
+HEADERS += inc/JAaudio.h inc/JAgame.h  inc/Jake/audio.h inc/Jake/sound.h inc/Jake/music.h                        \
+           inc/JTmap.h inc/James/JTdoor.h inc/James/JTroom.h inc/James/JTwalls.h inc/James/JTgoal.h\
            inc/NAenemyupdater.h inc/Nick/enemy.h                \
            inc/KNSkillManager.h inc/Karstin/KNClassType.h inc/Karstin/KNClassTypeDatabase.h inc/Karstin/KNPowerUp.h inc/Karstin/KNScore.h inc/Karstin/KNSkill.h   \
            inc/Angelo/ASmenu.h                                  \
-           inc/BTcharacter.h
+           inc/BTcharacter.h inc/Baylus/BTplayer.h inc/Baylus/BTshot.h \
+    inc/Nick/enemyspawner.h \
+    inc/Baylus/autopilot.h
+
+
 
 
 SOURCES +=                                                            \
 src/Jake/JAaudio.cpp src/Jake/JAgame.cpp src/Jake/main.cpp            \
-src/James/JTmap.cpp src/James/JTwalls.cpp                             \
+src/James/JTmap.cpp src/James/JTwalls.cpp src/James/JTroom.cpp src/James/JTdoor.cpp src/James/JTgoal.cpp\
 src/Nick/enemy.cpp src/Nick/enemyupdater.cpp                          \
 src/Karstin/KNClassType.cpp src/Karstin/KNClassTypeDatabase.cpp src/Karstin/KNPowerUp.cpp src/Karstin/KNScore.cpp src/Karstin/KNSkill.cpp src/Karstin/KNSkillManager.cpp  \
 src/Angelo/ASmenu.cpp                                                 \
-src/Baylus/BTcharacter.cpp
+src/Baylus/BTcharacter.cpp src/Baylus/BTplayer.cpp src/Baylus/BTshot.cpp \
+    src/Nick/enemyspawner.cpp \
+    src/Baylus/autopilot.cpp
 
+
+RESOURCES += src/Jake/sounds.qrc \
+    src/James/images.qrc    \
+    src/Baylus/BTimages.qrc \
+    src/Nick/images.qrc
