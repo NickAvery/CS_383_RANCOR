@@ -3,7 +3,7 @@
 EnemyUpdater::EnemyUpdater()
 {
     mSpawner = new EnemySpawner();
-    testCaseMax = 500;
+    testCaseMax = 100;
     testCaseNum = 0;
     //qDebug() << "Enemy " << 1 << ": " << sEnemies.value(1)->getXPos() << ", " << sEnemies.value(1)->getYPos();
 }
@@ -34,15 +34,15 @@ void EnemyUpdater::update(qreal charX, qreal charY)
     qreal flip;
     qreal flipAdd;
     qreal tanResult;
-    Enemy *e;
+    Enemy *temp;
     for(int i = 0; i < sEnemies.size(); i++)
     {
 
-        e = sEnemies.value(i);
-        tempX = e->getXPos();
-        tempY = e->getYPos();
+        temp = sEnemies.value(i);
+        tempX = temp->getXPos();
+        tempY = temp->getYPos();
         //qDebug() << tempX-charX << tempY-charY;
-        if(((tempX <= charX+1.0 && tempX >= charX-1.0) && (tempY <= charY+1.0 && tempY >= charY-1.0)) || e->getHealth() == 0)
+        if( temp->getHealth() <= 0)
         {
             //qDebug() << "success";
             removeEnemy(i);
@@ -80,35 +80,35 @@ void EnemyUpdater::update(qreal charX, qreal charY)
             //tempRotY = tempY-charY;
             tempY-=1.0/5.0;
         }
-        e->move(tempX, tempY);
+        temp->move(tempX, tempY);
         tanResult = qFloor(qSin(tempRotY/qSqrt(qPow(tempRotX, 2) + qPow(tempRotY, 2))) *(180.0/3.14));
         if (tempRotX < 1 && tempRotX > -1)
         {
             //qDebug() << tanResult << "THE";
             if (tempRotY < 0)
             {
-                e->setRotation(90.0);
+                temp->setRotation(90.0);
             }
             else
             {
-                e->setRotation(270.0);
+                temp->setRotation(270.0);
             }
         }
         else if (tempRotY < 1 && tempRotY > -1)
         {
             if (tempRotX < 0)
             {
-                e->setRotation(0.0);
+                temp->setRotation(0.0);
             }
             else
             {
-                e->setRotation(180.0);
+                temp->setRotation(180.0);
             }
         }
         else
         {
             //qDebug() << tanResult << "bleh";
-            e->setRotation(flip*(tanResult)+flipAdd);
+            temp->setRotation(flip*(tanResult)+flipAdd);
         }
         //qDebug() << "Enemy " << i << ": " << (int)sEnemies.value(i)->getXPos() << ", " << (int)sEnemies.value(i)->getYPos();
     }
