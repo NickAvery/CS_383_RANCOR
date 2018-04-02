@@ -1,5 +1,0 @@
-<RCC>
-    <qresource prefix="/images">
-        <file>enemy.png</file>
-    </qresource>
-</RCC>
