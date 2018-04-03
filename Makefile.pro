@@ -12,7 +12,8 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TEMPLATE = app
 TARGET = SpaceShooter
 INCLUDEPATH += . inc inc/Jake inc/James inc/Nick inc/Baylus inc/Angelo inc/Karstin
-FORMS += inc/mainmenu.ui
+FORMS += inc/mainmenu.ui \
+    inc/victoryscreen.ui
 # The following define makes your compiler warn you if you use any
 # feature of Qt which has been marked as deprecated (the exact warnings
 # depend on your compiler). Please consult the documentation of the
@@ -33,7 +34,8 @@ HEADERS += inc/JAaudio.h inc/JAgame.h  inc/Jake/sound.h inc/Jake/music.h        
            inc/BTcharacter.h inc/Baylus/BTplayer.h inc/Baylus/BTshot.h \
     inc/Nick/enemyspawner.h \
     inc/Baylus/autopilot.h \
-    inc/Jake/JAaudiosuper.h
+    inc/Jake/JAaudiosuper.h \
+    inc/Angelo/ASVictoryScreen.h
 
 
 
@@ -46,7 +48,8 @@ src/Karstin/KNClassType.cpp src/Karstin/KNClassTypeDatabase.cpp src/Karstin/KNPo
 src/Angelo/ASmenu.cpp                                                 \
 src/Baylus/BTcharacter.cpp src/Baylus/BTplayer.cpp src/Baylus/BTshot.cpp \
     src/Nick/enemyspawner.cpp \
-    src/Baylus/autopilot.cpp
+    src/Baylus/autopilot.cpp \
+    src/Angelo/ASVictoryScreen.cpp
 
 
 RESOURCES += src/Jake/sounds.qrc \

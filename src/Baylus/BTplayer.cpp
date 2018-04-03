@@ -15,6 +15,9 @@
 #include "JTroom.h"
 #include "JTgoal.h"
 
+
+#include <QWidget>
+
 Player::Player(Character *parent, direction *movement, Game* thegame)
 {
     int length = 40;
@@ -197,7 +200,10 @@ int Player::checkCollisions()
             //Goal Reached
             //Signal Map Next Level
 
-            //display();
+            //Release Mouse Control
+            //releaseMouse();
+
+            mCharacter->gameWin();
             //Temporary Solution to problem. [exit( EXIT_SUCCESS )]
             exit( EXIT_SUCCESS );
         }

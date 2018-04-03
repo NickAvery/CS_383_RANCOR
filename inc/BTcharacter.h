@@ -69,6 +69,7 @@ public:
 
     //Called by player object.
     void playerLeaveRoom(QString name);
+    void gameWin();
 private:
     bool invincibilityFrameCount();
     bool shotCooldownCount();

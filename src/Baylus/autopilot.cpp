@@ -140,12 +140,12 @@ void Autopilot::newRoom()
     //Update move goal.
     //mMoveGoal = QPointF( (mWalls->rect().width() / 2) + 40, (mWalls->rect().height() / 2) + 40);
     //moveToCenter();
-    /*
+
     if(!mSPath) {
         m->moveUp = true;
         m->moveRight = true;
     }
-    */
+
     if (!mEnemies.isEmpty()) {
         shootEnemy();
     }

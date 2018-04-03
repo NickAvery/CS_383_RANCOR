@@ -1,3 +1,14 @@
+/*  Baylus Tunnicliff
+*   Character Class - "BTcharacter.cpp"
+*
+*   Controls player movement, player shooting, player interactions
+*       player interfacing, player graphics.
+*
+*
+*/
+
+#include "ASVictoryScreen.h"
+
 #include "BTcharacter.h"
 #include "BTplayer.h"
 #include "BTshot.h"
@@ -380,6 +391,13 @@ bool Character::Contains(QPointF& p, bool proper)
 void Character::playerLeaveRoom(QString name)
 {
     myMap->switchRooms(name);
+}
+
+void Character::gameWin()
+{
+    VictoryScreen win;
+    win.display();
+    //win.show();
 }
 
 #define INVINC_FRAMES 100
