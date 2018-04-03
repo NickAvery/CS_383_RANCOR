@@ -12,27 +12,28 @@
 class Game;
 class EnemyUpdater;
 
-class Map: public QGraphicsView{
-private:
-public:
-    QGraphicsScene * scene;
-    //Walls * walls;
-    Room * room;
-    Game * game;
-    Goal * goal;
-    static bool storage;
-    EnemyUpdater * enemies;
-    static bool Demo;
-    Map(QGraphicsScene* a, bool D, Game * b);
-    void selectRoom(int selection, QGraphicsScene* a);
-    void switchRooms(QString name);
-    QString getSuccessPath();
-    static int roomx;
-    static int roomy;
-    const static int maxx=101;
-    const static int maxy=101;
-    int floorarray[101][101];
-    QString successPath;
+class Map: public QGraphicsView
+{
+    private:
+    public:
+        QGraphicsScene * scene;
+        Room * room;
+        Game * game;
+        Goal * goal;
+        static bool storage;
+        EnemyUpdater * enemies;
+        static bool demo;
+        Map(QGraphicsScene* scenePointer, bool demoMode, Game * gameObject);
+        void selectRoom(int selection);
+        void switchRooms(QString name);
+        QString getSuccessPath();
+        QRectF getWallsRect();
+        static int roomX;
+        static int roomY;
+        const static int MAX_X=101;
+        const static int MAX_Y=101;
+        int floorArray[101][101];
+        QString successPath;
 };
 
 #endif // JTMAP_H
