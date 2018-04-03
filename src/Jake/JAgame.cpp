@@ -7,6 +7,7 @@
 #include <QMediaPlayer>
 #include "JAaudio.h"
 
+
 Game::Game()
 {
   scene = new QGraphicsScene();
@@ -16,8 +17,8 @@ Game::Game()
   Pause = false;
     //Set Pause to be false initially.
   AudioInter * music = new AudioInter(0, "qrc:/sounds/Sounds/Break-Down.mp3");
-  music->PlaySound();
-  music->SetVolume(10);
+  music->playSound();
+  music->setVolume(10);
 
 }
 
@@ -30,7 +31,6 @@ void Game::start(int CharClass)
   
   map = new Map(scene, false, this);
     //James(map designer) adds himself to the scene.
-
   
 
   Player = new Character(CharClass, this, scene);
@@ -46,11 +46,12 @@ void Game::start(int CharClass)
 
 }
 
-void Game::StressStart(int CharClass, bool autoPilot, bool successPath){
+
+void Game::stressStart(int CharClass, bool autoPilot, bool successPath)
+{
     scene->clear();
     eUpdater = new EnemyUpdater();
     map = new Map(scene, true, this); //somehow signal to James this is a stress test.
-
     
 
     Player = new Character(CharClass, autoPilot, successPath, this, scene);
@@ -64,10 +65,12 @@ void Game::StressStart(int CharClass, bool autoPilot, bool successPath){
 
 }
 
+
 EnemyUpdater *Game::getEnemies()
 {
    return eUpdater;
 }
+
 
 void Game::setPause(bool set)
 {
@@ -75,14 +78,18 @@ void Game::setPause(bool set)
     //sets the pause variable
 }
 
+
 Map *Game::getMap()
 {
     return map;
 }
 
-Character* Game::getCharacter(){
+
+Character* Game::getCharacter()
+{
     return Player;
 }
+
 
 void Game::levelLoop()
 {
@@ -100,7 +107,8 @@ void Game::levelLoop()
 //}
 
 
-void Game::mainMenu(){
+void Game::mainMenu()
+{
   MainMenu * menu = new MainMenu(0 ,this);
   menu->show();
 

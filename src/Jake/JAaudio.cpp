@@ -1,7 +1,7 @@
 #include "JAaudio.h"
-#include "music.h"
-#include "sound.h"
-#include "audio.h"
+//#include "music.h"
+//#include "sound.h"
+//#include "JAaudiosuper.h"
 
 #include <QTime>
 
@@ -13,9 +13,10 @@ void AudioInter::delay()
 }
 
 
-
-AudioInter::AudioInter(int Sound_choice, QString soundpath){
-    /*if(Sound_choice == 1){
+AudioInter::AudioInter(int Sound_choice, QString soundpath)
+{
+    /*
+    if(Sound_choice == 1){
         mClass = new Sound(soundpath);
     }
     else{
@@ -27,9 +28,9 @@ AudioInter::AudioInter(int Sound_choice, QString soundpath){
 }
 
 
-
-int AudioInter::PlaySound(){ //sound effect that you wish to be played
-     if(mSound->state()==QMediaPlayer::PlayingState){
+int AudioInter::playSound() //sound effect that you wish to be played
+{
+    if(mSound->state()==QMediaPlayer::PlayingState){
                 mSound->setPosition(0);
             }
             else if(mSound->state() == QMediaPlayer::StoppedState){
@@ -42,19 +43,22 @@ int AudioInter::PlaySound(){ //sound effect that you wish to be played
 }
 
 
-
-int AudioInter::Set_CharClass(int CharClass){
+int AudioInter::setCharClass(int CharClass)
+{
     mCharClass = CharClass;
     return 0;
 }
 
-int AudioInter::SetVolume(int volume)
+
+int AudioInter::setVolume(int volume)
 {
       mSound->setVolume(volume);
     return 0;
 }
 
-void AudioInter::StressTest(){
+
+void AudioInter::stressTest()
+{
     QMediaPlayer * mSound1 = new QMediaPlayer();
     QMediaPlayer * mSound2 = new QMediaPlayer();
     QMediaPlayer * mSound3 = new QMediaPlayer();
