@@ -26,7 +26,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 # Input
 HEADERS += inc/JAaudio.h inc/JAgame.h  inc/Jake/sound.h inc/Jake/music.h                        \
-           inc/JTmap.h inc/James/JTdoor.h inc/James/JTroom.h inc/James/JTwalls.h inc/James/JTgoal.h\
+           inc/JTmap.h inc/James/JTdoor.h inc/James/JTroom.h inc/James/JTwalls.h inc/James/JTgoal.h inc/James/JTbackground.h\
            inc/NAenemyupdater.h inc/Nick/enemy.h                \
            inc/KNSkillManager.h inc/Karstin/KNClassType.h inc/Karstin/KNClassTypeDatabase.h inc/Karstin/KNPowerUp.h inc/Karstin/KNScore.h inc/Karstin/KNSkill.h   \
            inc/Angelo/ASmenu.h                                  \
@@ -40,7 +40,7 @@ HEADERS += inc/JAaudio.h inc/JAgame.h  inc/Jake/sound.h inc/Jake/music.h        
 
 SOURCES +=                                                            \
 src/Jake/JAaudio.cpp src/Jake/JAgame.cpp src/Jake/main.cpp            \
-src/James/JTmap.cpp src/James/JTwalls.cpp src/James/JTroom.cpp src/James/JTdoor.cpp src/James/JTgoal.cpp\
+src/James/JTmap.cpp src/James/JTwalls.cpp src/James/JTroom.cpp src/James/JTdoor.cpp src/James/JTgoal.cpp src/James/JTbackground.cpp\
 src/Nick/enemy.cpp src/Nick/enemyupdater.cpp                          \
 src/Karstin/KNClassType.cpp src/Karstin/KNClassTypeDatabase.cpp src/Karstin/KNPowerUp.cpp src/Karstin/KNScore.cpp src/Karstin/KNSkill.cpp src/Karstin/KNSkillManager.cpp  \
 src/Angelo/ASmenu.cpp                                                 \
@@ -50,6 +50,6 @@ src/Baylus/BTcharacter.cpp src/Baylus/BTplayer.cpp src/Baylus/BTshot.cpp \
 
 
 RESOURCES += src/Jake/sounds.qrc \
-    src/James/images.qrc    \
+    src/James/JTimages.qrc    \
     src/Baylus/BTimages.qrc \
-    src/Nick/images.qrc
+    src/Nick/NAresources.qrc
