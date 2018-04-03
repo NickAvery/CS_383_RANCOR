@@ -54,11 +54,28 @@ Autopilot::~Autopilot()
 
 void Autopilot::autopilotUpdate()
 {
+    assert(mEnemyUpdate);   //Ensure that the getter variables are assigned.
+    assert(mParent);
+
     //static QChar c;
     //Check Player Position
+
+    if (checkEnemies) { //Checking enemies after entering new room.
+        mEnemies = mEnemyUpdate->getEnemies();
+        //Might end up just making this a thing that is done automatically.
+        checkEnemies = false;
+    }
     if (!mEnemies.isEmpty()) {
         shootEnemy();
+        //qDebug() << mEnemies.count();
+    } else {
+        //qDebug() << "Enemies Dead";
     }
+
+
+
+
+    //Not sure what this section does now.
     /*
     if(!mCentered) {
         if (mParent->Contains(mMoveGoal, false)) { //Center Reached
@@ -82,6 +99,7 @@ void Autopilot::autopilotUpdate()
         }
     }
     */
+
 }
 
 /* newRoom()
@@ -90,6 +108,10 @@ void Autopilot::autopilotUpdate()
  */
 void Autopilot::newRoom()
 {
+    assert(mEnemyUpdate);
+
+    checkEnemies = true;
+    //if ()
     /*
     m->moveUp = false;
     m->moveDown = false;
@@ -97,13 +119,16 @@ void Autopilot::newRoom()
     m->moveLeft = false;
     */
     mCentered = false;
-    mMoveGoal = QPointF();
+    mMoveGoal = QPointF(720 / 2, 520 / 2);
     //update Room
+    /*
     if (mEnemyUpdate->enemiesDead()) {
         //mEnemies = QList();
     } else {
-        mEnemies = mEnemyUpdate->getEnemies();
+        //mEnemies = mEnemyUpdate->getEnemies();
+        //Doesnt do anything, since enemies are updated about the room after player is updated.
     }
+    */
     //check for goal.
     /*
     if (mMap->goal != NULL) {
@@ -114,18 +139,21 @@ void Autopilot::newRoom()
     }*/
     //Update move goal.
     //mMoveGoal = QPointF( (mWalls->rect().width() / 2) + 40, (mWalls->rect().height() / 2) + 40);
-    moveToCenter();
+    //moveToCenter();
+    /*
     if(!mSPath) {
         m->moveUp = true;
         m->moveRight = true;
     }
+    */
     if (!mEnemies.isEmpty()) {
         shootEnemy();
     }
 }
-
+//Looks obsolete
 void Autopilot::playerSwitchRooms()
 {
+    assert(m);
     m->moveUp = false;
     m->moveDown = false;
     m->moveRight = false;
@@ -134,12 +162,19 @@ void Autopilot::playerSwitchRooms()
 }
 
 /*
- *
+ *  This functions seems really, really bad and worthless.
+ *      I actively hate seeing all this trash and it is taking
+ *      every ounce of my sanity not to remove it immediately.
  *
  */
 void Autopilot::moveToCenter()
 {
+    assert(mMap);
+    assert(mParent);
+    assert(m);
+
     mWalls = mMap->room->walls;
+    assert(mWalls);
     mMoveGoal = mWalls->rect().center();
     mLine = QLineF( mParent->getPosition(), mMoveGoal );
     qDebug() << "long way vs short way" << QPointF( (mWalls->rect().width() / 2) + 40, (mWalls->rect().height() / 2) + 40) << mWalls->rect().center();
@@ -173,23 +208,68 @@ void Autopilot::moveToDoor()
 }
 
 /* shootEnemy()
- * Fires at enemies closest to the player.
+ * Fires at a "random" within the list of enemies provided by the enemy updater class.
+ *
+ *  How it works:
+ *      Uses several functions in the Character class. "toggleShooting()",
+ *          "setMousePoint(qPointF)"
+ *      These are used to emulate the mouse input that a user provides to shoot.
+ *
+ * Used to use QMouseEvents, but these were possibly not-functional, it was never
+ *  investigated thoroughly in order to determine the issues with the solution method.
  *
  *
  */
 
 void Autopilot::shootEnemy()
 {
-    static int i = 0;
+    //assert(!mEnemies.isEmpty());
+    assert(mParent);
+
+    static int offset = 0;
+    if ((++offset % 5)) {
+        return;
+    }
+
+
+    mEnemies = mEnemyUpdate->getEnemies();
+//QList
+    static int lCount = 0;  //[Local Counter]
     if (!mEnemies.empty()) {
-        i = ++i % mEnemies.count();
-        //mEnemies = ;
-        Enemy* e = (mEnemies)[i];
+        Enemy* e = NULL;
+        if (mEnemies.count() < 10) {    //If there are a lot of enemies to check.
+            lCount = ++lCount % mEnemyUpdate->getEnemies().count();
+            //mEnemies = ;
+            //e = (mEnemies)[lCount];
+            e = mEnemyUpdate->getEnemy(lCount);
+        } else {    //else: find and target the closest enemy.
+            //QLineF los = QLineF();    //Changed the variable to be a member variable
+            los = QLineF();
+
+            los.setP1(mParent->getCenter());
+            double d = 1 << 32; // Really large value to hold the min-distance to find closest enemy.
+            for (int i = 0; i < mEnemyUpdate->getEnemies().count(); ++i) {
+                los.setP2( QPointF(mEnemyUpdate->getEnemy(i)->getXPos() , mEnemyUpdate->getEnemy(i)->getYPos()) );
+                if (los.length() < d) { //If mEnemies[i] is closer than Enemy e;
+                    d = los.length();
+                    e = mEnemyUpdate->getEnemy(i);
+                    qDebug() << "Enemy " << i << " out of " << mEnemyUpdate->getEnemies().count() <<" being used.";
+                }
+            }
+            //Closest Enemy Found
+        }
+
         if(!mIsShooting) {
             mIsShooting = true;
             mParent->toggleShooting();
         }
-        mParent->setMousePoint( QPointF( e->getXPos(), e->getYPos() ) );
+        if (e != NULL) {
+           mParent->setMousePoint( QPointF( e->getXPos(), e->getYPos() ) );
+        } else {
+            e = mEnemyUpdate->getEnemy(0);
+            if (e == NULL) return;
+            mParent->setMousePoint( QPointF( e->getXPos(), e->getYPos() ) );
+        }
         /*
         if (!mIsShooting) {     //Not currently shooting.
             a = new QMouseEvent( QEvent::MouseButtonPress, QPointF(), QPointF(e.getXPos(),e.getYPos()), Qt::LeftButton, Qt::LeftButton,  Qt::NoModifier);
@@ -221,5 +301,87 @@ void Autopilot::shootEnemy()
         }
         r = new QMouseEvent(QEvent::MouseButtonRelease, QPointF(), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
         */
+    }
+}
+
+/*  pathUpdate()
+ *
+ * Will update the current direction player is traveling
+ * such that they are moving towards the "movePath".
+ *
+ *  Should be called after updating the movePath point.
+ *
+ *
+ */
+void Autopilot::pathUpdate()
+{
+
+    mMovePath.setPoints( mParent->getCenter() , mMoveGoal );
+}
+
+/*  adjustPlayerMovement()
+ *
+ *  Will use the "movePath" to find the best way to
+ *      reach the end destination.
+ *
+ *  Should be called every "autopilotUpdate()"
+ *
+ *
+ */
+void Autopilot::adjustPlayerMovement()
+{
+    static int lastDir = -1;
+    int dir = -1;
+    //m->moveRight = false;
+    //m->moveLeft = false;
+    if (mMovePath.length() > 15) {
+        qreal qAngle = mMovePath.angle();
+        if ( (qAngle >= 22.5) && (qAngle < 67.5) ) {
+            dir = 1;
+        } else if ( (qAngle >= 67.5) && (qAngle < 112.5) ) {
+            dir = 2;
+        } else if ( (qAngle >= 112.5) && (qAngle < 157.5) ) {
+            dir = 3;
+        } else if ( (qAngle >= 157.5) && (qAngle < 202.5) ) {
+            dir = 4;
+        } else if ( (qAngle >= 202.5) && (qAngle < 247.5) ) {
+            dir = 5;
+        } else if ( (qAngle >= 247.5) && (qAngle < 292.5) ) {
+            dir = 6;
+        } else if ( (qAngle >= 292.5) && (qAngle < 337.5) ) {
+            dir = 7;
+        } else {
+            dir = 0;
+        }
+
+        if (lastDir != dir) {
+            lastDir = dir;
+            switch(dir) {
+                case 0:
+
+                    break;
+                case 1:
+
+                    break;
+                case 2:
+
+                    break;
+                case 3:
+
+                    break;
+                case 4:
+
+                    break;
+                case 5:
+
+                    break;
+                case 6:
+
+                    break;
+                case 7:
+
+                    break;
+            }
+        }
     }
 }

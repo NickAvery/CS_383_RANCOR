@@ -92,7 +92,7 @@ int Shot::shotUpdate()
 
             //Remove Shot.
             //delete this;    //Note: Scary stuff to do this, handle with extreme care.
-            item->getAttacked(damage);
+            item->attacked(damage);
             die = true;
         }
         Walls* wall = dynamic_cast<Walls *>(i);

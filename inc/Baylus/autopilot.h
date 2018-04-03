@@ -42,23 +42,36 @@ private:
     void moveToCenter();
     void moveToDoor();
     void shootEnemy();
+    void pathUpdate();
+    void adjustPlayerMovement();
+
+
     QChar nextRoom();
     QString successPath;
 
     QChar c;
     QLineF mLine = QLineF();
-    QList<Enemy*> mEnemies;
     Map* mMap = NULL;
     Walls* mWalls = NULL;
     EnemyUpdater* mEnemyUpdate = NULL;
     Character* mParent = NULL;
     Game* mGame = NULL;
+    QList<Enemy*> mEnemies;
+    //Enemy* mCloseEnemy = NULL;   //Closest Enemy since last check.
+    //Cannot do the pointer to the Enemy, if the enemy dies,
+    //Then theres the possibility that autopilot uses the pointer, which
+    //will cause seg fault.
+    double mLosDistance = 0.0;   //[Line of Sight - Distance]Distance from the closest enemy.
+    QLineF los = QLineF();
+
 
     QPointF mMoveGoal = QPointF();
+    QLineF mMovePath = QLineF();    //[M_ember Move Pathway ]Line that shows the path that is being traveled by the autopilot.
 
     bool mSPath = false;        //do we know successPath?
     bool mCentered = true;     //Have we reached the center of the room?
     bool mIsShooting = false;   //Are we currently shooting?
+    bool checkEnemies = false; //Do Enemies need to be checked?
 
     struct direction* m = NULL;
 

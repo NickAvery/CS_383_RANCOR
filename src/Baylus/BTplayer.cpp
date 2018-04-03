@@ -35,8 +35,8 @@ Player::Player(Character *parent, direction *movement, Game* thegame)
     //setFocusPolicy(Qt::StrongFocus);
     //setFocus();
 
-    ghost = new QGraphicsRectItem();
-    ghost->setRect( 0, 0, length, length );
+    //ghost = new QGraphicsRectItem();
+    //ghost->setRect( 0, 0, length, length );
 
     //myGame = thegame;
     myMap = thegame->getMap();
@@ -169,7 +169,10 @@ void Player::put(QPointF p)
 int Player::checkCollisions()
 {
     //Door* d = NULL;
-    int r = 0;
+    /* Is the player leaving the room?
+     *      This occurs when the player collide with a door.
+     */
+    bool r = false;
     QList<QGraphicsItem *> list = collidingItems() ;
     QString name;
     foreach(QGraphicsItem * i , list)
@@ -179,7 +182,7 @@ int Player::checkCollisions()
             name = door->name;
             //cant return here, since i want to check all collisions.
             //return 1;
-            r += 1;
+            r = true;
         }
 
         Enemy *e = dynamic_cast<Enemy *>(i);
@@ -194,8 +197,8 @@ int Player::checkCollisions()
             //Goal Reached
             //Signal Map Next Level
 
-            //Temporary Solution to problem.
             //display();
+            //Temporary Solution to problem. [exit( EXIT_SUCCESS )]
             exit( EXIT_SUCCESS );
         }
     }

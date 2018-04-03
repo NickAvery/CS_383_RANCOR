@@ -3,8 +3,8 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include "BTcharacter.h"
-#include "JTwalls.h"
+#include "BTcharacter.h"    //Main entity of interaction, relied upon for several functions during setup.
+#include "JTwalls.h"        //Might not be necessary in the header file, but is crucial in the source code.
 #include "JTmap.h"
 #include "JAgame.h"
 
@@ -19,6 +19,7 @@ class Game;
 class Map;
 
 struct direction {
+    int num;    //0 for right, 1 for up-right, 2 for up, 3 for up-left, etc.
     bool moveUp;
     bool moveDown;
     bool moveRight;
@@ -36,7 +37,7 @@ public:
 private:
     int checkCollisions();
 
-    QGraphicsRectItem* ghost;
+    //QGraphicsRectItem* ghost;  //Entirely useless, im pretty sure.
     Game* myGame;
     Character* mCharacter;
     Walls *myWalls;
