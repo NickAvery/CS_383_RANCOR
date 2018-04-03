@@ -78,8 +78,8 @@ Character::Character(int characterNumber , bool autopilot, bool successPath, Gam
 
 
     //Makeshift solution until issue can be resolved.
-    //grabKeyboard();
-    //grabMouse();
+    grabKeyboard();
+    grabMouse();
 
     //setMouseTracking(true);
 
