@@ -37,7 +37,7 @@ Shot::Shot(double s, QLineF l)
     //angle = l.angleTo(QLineF( 0.0,0.0,1.0, 0.0 ));
     //angle = l.angle();
     setRotation( 90-l.angle());
-    qDebug() << "Angle" << 90-l.angle();
+    //qDebug() << "Angle" << 90-l.angle();
     angle = (l.angle() * PI ) / 180;
     //QGraphicsRectItem::setRect( 0, 0, size, size );
     //QGraphicsRectItem::setPos( l.x1(), l.y1() );
@@ -52,8 +52,8 @@ Shot::~Shot()
 }
 
 /*  mapToSpread()
- *
- *
+ *  Attempts to map the spread of a bullet to the coordinate plane.
+ *  Must revisit this, I believe that this is a bit mistaken.
  *
  */
 double Shot::mapToSpread(double x, double spread, double inputStart, double inputEnd)
@@ -92,7 +92,7 @@ int Shot::shotUpdate()
 
             //Remove Shot.
             //delete this;    //Note: Scary stuff to do this, handle with extreme care.
-            item->getAttacked(damage);
+            item->attacked(damage);
             die = true;
         }
         Walls* wall = dynamic_cast<Walls *>(i);

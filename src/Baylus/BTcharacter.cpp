@@ -74,21 +74,23 @@ Character::Character(int characterNumber , bool autopilot, bool successPath, Gam
 
     //Set up focus events for grabbing input
     setFocusPolicy(Qt::StrongFocus);
-    //myPlayer->QGraphicsRectItem::setFocus();
+    myPlayer->QGraphicsPixmapItem::setFocus();
 
-    grabKeyboard();
-    grabMouse();
 
-    setMouseTracking(true);
+    //Makeshift solution until issue can be resolved.
+    //grabKeyboard();
+    //grabMouse();
+
+    //setMouseTracking(true);
 
     //https://stackoverflow.com/questions/23533691/qt-collision-detection-with-custom-qgraphicsitem-classes
 
     //Set up Audio Objects
     mLaser = new AudioInter(0, "qrc:/sounds/Sounds/Laser.wav");
-    mLaser->SetVolume(5);
+    mLaser->setVolume(5);
 
     sDamage = new AudioInter(0, "qrc:/sounds/Sounds/damage1.wav");
-    sDamage->SetVolume(15);
+    sDamage->setVolume(15);
 
     //Load the shot image into cache
     //QPixmap::load(":/images/Graphics/Lasers/laserGreen04.png");
@@ -226,7 +228,7 @@ void Character::mousePressEvent(QMouseEvent *event)
                     connect(this, SIGNAL(shotKill()), s, SLOT(kill()));
 
                     scene->addItem(s);
-                    mLaser->PlaySound();
+                    mLaser->playSound();
                 }
 
             }
@@ -301,7 +303,7 @@ void Character::update()
             connect(this, SIGNAL(shotKill()), s, SLOT(kill()));
 
             scene->addItem(s);
-            mLaser->PlaySound();
+            mLaser->playSound();
             mShotCooldown = true;
         }
     } else {
@@ -330,7 +332,7 @@ void Character::doDamage(double damage)
         //Temporary Solution
         exit( EXIT_FAILURE );
     }
-    sDamage->PlaySound();
+    sDamage->playSound();
     //qDebug() << "After Damgage: " << mStats->currentHealth;
 
     isInvulnernable = true;
