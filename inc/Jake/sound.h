@@ -1,11 +1,11 @@
 /*
- * #ifndef SOUND_H
+ #ifndef SOUND_H
 #define SOUND_H
 
 #include "audio.h"
 #include <QString>
 #include <QMediaPlayer>
-//class Audio;
+class Audio;
 
 class Sound:public Audio{
     Sound(QString);
