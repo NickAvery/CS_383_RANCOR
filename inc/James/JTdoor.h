@@ -5,14 +5,12 @@
 #include <QObject>
 #include <QString>
 
-//add identifying member to this class
 class Door: public QObject, public QGraphicsRectItem{
     Q_OBJECT
 public:
     Door * door;
     QString name;
-    //int direction;
-    Door(bool sides, QString n);
+    Door(bool sides, QString doorName);
 };
 
 #endif // JTDOOR_H

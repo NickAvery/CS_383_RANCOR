@@ -3,18 +3,18 @@
 
 #include "JTwalls.h"
 #include "JTdoor.h"
+#include "JTbackground.h"
 #include <QGraphicsView>
 class Room: public QGraphicsView{
 private:
 public:
-    Room(QGraphicsScene* scene, bool topDoor, bool rightDoor, bool bottomDoor, bool leftDoor);
-    //Room(bool topDoor, bool rightDoor, bool bottomDoor, bool leftDoor){
+    Room(bool topDoor, bool rightDoor, bool bottomDoor, bool leftDoor, int selection);
     Walls * walls;
     Door * lDoor;
     Door * rDoor;
     Door * bDoor;
     Door * tDoor;
-
+    Background * bg;
 };
 
 #endif // JTROOM_H
