@@ -1,4 +1,4 @@
-#include "ASVictoryScreen.h".h"
+#include "ASVictoryScreen.h"
 #include "ui_victoryscreen.h"
 
 VictoryScreen::VictoryScreen(QWidget *parent) :
