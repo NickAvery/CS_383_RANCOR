@@ -132,9 +132,10 @@ void EnemyUpdater::giveInfo(qreal charX, qreal charY)
     update(charX, charY);
 }
 
-void EnemyUpdater::newEnemy(qreal x, qreal y)
+void EnemyUpdater::newEnemy(QGraphicsScene *scene, qreal x, qreal y)
 {
     sEnemies.append(mSpawner->spawnEnemy(x, y));
+    scene->addItem(getEnemy(getEnemies().size()-1));
 }
 
 Enemy *EnemyUpdater::getEnemy(int i)
