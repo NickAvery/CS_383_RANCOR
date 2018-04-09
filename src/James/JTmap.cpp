@@ -255,8 +255,19 @@ void Map::switchRooms(QString name)
             game->getCharacter()->setPostition(QPointF(400,300));
         }
         qsrand(QTime::currentTime().msec());
+        int seed1 =qrand()%10+1;
+        int seed2 =qrand()%2+1;
+        int amountenemies =0;
+        if(seed1<=1)
+            amountenemies=0;
+        else if(seed1>1 && seed1<=8)
+            amountenemies=seed1*seed2;
+        else if(seed1>8 && seed2==2)
+            amountenemies=20;
+        else
+            amountenemies=10;
         enemies->removeEnemies();
-        for(int i=0; i<5; i++){
+        for(int i=0; i<amountenemies; i++){
             enemies->newEnemy(scene, qrand()%690+40,qrand()%490+40);
         }
     }
