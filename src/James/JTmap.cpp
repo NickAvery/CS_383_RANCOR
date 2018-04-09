@@ -6,6 +6,7 @@
 #include <time.h>
 #include <stdlib.h>
 #include <QDebug>
+#include <QTime>
 
 #include "JTmap.h"
 #include "JTwalls.h"
@@ -155,6 +156,7 @@ void Map::switchRooms(QString name)
     }
 
     //remove objects from room completely
+    enemies->removeEnemies();
     delete room->walls;
     room->walls=NULL;
     delete room->rDoor;
@@ -250,6 +252,11 @@ void Map::switchRooms(QString name)
         roomChoice=floorArray[roomY][roomX];
         selectRoom(roomChoice);
         game->getCharacter()->setPostition(QPointF(400,300));
+    }
+    qsrand(QTime::currentTime().msec());
+    enemies->removeEnemies();
+    for(int i=0; i<5; i++){
+        enemies->newEnemy(scene, qrand()%690+40,qrand()%490+40);
     }
 }
 
