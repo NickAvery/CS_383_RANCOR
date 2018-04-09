@@ -150,113 +150,115 @@ void Map::selectRoom(int selection)
 
 void Map::switchRooms(QString name)
 {
-    if(storage){    //storage here is the switch for Karstin's test
-        storage=false;
-        game->getCharacter()->KNStressTest();
-    }
+    if((enemies->enemiesDead())){
+        if(storage){    //storage here is the switch for Karstin's test
+            storage=false;
+            game->getCharacter()->KNStressTest();
+        }
 
-    //remove objects from room completely
-    enemies->removeEnemies();
-    delete room->walls;
-    room->walls=NULL;
-    delete room->rDoor;
-    room->rDoor=NULL;
-    delete room->lDoor;
-    room->lDoor=NULL;
-    delete room->tDoor;
-    room->tDoor=NULL;
-    delete room->bDoor;
-    room->bDoor=NULL;
-    delete room;
-    room=NULL;
-    if(goal!=NULL)
-        delete goal;
-    goal=NULL;
-    int roomChoice;
+        //remove objects from room completely
+        enemies->removeEnemies();
+        delete room->walls;
+        room->walls=NULL;
+        delete room->rDoor;
+        room->rDoor=NULL;
+        delete room->lDoor;
+        room->lDoor=NULL;
+        delete room->tDoor;
+        room->tDoor=NULL;
+        delete room->bDoor;
+        room->bDoor=NULL;
+        delete room;
+        room=NULL;
+        if(goal!=NULL)
+            delete goal;
+        goal=NULL;
+        int roomChoice;
 
-    //this is based on which door the player moves through, to make sure movement is continuous
-    if(name=="Top"){
-        roomX--;
-        roomChoice=floorArray[roomY][roomX];
-        selectRoom(roomChoice);
-        game->getCharacter()->setPostition(QPointF(400,500));
-        if(demo){
-            if (roomX==50){
-                qDebug()<<"Enemy test.";
-                enemies->testCase(scene);
+        //this is based on which door the player moves through, to make sure movement is continuous
+        if(name=="Top"){
+            roomX--;
+            roomChoice=floorArray[roomY][roomX];
+            selectRoom(roomChoice);
+            game->getCharacter()->setPostition(QPointF(400,500));
+            if(demo){
+                if (roomX==50){
+                    qDebug()<<"Enemy test.";
+                    enemies->testCase(scene);
+                }
             }
-        }
-    } else if(name=="Bottom"){
-        roomX++;
-        //qDebug() << roomx<<" "<<roomy;
-        roomChoice=floorArray[roomY][roomX];
-        selectRoom(roomChoice);
-        game->getCharacter()->setPostition(QPointF(400,75));
-        if(demo){
-            if(roomY==52){
-                qDebug() << "Audio Stress Test";
-                AudioInter * test = new AudioInter(1,"");
-                test->stressTest();
-            } else if(roomY==54){
-                Goal * g = new Goal();
-                goal = g;
-                goal->setPos(360,260);
-                scene->addItem(goal);
-            } else if (roomX==51){
-                qDebug()<<"Enemy test.";
-                enemies->testCase(scene);
+        } else if(name=="Bottom"){
+            roomX++;
+            //qDebug() << roomx<<" "<<roomy;
+            roomChoice=floorArray[roomY][roomX];
+            selectRoom(roomChoice);
+            game->getCharacter()->setPostition(QPointF(400,75));
+            if(demo){
+                if(roomY==52){
+                    qDebug() << "Audio Stress Test";
+                    AudioInter * test = new AudioInter(1,"");
+                    test->stressTest();
+                } else if(roomY==54){
+                    Goal * g = new Goal();
+                    goal = g;
+                    goal->setPos(360,260);
+                    scene->addItem(goal);
+                } else if (roomX==51){
+                    qDebug()<<"Enemy test.";
+                    enemies->testCase(scene);
+                }
             }
-        }
-    } else if(name=="Right"){
-        roomY++;
-        //qDebug() << roomx<<" "<<roomy;
-        roomChoice=floorArray[roomY][roomX];
-        selectRoom(roomChoice);
-        game->getCharacter()->setPostition(QPointF(100,275));
-        if(demo){
-            if(roomY==52){
-                qDebug() << "Audio Stress Test";
-                AudioInter * test = new AudioInter(1,"");
-                test->stressTest();
-            }else if(roomY==53){
-                qDebug() <<"Character stress test";
-                storage=true;
-                game->getCharacter()->KNStressTest();
-            }else if(roomY==54){
-                Goal * g = new Goal();
-                goal = g;
-                goal->setPos(360,260);
-                scene->addItem(goal);
+        } else if(name=="Right"){
+            roomY++;
+            //qDebug() << roomx<<" "<<roomy;
+            roomChoice=floorArray[roomY][roomX];
+            selectRoom(roomChoice);
+            game->getCharacter()->setPostition(QPointF(100,275));
+            if(demo){
+                if(roomY==52){
+                    qDebug() << "Audio Stress Test";
+                    AudioInter * test = new AudioInter(1,"");
+                    test->stressTest();
+                }else if(roomY==53){
+                    qDebug() <<"Character stress test";
+                    storage=true;
+                    game->getCharacter()->KNStressTest();
+                }else if(roomY==54){
+                    Goal * g = new Goal();
+                    goal = g;
+                    goal->setPos(360,260);
+                    scene->addItem(goal);
+                }
             }
-        }
-    } else if(name=="Left"){
-        roomY--;
-        //qDebug() << roomx<<" "<<roomy;
-        roomChoice=floorArray[roomY][roomX];
-        selectRoom(roomChoice);
-        game->getCharacter()->setPostition(QPointF(675,275));
-        if(demo){
-            if(roomY==52){
-                qDebug() << "Audio Stress Test";
-                AudioInter * test = new AudioInter(1,"");
-                test->stressTest();
-            } else if(roomY==54){
-                Goal * g = new Goal();
-                goal = g;
-                goal->setPos(360,260);
-                scene->addItem(goal);
+        } else if(name=="Left"){
+            roomY--;
+            //qDebug() << roomx<<" "<<roomy;
+            roomChoice=floorArray[roomY][roomX];
+            selectRoom(roomChoice);
+            game->getCharacter()->setPostition(QPointF(675,275));
+            if(demo){
+                if(roomY==52){
+                    qDebug() << "Audio Stress Test";
+                    AudioInter * test = new AudioInter(1,"");
+                    test->stressTest();
+                } else if(roomY==54){
+                    Goal * g = new Goal();
+                    goal = g;
+                    goal->setPos(360,260);
+                    scene->addItem(goal);
+                }
             }
+        } else {
+            qDebug() << "Failed to match a room";
+            roomChoice=floorArray[roomY][roomX];
+            selectRoom(roomChoice);
+            game->getCharacter()->setPostition(QPointF(400,300));
         }
-    } else {
-        qDebug() << "Failed to match a room";
-        roomChoice=floorArray[roomY][roomX];
-        selectRoom(roomChoice);
-        game->getCharacter()->setPostition(QPointF(400,300));
-    }
-    qsrand(QTime::currentTime().msec());
-    enemies->removeEnemies();
-    for(int i=0; i<5; i++){
-        enemies->newEnemy(scene, qrand()%690+40,qrand()%490+40);
+        qsrand(QTime::currentTime().msec());
+        enemies->removeEnemies();
+        for(int i=0; i<5; i++){
+            enemies->newEnemy(scene, qrand()%690+40,qrand()%490+40);
+        }
     }
 }
 
