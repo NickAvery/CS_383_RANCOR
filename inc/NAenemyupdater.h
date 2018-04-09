@@ -19,7 +19,7 @@ private:
 public:
     EnemyUpdater();                             //constructor, creates enemy spawner and enemylist
     void giveInfo(qreal charX, qreal charY);    //give the player info to the enemyUpdater
-    void newEnemy(qreal x, qreal y);            //create a new enemy using the spawner
+    void newEnemy(QGraphicsScene * scene, qreal x, qreal y);            //create a new enemy using the spawner
     Enemy *getEnemy(int i);                     //get an enemy from the list
     QList<Enemy*> getEnemies();                 //get the entire list of enemies
     void testCase(QGraphicsScene * scene);      //run the test case
