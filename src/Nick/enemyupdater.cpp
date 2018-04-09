@@ -14,8 +14,7 @@ void EnemyUpdater::testCase(QGraphicsScene *scene)
     while (testCaseNum < testCaseMax)
     {
         //qDebug() << "makin em";
-        newEnemy(rand()%690+40, rand()%490+40);
-        scene->addItem(getEnemy(getEnemies().size()-1));
+        newEnemy(scene, rand()%690+40, rand()%490+40);
         testCaseNum++;
     }
 }
