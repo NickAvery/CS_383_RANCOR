@@ -1,6 +1,6 @@
 #include "JTgoal.h"
 
-Goal::Goal(): QObject(), QGraphicsRectItem()
+Goal::Goal(): QObject(), QGraphicsPixmapItem()
 {
-    setRect(0,0,40,40);
+    setPixmap(QPixmap(":/images/Stairs.png"));
 }
