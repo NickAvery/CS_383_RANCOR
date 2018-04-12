@@ -163,6 +163,7 @@ void Player::put(QPointF p)
         qDebug() << "Failed to find Walls";
         myWalls = myMap->room->walls;
     }
+    myWalls->setPos(40, 40);
 }
 
 /*
