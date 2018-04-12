@@ -39,8 +39,6 @@ public:
     void newRoom();
     void playerSwitchRooms();
 private:
-    void moveToCenter();
-    void moveToDoor();
     void shootEnemy();
     void pathUpdate();
     void adjustPlayerMovement();
@@ -52,7 +50,7 @@ private:
     QChar c;
     QLineF mLine = QLineF();
     Map* mMap = NULL;
-    Walls* mWalls = NULL;
+    QRectF mWallsRect = QRectF();
     EnemyUpdater* mEnemyUpdate = NULL;
     Character* mParent = NULL;
     Game* mGame = NULL;
@@ -69,7 +67,7 @@ private:
     QLineF mMovePath = QLineF();    //[M_ember Move Pathway ]Line that shows the path that is being traveled by the autopilot.
 
     bool mSPath = false;        //do we know successPath?
-    bool mCentered = true;     //Have we reached the center of the room?
+    //bool mCentered = true;     //Have we reached the center of the room?
     bool mIsShooting = false;   //Are we currently shooting?
     bool checkEnemies = false; //Do Enemies need to be checked?
 

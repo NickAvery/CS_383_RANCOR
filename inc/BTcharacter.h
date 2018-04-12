@@ -65,13 +65,13 @@ public:
     void KNStressTest();    //Karstin's stress Test.
     void setMousePoint(QPointF p);
     void toggleShooting();
-    bool Contains(QPointF &p, bool);
+    //bool Contains(QPointF &p, bool);
 
     //Called by player object.
     void playerLeaveRoom(QString name);
     void gameWin();
 private:
-    bool invincibilityFrameCount();
+    bool invincibilityFrameCount(int frames);
     bool shotCooldownCount();
     int shoot();
     //Handles a counter that handles invicibility frames.

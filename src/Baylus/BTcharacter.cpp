@@ -142,6 +142,7 @@ QPointF Character::getPosition()
     } else {
         qDebug() << "Real bad errors.";
     }
+    return QPointF();
 }
 
 QPointF Character::getCenter()
@@ -285,7 +286,7 @@ void Character::update()
     }
     myPlayer->move();
     if (isInvulnernable) {
-        isInvulnernable = invincibilityFrameCount();
+        isInvulnernable = invincibilityFrameCount(0);
     }
     //emit(SIGNAL(shotTick()));
     if (mIsShooting) {
@@ -344,7 +345,9 @@ void Character::doDamage(double damage)
     sDamage->playSound();
     //qDebug() << "After Damgage: " << mStats->currentHealth;
 
-    isInvulnernable = true;
+    //Make Player Invincible
+    //isInvulnernable = true;
+    invincibilityFrameCount(100);   //Makes player invulnerable for 1000 miliseconds. [100 updates * 10 ticks / update].
 
 //scene->removeItem();
 }
@@ -352,9 +355,9 @@ void Character::doDamage(double damage)
 void Character::successPath(QString path)
 {
     //static QChar* p = path.begin();
-    static QString::iterator i = path.begin();
+    //static QString::iterator i = path.begin();
     //static QString::iterator = path.begin();
-
+    if (0) qDebug() << path;
 }
 
 void Character::setPlayerStats(DataBank* p)
@@ -377,16 +380,26 @@ void Character::toggleShooting()
     mIsShooting = !mIsShooting;
 }
 
+
+/*
+ *  This function just seemed to not be useful, was created
+ *      with a poor design mindset at the time.
+ *  Most of the code from this period is going to be removed because
+ *      it is unhelpful and clunky.
+ *
+ *
 bool Character::Contains(QPointF& p, bool proper)
 {
-    /*
+    / *
     //return myPlayer->pixmap().rect().contains(p, proper);
     //return myPlayer->pixmap().rect().contains( p.x(), p.y());
     QLineF line = QLineF ( myPlayer->pos(), QPointF(p.x(), p.y()) );
     if (line.length() < 25) {
         return true;
-    }*/
+    }* /
+    return false;
 }
+*/
 
 void Character::playerLeaveRoom(QString name)
 {
@@ -407,11 +420,20 @@ void Character::gameWin()
  *  Intended to be called in update() if the player is invulnerable. Will be called
  *      every tick, and return the boolean value of whether the player is invulnerable.
  */
-bool Character::invincibilityFrameCount()
+bool Character::invincibilityFrameCount(int frames)
 {
     static int i = 0;
+    static int frameCount = 0;
 
-    i = ++i % INVINC_FRAMES;
+    if (frames != 0) {
+        frameCount = frames;
+        isInvulnernable = true;
+        return true;
+    }
+
+    //i = ++i % INVINC_FRAMES;
+    ++i;
+    i = i % frameCount;
     if (i == 0) {
         //Invulnerability over.
         return false;
@@ -427,8 +449,8 @@ bool Character::invincibilityFrameCount()
 bool Character::shotCooldownCount()
 {
     static int i = 0;
-
-    i = ++i % (mStats->fireRate * CONST_FIRE_MODIFIER );
+    ++i;
+    i = i % (mStats->fireRate * CONST_FIRE_MODIFIER );
     if (i == 0) {
         //Cooldown over.
         return false;

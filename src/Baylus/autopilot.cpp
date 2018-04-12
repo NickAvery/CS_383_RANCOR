@@ -76,30 +76,6 @@ void Autopilot::autopilotUpdate()
 
 
     //Not sure what this section does now.
-    /*
-    if(!mCentered) {
-        if (mParent->Contains(mMoveGoal, false)) { //Center Reached
-            qDebug()<< "Ive Reached the center";
-            mCentered = true;
-            if (!successPath.isEmpty()) {
-                c = 'R';
-                //c = nextRoom();
-            } else {    //No path to follow
-                if (mMap->room->tDoor == NULL) {
-                    c = 'R';
-                } else {
-                    c = 'U';
-                }
-            }
-            if (c == 'R') {
-                m->moveRight = true;
-            } else if (c == 'U') {
-                m->moveUp = true;
-            }
-        }
-    }
-    */
-
 }
 
 /* newRoom()
@@ -118,9 +94,9 @@ void Autopilot::newRoom()
     m->moveRight = false;
     m->moveLeft = false;
     */
-    mCentered = false;
+    //mCentered = false;
     mMoveGoal = QPointF(720 / 2, 520 / 2);
-    //update Room
+//update Room
     /*
     if (mEnemyUpdate->enemiesDead()) {
         //mEnemies = QList();
@@ -150,16 +126,7 @@ void Autopilot::newRoom()
         shootEnemy();
     }
 }
-//Looks obsolete
-void Autopilot::playerSwitchRooms()
-{
-    assert(m);
-    m->moveUp = false;
-    m->moveDown = false;
-    m->moveRight = false;
-    m->moveLeft = false;
 
-}
 
 /*
  *  This functions seems really, really bad and worthless.
@@ -167,45 +134,20 @@ void Autopilot::playerSwitchRooms()
  *      every ounce of my sanity not to remove it immediately.
  *
  */
+/*
 void Autopilot::moveToCenter()
 {
     assert(mMap);
     assert(mParent);
     assert(m);
 
-    mWalls = mMap->room->walls;
-    assert(mWalls);
-    mMoveGoal = mWalls->rect().center();
+    mWallsRect = mMap->getWallsRect();
+    assert(mWallsRect);
+    mMoveGoal = mWallsRect.center();
     mLine = QLineF( mParent->getPosition(), mMoveGoal );
-    qDebug() << "long way vs short way" << QPointF( (mWalls->rect().width() / 2) + 40, (mWalls->rect().height() / 2) + 40) << mWalls->rect().center();
-
-    if (c == 'R') {
-        //Came from left
-        m->moveRight = true;
-    } else if (c == 'U') {   //Came in from the bottom.
-        m->moveUp = true;
-    } else if (c == 'L') {  //came from right
-        m->moveLeft = true;
-    } else if (c == 'D') {  //came from top
-        m->moveDown = true;
-    }
-
-    /*
-    if (mLine.angle() == 0) {   //Came From left door.
-        m->moveRight = true;
-    } else if (mLine.angle() == 90) {   //Came in from the bottom.
-        m->moveUp = true;
-    } else if (mLine.angle() == 180) {  //came from right
-        m->moveLeft = true;
-    } else if (mLine.angle() == 270) {  //came from top
-        m->moveDown = true;
-    }*/
+    qDebug() << "long way vs short way" << QPointF( (mWallsRect.width() / 2) + 40, (mWallsRect.height() / 2) + 40) << mWallsRect.center();
 }
-
-void Autopilot::moveToDoor()
-{
-
-}
+*/
 
 /* shootEnemy()
  * Fires at a "random" within the list of enemies provided by the enemy updater class.
@@ -247,7 +189,7 @@ void Autopilot::shootEnemy()
             los = QLineF();
 
             los.setP1(mParent->getCenter());
-            double d = 1 << 32; // Really large value to hold the min-distance to find closest enemy.
+            double d = 1 << 31; // Really large value to hold the min-distance to find closest enemy.
             for (int i = 0; i < mEnemyUpdate->getEnemies().count(); ++i) {
                 los.setP2( QPointF(mEnemyUpdate->getEnemy(i)->getXPos() , mEnemyUpdate->getEnemy(i)->getYPos()) );
                 if (los.length() < d) { //If mEnemies[i] is closer than Enemy e;
@@ -353,33 +295,59 @@ void Autopilot::adjustPlayerMovement()
         } else {
             dir = 0;
         }
-
+        assert( dir != -1 );
         if (lastDir != dir) {
             lastDir = dir;
             switch(dir) {
                 case 0:
+                    m->moveRight = true;
 
+                    m->moveUp = false;
+                    m->moveLeft = false;
+                    m->moveDown = false;
                     break;
                 case 1:
+                    m->moveRight = true;
+                    m->moveUp = true;
 
+                    m->moveLeft = false;
+                    m->moveDown = false;
                     break;
                 case 2:
-
+                    m->moveRight = false;
+                    m->moveUp = true;
+                    m->moveLeft = false;
+                    m->moveDown = false;
                     break;
                 case 3:
-
+                    m->moveRight=   false;
+                    m->moveUp   =   true;
+                    m->moveLeft =   true;
+                    m->moveDown =   false;
                     break;
                 case 4:
-
+                    m->moveRight=   false;
+                    m->moveUp   =   false;
+                    m->moveLeft =   true;
+                    m->moveDown =   false;
                     break;
                 case 5:
-
+                    m->moveRight=   false;
+                    m->moveUp   =   false;
+                    m->moveLeft =   true;
+                    m->moveDown =   true;
                     break;
                 case 6:
-
+                    m->moveRight=   false;
+                    m->moveUp   =   false;
+                    m->moveLeft =   false;
+                    m->moveDown =   true;
                     break;
                 case 7:
-
+                    m->moveRight=   true;
+                    m->moveUp   =   false;
+                    m->moveLeft =   false;
+                    m->moveDown =   true;
                     break;
             }
         }

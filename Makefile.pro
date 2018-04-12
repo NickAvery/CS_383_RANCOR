@@ -35,7 +35,8 @@ HEADERS += inc/JAaudio.h inc/JAgame.h  inc/Jake/sound.h inc/Jake/music.h        
     inc/Nick/enemyspawner.h \
     inc/Baylus/autopilot.h \
     inc/Jake/JAaudiosuper.h \
-    inc/Angelo/ASVictoryScreen.h
+    inc/Angelo/ASVictoryScreen.h \
+    inc/BTentity.h
 
 
 
@@ -49,7 +50,8 @@ src/Angelo/ASmenu.cpp                                                 \
 src/Baylus/BTcharacter.cpp src/Baylus/BTplayer.cpp src/Baylus/BTshot.cpp \
     src/Nick/enemyspawner.cpp \
     src/Baylus/autopilot.cpp \
-    src/Angelo/ASVictoryScreen.cpp
+    src/Angelo/ASVictoryScreen.cpp \
+    src/Baylus/BTentity.cpp
 
 
 RESOURCES += src/Jake/sounds.qrc \

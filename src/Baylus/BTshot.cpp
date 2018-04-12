@@ -37,7 +37,7 @@ Shot::Shot(double s, QLineF l)
     //angle = l.angleTo(QLineF( 0.0,0.0,1.0, 0.0 ));
     //angle = l.angle();
     setRotation( 90-l.angle());
-    qDebug() << "Angle" << 90-l.angle();
+    //qDebug() << "Angle" << 90-l.angle();
     angle = (l.angle() * PI ) / 180;
     //QGraphicsRectItem::setRect( 0, 0, size, size );
     //QGraphicsRectItem::setPos( l.x1(), l.y1() );

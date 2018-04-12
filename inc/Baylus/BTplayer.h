@@ -40,7 +40,7 @@ private:
     //QGraphicsRectItem* ghost;  //Entirely useless, im pretty sure.
     Game* myGame;
     Character* mCharacter;
-    Walls *myWalls;
+    QRectF mPlayerWallsRect;
     Map* myMap;
     struct direction *Move;
     double speed = 2;

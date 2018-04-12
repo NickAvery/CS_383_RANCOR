@@ -20,7 +20,7 @@
 
 Player::Player(Character *parent, direction *movement, Game* thegame)
 {
-    int length = 40;
+    //int length = 40;
     //myCharacter = parent;
     Move = movement;
     //setRect( 0, 0, length, length );
@@ -46,38 +46,29 @@ Player::Player(Character *parent, direction *movement, Game* thegame)
     //myWalls = myMap->room->walls;
 
     //Get Walls
-    myWalls = NULL;
+    mPlayerWallsRect = QRectF();
     //QList<QGraphicsItem *> list = collidingItems(Qt::ContainsItemShape) ;
     QList<QGraphicsItem *> list = collidingItems() ;
     foreach(QGraphicsItem * i , list)
     {
         Walls * item= dynamic_cast<Walls *>(i);
-        if (item) myWalls = item;
+        if (item) mPlayerWallsRect = item->rect();
     }
 
-    if (myWalls == NULL) {
+    if (mPlayerWallsRect.isNull()) {
         qDebug() << "Failed to find Walls";
-        myWalls = myMap->room->walls;
+        mPlayerWallsRect = myMap->getWallsRect();
     }
-/*
-    if ( collidesWithItem(myWalls, Qt::ContainsItemShape) ) {
-//       qDebug() << "Is colliding with wall.";
-    }
-    if (! (ghost->collidesWithItem(myWalls, Qt::ContainsItemShape)) ) {
-//        qDebug() << "ghost Is not colliding with wall.";
-    }
-    */
-    myWalls->setPos(40, 40);
+    mPlayerWallsRect.setX(40);
+    mPlayerWallsRect.setY(40);
 }
 
 void Player::move()
 {
-    if (myWalls == NULL) {
-        qDebug() << "Not within Walls.";
-        //return;
-    }
+    assert(Move);
+    assert(!mPlayerWallsRect.isNull());
     double moveDistance = speed * 1;
-    int forwardTime = 10; //# of ticks that the "ghost" is ahead of the player.
+    //int forwardTime = 10; //# of ticks that the "ghost" is ahead of the player.
     /* Alternate way that movement can be controlled, uses collisions to ensure that
      * the player always stays within the bounding rectangle object that is created by the
      * Map class. Not sure if i need to include the Map class to ensure that i will be able
@@ -95,7 +86,8 @@ void Player::move()
     //double y = QGraphicsRectItem::rect().bottom();
     if (Move->moveUp) {
         double newY = y - moveDistance;
-        double topWall = myWalls->pos().y();
+        //double topWall = mPlayerWallsRect->pos().y();
+        double topWall = mPlayerWallsRect.top();
         if (newY >= topWall) {  //If not colliding with walls
             setPos( x , newY );
             y = newY;   //To keep track of the real values such that movement isnt inhibited by
@@ -108,7 +100,8 @@ void Player::move()
     if (Move->moveDown) {
         double newY = y + moveDistance;
 //qDebug() << "y = " << y << "\t move = " << newY;
-        double botWall = myWalls->y() + myWalls->rect().height();
+        //double botWall = mPlayerWallsRect->y() + mPlayerWallsRect->rect().height();
+        double botWall = mPlayerWallsRect.bottom();
         //qDebug() << "botWall: " << botWall << "\theight: " << rect().height() << "\ttop: " << rect().top();
         if (botWall >= newY + pixmap().rect().height()){    //If not colliding with walls
             setPos( x, newY );
@@ -120,7 +113,8 @@ void Player::move()
     }
     if (Move->moveRight) {
         double newX = pos().x()  + moveDistance;
-        double rightWall = myWalls->x() + myWalls->rect().width();
+        //double rightWall = mPlayerWallsRect->x() + mPlayerWallsRect->rect().width();
+        double rightWall = mPlayerWallsRect.right();
         if (newX + pixmap().rect().width() <= rightWall){ //If not colliding with walls
             setPos( newX, y );
         } else {                //move to wall edge intead
@@ -129,7 +123,8 @@ void Player::move()
     }
     if (Move->moveLeft) { //if not moving past border
         double newX = pos().x() - moveDistance;
-        double leftWall = myWalls->pos().x();
+        //double leftWall = mPlayerWallsRect->pos().x();
+        double leftWall = mPlayerWallsRect.left();
         if (leftWall <= newX) { //If not colliding with walls
             setPos( newX, y );
         } else {                 //move to wall edge instead
@@ -150,20 +145,25 @@ void Player::put(QPointF p)
 
 
     //Get new Walls
-    myWalls = NULL;
+    mPlayerWallsRect = myMap->getWallsRect();
+
+
+    /*  //Unnecessary since Map::GetWallsRect().
     QList<QGraphicsItem *> list = collidingItems() ;
 
     foreach(QGraphicsItem * i , list)
     {
         Walls * item= dynamic_cast<Walls *>(i);
-        if (item) myWalls = item;
+        if (item) mPlayerWallsRect = item;
     }
 
-    if (myWalls == NULL) {
+    if (mPlayerWallsRect.isNull()) {
         qDebug() << "Failed to find Walls";
-        myWalls = myMap->room->walls;
+        mPlayerWallsRect = myMap->getWallsRect();
     }
-    myWalls->setPos(40, 40);
+    */
+    mPlayerWallsRect.setX(40);
+    mPlayerWallsRect.setY(40);
 }
 
 /*
