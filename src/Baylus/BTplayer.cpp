@@ -67,6 +67,7 @@ Player::Player(Character *parent, direction *movement, Game* thegame)
 //        qDebug() << "ghost Is not colliding with wall.";
     }
     */
+    myWalls->setPos(40, 40);
 }
 
 void Player::move()
