@@ -22,8 +22,8 @@ class AudioInter{
  private:
 
   int mCharClass;                                     //not currently working for the purpose of the demo
-  Audio* mClass;
-  QMediaPlayer * mSound;                               //holds the sound information
+  AudioAll* mClass;
+  //QMediaPlayer * mSound;                               //holds the sound information
 
   void delay();
 };
