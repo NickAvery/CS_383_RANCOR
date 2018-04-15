@@ -16,12 +16,16 @@ Game::Game()
     //creates a new scene object.
   Pause = false;
     //Set Pause to be false initially.
-  AudioInter * music = new AudioInter(0, "qrc:/sounds/Sounds/Break-Down.mp3");
+  music = new AudioInter(0, "qrc:/sounds/Sounds/Break-Down.mp3");
   music->playSound();
   music->setVolume(10);
-
 }
 
+void Game::NextLevel()
+{
+   music->setSound(QString("qrc:/sounds/Sounds/Light-Years_v001.mp3"));
+   music->playSound();
+}
 
 void Game::start(int CharClass)
 {

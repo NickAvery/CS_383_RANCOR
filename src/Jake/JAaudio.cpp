@@ -2,8 +2,8 @@
 #include "music.h"
 #include "sound.h"
 #include "JAaudiosuper.h"
-
 #include <QTime>
+#include <QTimer>
 
 
 AudioAll::AudioAll(QString x){
@@ -27,23 +27,25 @@ AudioInter::AudioInter(int Sound_choice, QString soundpath)
     }
     else{
         mClass = new Music(soundpath);
+
+        QTimer* musicManager = new QTimer();
+        connect(musicManager,SIGNAL(timeout()),this,SLOT(musicManage()));
+        musicManager->start(100);
+
     }
-    //Sound_choice++;
-    //mSound = new QMediaPlayer;
-    //mSound->setMedia(QUrl(soundpath));
 }
 
+void AudioInter::musicManage(){
+    mClass->manage();
+}
+
+void AudioInter::setSound(QString soundpath){
+    mClass->setSound(soundpath);
+}
 
 int AudioInter::playSound() //sound effect that you wish to be played
 {
-    /*if(mSound->state()==QMediaPlayer::PlayingState){
-                mSound->setPosition(0);
-            }
-            else if(mSound->state() == QMediaPlayer::StoppedState){
-            mSound->play();
-           }
-    */
-    //mSound->play();
+
     mClass->play();
     return 0;
 }
