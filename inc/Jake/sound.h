@@ -1,20 +1,20 @@
-/*
+
  #ifndef SOUND_H
 #define SOUND_H
 
-#include "audio.h"
+#include "JAaudiosuper.h"
 #include <QString>
 #include <QMediaPlayer>
-class Audio;
 
-class Sound:public Audio{
+class Sound:public AudioAll{
+   public:
+
     Sound(QString);
 
-    int play();
-    int pause();
-private:
-    QMediaPlayer * mSound;
-
+    void play();
+    void pause();
+    void setVolume(int x);
 };
+
 #endif // SOUND_H
-*/
+

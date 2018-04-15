@@ -1,41 +1,19 @@
- #ifndef AUDIO_H
-#define AUDIO_H
+#ifndef JAAUDIO_H
+#define JAAUDIO_H
 
 #include <QDebug>
 #include <QString>
-
-class Audio{
+#include <QMediaPlayer>
+class AudioAll{
 public:
-    void saySomething(){ qDebug() << "something";
-                       name = "string";}
-    virtual void play(void)= 0;
-    virtual void pause(void) = 0;
-private:
-    Qstring name;
-};
-
-/*
-
-class Music: public Audio{
-public:
-    Music(QString);
-    void play(void);
-    void pause(void);
-private:
+    AudioAll(QString);
+    virtual void play()= 0;
+    virtual void pause() = 0;
+    virtual void setVolume(int x) = 0;
+protected:
+    QString name;
     QMediaPlayer * mSound;
-
 };
+#endif // JAAUDIO_H
 
 
-class Sound:public Audio{
-    Sound(QString);
-
-    int play();
-    int pause();
-private:
-    QMediaPlayer * mSound;
-
-};
-
-*/
-#endif // AUDIO_H
