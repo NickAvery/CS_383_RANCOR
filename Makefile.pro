@@ -51,7 +51,9 @@ src/Baylus/BTcharacter.cpp src/Baylus/BTplayer.cpp src/Baylus/BTshot.cpp \
     src/Nick/enemyspawner.cpp \
     src/Baylus/autopilot.cpp \
     src/Angelo/ASVictoryScreen.cpp \
-    src/Baylus/BTentity.cpp
+    src/Baylus/BTentity.cpp \
+    src/Jake/JAmusic.cpp \
+    src/Jake/JAsound.cpp
 
 
 RESOURCES += src/Jake/sounds.qrc \
