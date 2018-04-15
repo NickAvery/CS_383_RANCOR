@@ -14,6 +14,10 @@ class Sound:public AudioAll{
     void play();
     void pause();
     void setVolume(int x);
+    void setSound(QString);
+public slots:
+    void manage(){}
+
 };
 
 #endif // SOUND_H

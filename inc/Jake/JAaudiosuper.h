@@ -10,6 +10,10 @@ public:
     virtual void play()= 0;
     virtual void pause() = 0;
     virtual void setVolume(int x) = 0;
+    virtual void setSound(QString) = 0;
+public slots:
+    virtual void manage() = 0;
+
 protected:
     QString name;
     QMediaPlayer * mSound;
