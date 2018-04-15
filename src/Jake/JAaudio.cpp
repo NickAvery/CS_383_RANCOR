@@ -1,9 +1,15 @@
 #include "JAaudio.h"
-//#include "music.h"
-//#include "sound.h"
-//#include "JAaudiosuper.h"
+#include "music.h"
+#include "sound.h"
+#include "JAaudiosuper.h"
 
 #include <QTime>
+
+
+AudioAll::AudioAll(QString x){
+    name = x;
+}
+
 
 void AudioInter::delay()
 {
@@ -15,30 +21,30 @@ void AudioInter::delay()
 
 AudioInter::AudioInter(int Sound_choice, QString soundpath)
 {
-    /*
+
     if(Sound_choice == 1){
         mClass = new Sound(soundpath);
     }
     else{
         mClass = new Music(soundpath);
-    }*/
-    Sound_choice++;
-    mSound = new QMediaPlayer;
-    mSound->setMedia(QUrl(soundpath));
+    }
+    //Sound_choice++;
+    //mSound = new QMediaPlayer;
+    //mSound->setMedia(QUrl(soundpath));
 }
 
 
 int AudioInter::playSound() //sound effect that you wish to be played
 {
-    if(mSound->state()==QMediaPlayer::PlayingState){
+    /*if(mSound->state()==QMediaPlayer::PlayingState){
                 mSound->setPosition(0);
             }
             else if(mSound->state() == QMediaPlayer::StoppedState){
             mSound->play();
            }
-    
+    */
     //mSound->play();
-    //mClass->play();
+    mClass->play();
     return 0;
 }
 
@@ -52,7 +58,7 @@ int AudioInter::setCharClass(int CharClass)
 
 int AudioInter::setVolume(int volume)
 {
-      mSound->setVolume(volume);
+      mClass->setVolume(volume);
     return 0;
 }
 
