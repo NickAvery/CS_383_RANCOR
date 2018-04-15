@@ -7,6 +7,7 @@
 #include "NAenemyupdater.h"
 #include "BTcharacter.h"
 #include "JTmap.h"
+#include "JAaudio.h"
 
 class Character;
 class Map;
@@ -19,7 +20,7 @@ class Game : public QGraphicsView{
 
   Character* Player;
   //the player object that is currently the player
-
+  AudioInter * music;
   Map * map;
 
   QTimer * timer;
@@ -37,6 +38,8 @@ class Game : public QGraphicsView{
   Game();
     //Initializes a new game
     //Creates a new scene object
+
+  void NextLevel();
 
   void mainMenu();
     //mainMenu creates a new main menu object and shows it.
