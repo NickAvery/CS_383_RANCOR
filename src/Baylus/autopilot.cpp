@@ -180,7 +180,8 @@ void Autopilot::shootEnemy()
     if (!mEnemies.empty()) {
         Enemy* e = NULL;
         if (mEnemies.count() < 10) {    //If there are a lot of enemies to check.
-            lCount = ++lCount % mEnemyUpdate->getEnemies().count();
+            ++lCount;
+            lCount = lCount % mEnemyUpdate->getEnemies().count();
             //mEnemies = ;
             //e = (mEnemies)[lCount];
             e = mEnemyUpdate->getEnemy(lCount);

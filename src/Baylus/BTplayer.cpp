@@ -15,6 +15,7 @@
 #include "JTroom.h"
 #include "JTgoal.h"
 
+#include <QGraphicsRectItem>
 
 #include <QWidget>
 
@@ -54,19 +55,30 @@ Player::Player(Character *parent, direction *movement, Game* thegame)
         Walls * item= dynamic_cast<Walls *>(i);
         if (item) mPlayerWallsRect = item->rect();
     }
-
+    QRectF temp;
     if (mPlayerWallsRect.isNull()) {
         qDebug() << "Failed to find Walls";
-        mPlayerWallsRect = myMap->getWallsRect();
+        //mPlayerWallsRect = myMap->getWallsRect();
+        temp = myMap->getWallsRect();
+        qDebug() << "Player Walls (Before change)" << mPlayerWallsRect;
+
     }
-    mPlayerWallsRect.setX(40);
-    mPlayerWallsRect.setY(40);
+    //mPlayerWallsRect.setPos();
+    mPlayerWallsRect.setRect(40, 40, temp.width(), temp.height());
+    //mPlayerWallsRect.setPos(40, 40);
+    //mPlayerWallsRect.setCoords();
+    //mPlayerWallsRect.setX(40);
+    //mPlayerWallsRect.setY(40);
+    qDebug() << "Player Walls" << mPlayerWallsRect;
 }
 
 void Player::move()
 {
     assert(Move);
     assert(!mPlayerWallsRect.isNull());
+
+    //qDebug() << "Player Walls." << mPlayerWallsRect;
+
     double moveDistance = speed * 1;
     //int forwardTime = 10; //# of ticks that the "ghost" is ahead of the player.
     /* Alternate way that movement can be controlled, uses collisions to ensure that
@@ -146,24 +158,9 @@ void Player::put(QPointF p)
 
     //Get new Walls
     mPlayerWallsRect = myMap->getWallsRect();
+    mPlayerWallsRect.setRect(40, 40, mPlayerWallsRect.width(), mPlayerWallsRect.height());
 
-
-    /*  //Unnecessary since Map::GetWallsRect().
-    QList<QGraphicsItem *> list = collidingItems() ;
-
-    foreach(QGraphicsItem * i , list)
-    {
-        Walls * item= dynamic_cast<Walls *>(i);
-        if (item) mPlayerWallsRect = item;
-    }
-
-    if (mPlayerWallsRect.isNull()) {
-        qDebug() << "Failed to find Walls";
-        mPlayerWallsRect = myMap->getWallsRect();
-    }
-    */
-    mPlayerWallsRect.setX(40);
-    mPlayerWallsRect.setY(40);
+//    qDebug() << "Player Walls" << mPlayerWallsRect;
 }
 
 /*
@@ -211,7 +208,7 @@ int Player::checkCollisions()
         }
     }
     //return 0;
-    if (r & 1) { //Check this condition last, needs to happen
+    if (r) { //Check this condition last, needs to happen
         mCharacter->playerLeaveRoom(name);
     }
     return r;

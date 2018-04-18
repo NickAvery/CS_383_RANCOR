@@ -18,6 +18,7 @@ class Character;
 class Game;
 class Map;
 
+
 struct direction {
     int num;    //0 for right, 1 for up-right, 2 for up, 3 for up-left, etc.
     bool moveUp;
@@ -41,6 +42,8 @@ private:
     Game* myGame;
     Character* mCharacter;
     QRectF mPlayerWallsRect;
+//    QGraphicsRectItem mPlayerWallsRect;
+
     Map* myMap;
     struct direction *Move;
     double speed = 2;

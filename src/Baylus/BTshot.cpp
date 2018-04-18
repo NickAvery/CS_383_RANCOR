@@ -104,7 +104,7 @@ int Shot::shotUpdate()
         //qDebug() << "Hit Something!";
         delete this;
     }
-
+    return 0;
 }
 
 /* This slot is initialized by calling function

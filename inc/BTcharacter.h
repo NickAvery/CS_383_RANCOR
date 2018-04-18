@@ -16,6 +16,8 @@
 #include "JAgame.h"
 #include "JAaudio.h"
 //#include "BTplayer.h"
+#include "BTshot.h"         // "struct weaponStats",
+
 
 #include <QWidget>
 #include <QPoint>
@@ -25,11 +27,13 @@
 
 class SkillManager;
 class Game;
-class Player;
+class Player;       // Player object handles the Pixmap, movement, colision signaling.
+class Map;
+class Autopilot;    // Handles auto-movement and firing
+
 struct direction;
 struct DataBank;
-class Map;
-class Autopilot;
+struct weaponStats;
 
 class Character : public QWidget
 {
@@ -72,7 +76,7 @@ public:
     void gameWin();
 private:
     bool invincibilityFrameCount(int frames);
-    bool shotCooldownCount();
+    bool shotCooldownCount(int t);
     int shoot();
     //Handles a counter that handles invicibility frames.
     bool isInvulnernable = false;
@@ -94,19 +98,19 @@ private:
     Player *myPlayer;
     Walls* myWalls;   //Stores the walls object that i need to not collide with.
     EnemyUpdater* mEnemyUpdater;
+
     //Player Stats
-    //Temporary until Stats are up and running.
-    //double tHealth = 100;
-    //double cHealth = tHealth;
-    //double shotSpeed = 2.5;
     struct DataBank* mStats;
 
 
-    Autopilot* mAP = NULL;
     //Sounds
     AudioInter* mLaser;
     AudioInter* sDamage;
     //Audiointer* damage[3];
+
+    //Other
+    Autopilot* mAP = NULL;
+    struct weaponStats mWeapStats;
 //protected:
 signals:
     void shotTick();

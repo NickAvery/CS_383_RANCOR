@@ -18,6 +18,21 @@
 #include <QLineF>
 #include <QGraphicsPixmapItem>
 
+struct weaponStats {
+    int* shotSpeed = NULL;          //bullet travel speed
+    int* shotSize = NULL;           //
+    int* shotDamage = NULL;         //damage on impact
+    int* shotCooldown = NULL;       // Related to frequency that player is allowed to fire.
+
+    double* multiShotOffset = NULL; //the horizontal offset of the bullets from one another. (i.e. not angle of them)
+    int* multiShotNumber = NULL;    //Number of shots per weapon-fire.
+    double* multiShotAngle = NULL;  //The angle between each of the several bullets.
+
+    bool* doesBulletSplit = NULL;   //bullet splitting upon impact.
+
+};
+
+
 class Shot: public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT

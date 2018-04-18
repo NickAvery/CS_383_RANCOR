@@ -95,10 +95,10 @@ Character::Character(int characterNumber , bool autopilot, bool successPath, Gam
     //https://stackoverflow.com/questions/23533691/qt-collision-detection-with-custom-qgraphicsitem-classes
 
     //Set up Audio Objects
-    mLaser = new AudioInter(0, "qrc:/sounds/Sounds/Laser.wav");
+    mLaser = new AudioInter(1, "qrc:/sounds/Sounds/Laser.wav");
     mLaser->setVolume(5);
 
-    sDamage = new AudioInter(0, "qrc:/sounds/Sounds/damage1.wav");
+    sDamage = new AudioInter(1, "qrc:/sounds/Sounds/damage1.wav");
     sDamage->setVolume(15);
 
     //Load the shot image into cache
@@ -116,6 +116,34 @@ Character::Character(int characterNumber , bool autopilot, bool successPath, Gam
             mAP = new Autopilot(this, myGame, QString(), myMove);
         }
     }
+
+    //Set up weapon stats.
+/*
+struct DataBank {
+  int size[2];
+  int totalHealth;
+  int currentHealth;
+  int speed;
+  int damage;
+  int fireRate;
+  int shotSpeed;
+};
+
+struct weaponStats {
+    int* shotSpeed = NULL;          //bullet travel speed
+    int* shotSize = NULL;           //
+    int* shotDamage = NULL;         //damage on impact
+    int* shotCooldown = NULL;       // Related to frequency that player is allowed to fire.
+
+    double* multiShotOffset = NULL; //the horizontal offset of the bullets from one another. (i.e. not angle of them)
+    int* multiShotNumber = NULL;    //Number of shots per weapon-fire.
+    double* multiShotAngle = NULL;  //The angle between each of the several bullets.
+
+    bool* doesBulletSplit = NULL;   //bullet splitting upon impact.
+
+};
+*/
+
 }
 
 Character::~Character()
@@ -291,31 +319,7 @@ void Character::update()
     //emit(SIGNAL(shotTick()));
     if (mIsShooting) {
         //Trying to shoot a bullet.
-
-        //Face Player Towards Firing.
-        QLineF fireLine = QLineF( myPlayer->pos(), mMousePoint  );
-
-
-        myPlayer->setRotation( 90 - fireLine.angle() );
-
-        if (mShotCooldown) {
-            //Shot is on Cooldown.
-            mShotCooldown = shotCooldownCount();
-        } else {
-            //Shot is not on cooldown.
-            //Shoot a bullet.
-            QPointF p = myPlayer->pos();
-            //qDebug() << "Firing a shot" << p << " to " << event->windowPos();
-            //Shot* s = new Shot( mStats->shotSpeed, QLineF(p , QCursor::pos()) );
-            //Shot* s = new Shot( mStats->shotSpeed, QLineF(p , mMoveEvent->windowPos()) );
-            Shot* s = new Shot( mStats->shotSpeed, QLineF(p , mMousePoint) );
-            connect(this, SIGNAL(shotTick()), s, SLOT(shotUpdate()));
-            connect(this, SIGNAL(shotKill()), s, SLOT(kill()));
-
-            scene->addItem(s);
-            mLaser->playSound();
-            mShotCooldown = true;
-        }
+        (void) shoot(); //Do not need return from this yet. Consider removing.
     } else {
         //Player not trying to shoot.
         //Player faces move direction.
@@ -324,7 +328,7 @@ void Character::update()
     shotTick();
     //Karstin's stress Test
     if (mKNStressTest) {
-        mySkillManager->addExperience(1);
+        mySkillManager->addExperience(10);
     }
 }
 
@@ -446,14 +450,51 @@ bool Character::invincibilityFrameCount(int frames)
  *  Very similar to invicibilityFrameCount()
  *
  */
-bool Character::shotCooldownCount()
+bool Character::shotCooldownCount(int t)
 {
     static int i = 0;
+    static int s = t * CONST_FIRE_MODIFIER;     //calculations to be used in the future.
+    if ( t != 0 ) {
+        i = 0;
+        s = t * CONST_FIRE_MODIFIER;
+    }
     ++i;
-    i = i % (mStats->fireRate * CONST_FIRE_MODIFIER );
+    i = i % s;
     if (i == 0) {
         //Cooldown over.
         return false;
     }
     return true;
+}
+
+/* shoot()
+ * Handles player rotation while shooting.
+ *
+ * Handles firing weapon.
+ */
+int Character::shoot()
+{
+
+    //Face Player Towards Firing.
+    QLineF fireLine = QLineF( myPlayer->pos(), mMousePoint  );
+    myPlayer->setRotation( 90 - fireLine.angle() );
+
+    if (mShotCooldown) {
+        //Shot is on Cooldown.
+        mShotCooldown = shotCooldownCount(0);
+    } else {
+        //Shot is not on cooldown.
+        //Shoot a bullet.
+        //QPointF p = myPlayer->pos();
+        //Shot* s = new Shot( mStats->shotSpeed, QLineF(p , mMousePoint) );
+        Shot* s = new Shot( mStats->shotSpeed, fireLine );
+        connect(this, SIGNAL(shotTick()), s, SLOT(shotUpdate()));
+        connect(this, SIGNAL(shotKill()), s, SLOT(kill()));
+
+        scene->addItem(s);
+        mLaser->playSound();
+        //mShotCooldown = true;
+        mShotCooldown = shotCooldownCount(mStats->fireRate);
+    }
+    return 0;
 }
