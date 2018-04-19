@@ -80,7 +80,7 @@ public:
 private:
     bool invincibilityFrameCount(int frames);
     bool shotCooldownCount(int t);
-    int shoot();
+    int shoot(QLineF fireLine);
     //Handles a counter that handles invicibility frames.
     bool isInvulnernable = false;
     bool mIsShooting = false;
@@ -98,6 +98,8 @@ private:
     SkillManager* mySkillManager;
     QGraphicsScene* scene;
     struct direction* myMove;    //Passing into the Player Object.
+    int mNumKeys = 0;
+
     Player *myPlayer;
     Walls* myWalls;   //Stores the walls object that i need to not collide with.
     EnemyUpdater* mEnemyUpdater;
@@ -114,7 +116,8 @@ private:
     //Other
     Autopilot* mAP = NULL;
     struct weaponStats mWeapStats;
-//protected:
+    //protected:
+    int getMoveDirection();
 signals:
     void shotTick();
     void shotKill();

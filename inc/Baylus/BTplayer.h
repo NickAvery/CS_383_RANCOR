@@ -20,8 +20,8 @@ class Map;
 
 
 struct direction {
-    int dirNum;    //0 for right, 1 for up-right, 2 for up, 3 for up-left, etc.
-    char dirStr[4]; //char represents boolean value. { (Down), (Left), (Up), (Right) }
+    int dirNum = -1;    //0 for right, 1 for up-right, 2 for up, 3 for up-left, etc.
+    //char dirStr[4]; //char represents boolean value. { (Down), (Left), (Up), (Right) }
     bool moveUp;
     bool moveDown;
     bool moveRight;

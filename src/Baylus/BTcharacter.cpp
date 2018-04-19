@@ -181,9 +181,6 @@ QPointF Character::getPosition()
     return QPointF();
 }
 
-
-
-
 void Character::setPostition(QPointF point)
 {
     //emit(shotKill());
@@ -194,6 +191,44 @@ void Character::setPostition(QPointF point)
     }
 }
 
+
+/* This function assumes traditional coordinate system plane internally.
+ */
+int Character::getMoveDirection()
+{
+    int deltaX = (myMove->moveRight) - (myMove->moveLeft);
+    int deltaY = (myMove->moveUp) - (myMove->moveDown);
+    //aaaaaaqDebug() << "Deltas " << deltaX << deltaY;
+    if (deltaX && deltaY) { //moving in both x and y directions.
+        if ( (deltaX == 1) && (deltaY == 1) )
+            return 1;
+        else if ( (deltaX == -1) && (deltaY == 1) )
+            return 3;
+        else if ( (deltaX == -1) && (deltaY == -1) )
+            return 5;
+        else if ( (deltaX == 1) && (deltaY == -1) )
+            return 7;
+    } else if (deltaX) {    //moving in just X direction.
+        if (myMove->moveRight) {
+            //If moving right
+            return 0;
+        } else {
+            //Moving left.
+            return 4;
+        }
+    } else if (deltaY) {    //moving in just Y direction.
+        if (myMove->moveUp) {
+            //Moving up
+            return 2;
+        } else {
+            //Moving down.
+            return 6;
+        }
+    }
+    //If not moving.
+    //qDebug() << "Player not moving, myMove is" << myMove->moveRight << myMove->moveUp << myMove->moveLeft  << myMove->moveDown;
+    return -1;
+}
 
 /*
 struct direction {
@@ -223,64 +258,114 @@ struct direction {
 void Character::keyPressEvent(QKeyEvent *event)
 {
     assert(myMove);
+    //bool isNotMoving = (myMove->dirNum == -1);
+
+    //if (isNotMoving) ++myMove->dirNum;
+
+   // bool newPress = false;  //Checks whether the event is a new key being pressed or not.
     switch ( event->key() ) {
         case Qt::Key_Right:
         case Qt::Key_D:
-            myMove->moveRight = true;
+            {
+                if (myMove->moveRight == false) {
+
+                    myMove->moveRight = true;
+                   //Adjust move direction
+                    myMove->dirNum = getMoveDirection();
+                    //newPress = true;
+                }
+            }
             break;
         case Qt::Key_Up:
         case Qt::Key_W:
-        qDebug() << "Pressing W";
-            //myMove->dirNum += 1;
-            myMove->moveUp = true;
+            {
+                if (myMove->moveUp == false) {
+                    myMove->moveUp = true;
+                    //Adjust move direction
+                    myMove->dirNum = getMoveDirection();
+                    //newPress = true;
+                }
+            }
             break;
-
         case Qt::Key_Left:
         case Qt::Key_A:
-            myMove->moveLeft = true;
+            {
+       // qDebug() << "Left being pressed, moveLeft is" << myMove->moveLeft;
+                if (myMove->moveLeft == false) {
+                    myMove->moveLeft = true;
+                    //Adjust move direction
+                    myMove->dirNum = getMoveDirection();
+                    //newPress = true;
+                }
+            }
             break;
         case Qt::Key_Down:
         case Qt::Key_S:
-             myMove->moveDown = true;
+            {
+                if (myMove->moveDown == false) {
+                    myMove->moveDown = true;
+                    //Adjust move direction
+                    myMove->dirNum = getMoveDirection();
+                   // newPress = true;
+                }
+            }
             break;
         case Qt::Key_P:
             static bool state = false;
             state = !state;
             if (myGame != NULL) myGame->setPause(state);
-            return;
+            //return;
             //^^Critical that this is set. If no movement key was entered,
                 //and the math after the switch-case occurs, then the myMove->num will be all messed up.
             break;
         default:
+           // --myMove->dirNum;
             event->ignore();
             break;
-        }
+    }
+
+    //event->ignore();
 }
 
 void Character::keyReleaseEvent(QKeyEvent *event)
 {
     assert(myMove);
+    //are Up and Down being pressed?
+    //bool UpDown = (myMove->moveUp && myMove->moveDown);
+    //are Right and Left being pressed?
+    //bool RightLeft = (myMove->moveRight && myMove->moveLeft);
+
     switch ( event->key() ) {
         case Qt::Key_Up:
         case Qt::Key_W:
             myMove->moveUp = false;
+            //Adjust move direction
+            myMove->dirNum = getMoveDirection();
             break;
         case Qt::Key_Down:
         case Qt::Key_S:
              myMove->moveDown = false;
+             //Adjust move direction
+             myMove->dirNum = getMoveDirection();
             break;
         case Qt::Key_Right:
         case Qt::Key_D:
             myMove->moveRight = false;
+            //Adjust move direction
+            myMove->dirNum = getMoveDirection();
             break;
         case Qt::Key_Left:
         case Qt::Key_A:
+
             myMove->moveLeft = false;
+            //Adjust move direction
+            myMove->dirNum = getMoveDirection();
             break;
         default:
             event->ignore();
             break;
     }
+
 }
 
 
@@ -340,9 +425,16 @@ void Character::mouseMoveEvent(QMouseEvent *event)
 
 //Obsolete
 
-
+/* *
+ *
+ * Only update the player's rotation every .1 seconds. This
+ *  makes it easier to stop while facing a diagonal.
+ */
 void Character::update()
 {
+    static int tickCounter = 0;
+    ++tickCounter;
+    //qDebug() << "myMove.dirNum is " << myMove->dirNum;
     if (mAP) {
         mAP->autopilotUpdate();
     }
@@ -350,14 +442,26 @@ void Character::update()
     if (isInvulnernable) {
         isInvulnernable = invincibilityFrameCount(0);
     }
+    if (mShotCooldown) {
+        //Shot is on Cooldown.
+        mShotCooldown = shotCooldownCount(0);
+    }
     //emit(SIGNAL(shotTick()));
     if (mIsShooting) {
         //Trying to shoot a bullet.
-        (void) shoot(); //Do not need return from this yet. Consider removing.
-    } else if (0){
+        QLineF fireLine = QLineF( myPlayer->pos(), mMousePoint  );
+        myPlayer->setRotation( 90 - fireLine.angle() );
+        (void) shoot(fireLine); //Do not need return from this yet. Consider removing.
+    } else {
         //Player not trying to shoot.
         //Player faces move direction.
+        if (myMove->dirNum != -1 && ( (tickCounter % 10) == 0 )) {
+            //If player isn't stopped and it is the 10th tick.
 
+            double a = 0;
+            a = 45 * myMove->dirNum;    //Gives proper angle since we are breaking it up into 8 parts.
+            myPlayer->setRotation( 90 - a );
+        }
     }
     shotTick();
     //Karstin's stress Test
@@ -479,12 +583,12 @@ bool Character::shotCooldownCount(int t)
  *
  * Handles firing weapon.
  */
-int Character::shoot()
+int Character::shoot(QLineF fireLine)
 {
 
     //Face Player Towards Firing.
-    QLineF fireLine = QLineF( myPlayer->pos(), mMousePoint  );
-    myPlayer->setRotation( 90 - fireLine.angle() );
+    //QLineF fireLine = QLineF( myPlayer->pos(), mMousePoint  );
+    //myPlayer->setRotation( 90 - fireLine.angle() );
     //^^^^ for the "90 - ..."
     //Consider trying a negative scale factor in "setScale(qreal factor)"
 
