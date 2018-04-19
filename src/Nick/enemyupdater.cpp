@@ -24,6 +24,11 @@ bool EnemyUpdater::enemiesDead()
     return sEnemies.isEmpty();
 }
 
+int EnemyUpdater::numOfEnemies()
+{
+    return sEnemies.size();
+}
+
 void EnemyUpdater::update(qreal playerX, qreal playerY)
 {
     Enemy *temp;
