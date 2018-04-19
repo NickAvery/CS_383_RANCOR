@@ -2,6 +2,8 @@
 #define ENEMYSPAWNER_H
 
 #include "enemy.h"
+#include "rangedenemy.h"
+#include "meleeenemy.h"
 #include <fstream>
 #include <cstdlib>
 #include <ctime>

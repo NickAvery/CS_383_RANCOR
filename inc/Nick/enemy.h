@@ -15,8 +15,9 @@ private:
     int mHealth;
     int mAtkValue;
     int mSize;
+    int mSpeed;
 public:
-    Enemy(double, double, int, QPixmap);    //x = x-coordinate, y = y-coordinate, size = size of square
+    Enemy(double, double, int);    //x = x-coordinate, y = y-coordinate, size = size of square
     qreal getXPos();                        //gets the x-coordinate
     qreal getYPos();                        //gets the y-coordinate
     int getHealth();                        //gets the health value
@@ -24,7 +25,10 @@ public:
     int getSize();                          //get the size of an enemy
     void move(qreal, qreal);                //sets the position to the (x, y) coordinate
     int attack();                           //enemy deals damage
-    void attacked(int);                   //enemy is hit
+    virtual void makeAttack(qreal, qreal) = 0;
+    virtual int decide(qreal, qreal) = 0;
+    void makeDecision(qreal, qreal);
+    void attacked(int);                     //enemy is hit
     void removeEnemy();                     //if an enemy dies or gets removed for another reason, use this
 };
 
