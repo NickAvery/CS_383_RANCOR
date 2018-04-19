@@ -20,8 +20,12 @@ class Game : public QGraphicsView{
 
   Character* Player;
   //the player object that is currently the player
+
   AudioInter * music;
+  //Holds the information for the current song being played
+
   Map * map;
+  //Map Object
 
   QTimer * timer;
   //The timer that loops levelLoop();
@@ -40,6 +44,7 @@ class Game : public QGraphicsView{
     //Creates a new scene object
 
   void NextLevel();
+    //sets the next song to be played for the next level so it changes the music
 
   void mainMenu();
     //mainMenu creates a new main menu object and shows it.
@@ -64,9 +69,7 @@ class Game : public QGraphicsView{
   //Pause determines whether or not the game objects are being updated on the game timer.
 
   Map* getMap();
-
-  //QGraphicsScene* getScene();
-
+  //Returns the Map pointer
 
 public slots:
   void levelLoop();
