@@ -21,6 +21,7 @@ class Map: public QGraphicsView
         Game * game;
         Goal * goal;
         static bool storage;
+        static bool bStorage;
         EnemyUpdater * enemies;
         static bool demo;
         Map(QGraphicsScene* scenePointer, bool demoMode, Game * gameObject);
