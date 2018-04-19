@@ -18,13 +18,13 @@ private:
 
 public:
     EnemyUpdater();                             //constructor, creates enemy spawner and enemylist
-    void giveInfo(qreal charX, qreal charY);    //give the player info to the enemyUpdater
-    void newEnemy(QGraphicsScene * scene, qreal x, qreal y);            //create a new enemy using the spawner
-    Enemy *getEnemy(int i);                     //get an enemy from the list
+    void giveInfo(qreal, qreal);    //give the player info to the enemyUpdater
+    void newEnemy(QGraphicsScene *, qreal, qreal);            //create a new enemy using the spawner
+    Enemy *getEnemy(int);                     //get an enemy from the list
     QList<Enemy*> getEnemies();                 //get the entire list of enemies
-    void testCase(QGraphicsScene * scene);      //run the test case
+    void testCase(QGraphicsScene *);      //run the test case
     bool enemiesDead();                         //true if all enemies are dead/there are no enemies
-    void removeEnemy(int i);                    //remove an enemy from sEnemies. used in update
+    void removeEnemy(int);                    //remove an enemy from sEnemies. used in update
     void removeEnemies();                    //remove an enemy from sEnemies. used in update
 };
 
