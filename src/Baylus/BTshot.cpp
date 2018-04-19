@@ -81,7 +81,14 @@ int Shot::shotUpdate()
     setPos( newX, newY );
 
     //Check collisions.
-    QList<QGraphicsItem *> list = collidingItems() ;
+    //For fixing the small annoyances with destroying the shots earlier than
+    //When they are completely outside the walls
+        //Try using "QPainterPath::intersects(const QRectF &rectangle) const"
+/*
+http://doc.qt.io/qt-5/qtwidgets-graphicsview-diagramscene-arrow-cpp.html
+    method "paint()" uses several methods of obtaining the intersecting items.
+*/
+    QList<QGraphicsItem *> list = collidingItems(Qt::IntersectsItemShape) ;
     bool die = false;
     bool walls = false;
     foreach(QGraphicsItem * i , list)

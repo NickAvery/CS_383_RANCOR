@@ -20,9 +20,13 @@
 #include <QWidget>
 
 Player::Player(Character *parent, direction *movement, Game* thegame)
+    //: QPixmapGraphicsItem(myPixmap)
 {
     //int length = 40;
     //myCharacter = parent;
+
+    setCursor(Qt::CrossCursor); //Set cursor to crosshairs.
+
     Move = movement;
     //setRect( 0, 0, length, length );
     //Draw Graphics

@@ -18,7 +18,7 @@
 #include "JAgame.h"
 #include "JAaudio.h"
 
-#include <iostream>
+//#include <iostream>
 #include <QPoint>
 #include <QWidget>
 #include <QGraphicsRectItem>
@@ -87,6 +87,9 @@ Character::Character(int characterNumber , bool autopilot, bool successPath, Gam
     setFocusPolicy(Qt::StrongFocus);
     //myPlayer->QGraphicsRectItem::setFocus();
 
+
+    //To fix the keyboard and mouse issues.
+    //Consider trying "setSelected(bool selected)"
     grabKeyboard();
     grabMouse();
 
@@ -156,10 +159,14 @@ Character::~Character()
     myPlayer = NULL;
 }
 
+/*
+Obsolete. Not used anymore.
 void Character::setSpeed(double newSpeed)
 {
     if (speed >= 0) speed = newSpeed;
 }
+
+*/
 
 QPointF Character::getPosition()
 {
@@ -188,11 +195,32 @@ void Character::setPostition(QPointF point)
     }
 }
 
-QRectF Character::getRect()
-{
-    return myPlayer->pixmap().rect();
-}
 
+/*
+struct direction {
+    int num;    //0 for right, 1 for up-right, 2 for up, 3 for up-left, etc.
+    char dirStr[4]; //char represents boolean value. { (Down), (Left), (Up), (Right) }
+    bool moveUp;
+    bool moveDown;
+    bool moveRight;
+    bool moveLeft;
+};
+*/
+
+/*
+ * Controls the movement direction struct responsible for
+ * providing info to the player on where to move.
+ *
+ * In order to get the move direction part of the struct correct,
+ * I am using a system that assigns a number to each key that is pressed.
+ *      { Right = 1, Up = 3, Left = 5, Down = 7 }
+ * The number in the move struct is initialized to -1, meaning that after adding the value
+ * of the Right key being pressed to the default number, the result is 0, there are 0-7 directions
+ * possible
+ * !IMPORTANT!
+ *
+ *
+ */
 void Character::keyPressEvent(QKeyEvent *event)
 {
     switch ( event->key() ) {
@@ -248,6 +276,9 @@ void Character::keyReleaseEvent(QKeyEvent *event)
     }
 }
 
+
+
+
 void Character::mousePressEvent(QMouseEvent *event)
 {
     switch(event->button()) {
@@ -301,10 +332,6 @@ void Character::mouseMoveEvent(QMouseEvent *event)
 }
 
 //Obsolete
-void Character::move()
-{
-
-}
 
 
 void Character::update()
@@ -320,7 +347,7 @@ void Character::update()
     if (mIsShooting) {
         //Trying to shoot a bullet.
         (void) shoot(); //Do not need return from this yet. Consider removing.
-    } else {
+    } else if (0){
         //Player not trying to shoot.
         //Player faces move direction.
 
@@ -478,6 +505,8 @@ int Character::shoot()
     //Face Player Towards Firing.
     QLineF fireLine = QLineF( myPlayer->pos(), mMousePoint  );
     myPlayer->setRotation( 90 - fireLine.angle() );
+    //^^^^ for the "90 - ..."
+    //Consider trying a negative scale factor in "setScale(qreal factor)"
 
     if (mShotCooldown) {
         //Shot is on Cooldown.

@@ -48,18 +48,21 @@ public:
     Character(int characterNumber = 0, Game* parent = NULL, QGraphicsScene* s = NULL) : Character(characterNumber, false, false, parent, s) {}
     ~Character();
 
-    void setSpeed(double speed);   //Changes The speed
+    //void setSpeed(double speed);   //Changes The speed
     void setPostition(QPointF point);     //sets the position for the player.
     QPointF getPosition();   //Returns the position of the player
     QPointF getCenter();
-    QRectF getRect();
+    QRectF getRect() { return myPlayer->pixmap().rect(); }  //Gets the rectangle that represents the pixmap of the player.
+    int getCurrentHealth() { return DataBank.currentHealth; }  //Gets the player health
+    int getDamage() { return DataBank.damage; }  //Gets the player damage
+
 
     void keyPressEvent(QKeyEvent *event);   //Registers WASD keys, arrow keys, and 'P' for pause.
     void keyReleaseEvent(QKeyEvent *event); //see keyPressEvent();
     void mousePressEvent(QMouseEvent *event);
     void mouseReleaseEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
-    virtual void move();    //Moves player and ghost to appropriate positions.
+    //virtual void move();    //Moves player and ghost to appropriate positions.
     void update();
     void doDamage(double sDamage);
 
