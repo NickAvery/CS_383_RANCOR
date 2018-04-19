@@ -14,11 +14,16 @@ Game::Game()
   scene->setSceneRect(0,0,800,600);
   setScene(scene);
     //creates a new scene object.
+
+
   Pause = false;
     //Set Pause to be false initially.
+
   music = new AudioInter(0, "qrc:/sounds/Sounds/Break-Down.mp3");
+  //sets the first song to be played to be this one
   music->playSound();
   music->setVolume(10);
+  //sets its volume to 10 cause its kinda loud to begin with.
 }
 
 void Game::NextLevel()

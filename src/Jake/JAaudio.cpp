@@ -5,11 +5,27 @@
 #include <QTime>
 #include <QTimer>
 
-
+/*
 AudioAll::AudioAll(QString x){
     name = x;
 }
+*/
 
+AudioInter::AudioInter(int sound_choice, QString soundpath, QObject* parent) : QObject(parent)
+{
+        if(sound_choice == 1){
+            mClass = new Sound(soundpath);
+        }
+        else{
+            mClass = new Music(soundpath);
+
+            QTimer* musicManager = new QTimer();
+            connect(musicManager,SIGNAL(timeout()),this,SLOT(musicManage()));
+            musicManager->start(100);
+
+        }
+
+}
 
 void AudioInter::delay()
 {
@@ -19,21 +35,6 @@ void AudioInter::delay()
 }
 
 
-AudioInter::AudioInter(int Sound_choice, QString soundpath)
-{
-
-    if(Sound_choice == 1){
-        mClass = new Sound(soundpath);
-    }
-    else{
-        mClass = new Music(soundpath);
-
-        QTimer* musicManager = new QTimer();
-        connect(musicManager,SIGNAL(timeout()),this,SLOT(musicManage()));
-        musicManager->start(100);
-
-    }
-}
 
 void AudioInter::musicManage(){
     mClass->manage();
@@ -49,6 +50,7 @@ int AudioInter::playSound() //sound effect that you wish to be played
     mClass->play();
     return 0;
 }
+
 
 
 int AudioInter::setCharClass(int CharClass)
@@ -67,42 +69,27 @@ int AudioInter::setVolume(int volume)
 
 void AudioInter::stressTest()
 {
-    QMediaPlayer * mSound1 = new QMediaPlayer();
-    QMediaPlayer * mSound2 = new QMediaPlayer();
-    QMediaPlayer * mSound3 = new QMediaPlayer();
-    QMediaPlayer * mSound4 = new QMediaPlayer();
-    QMediaPlayer * mSound5 = new QMediaPlayer();
-    QMediaPlayer * mSound6 = new QMediaPlayer();
-    QMediaPlayer * mSound7 = new QMediaPlayer();
-    QMediaPlayer * mSound8 = new QMediaPlayer();
-    QMediaPlayer * mSound9 = new QMediaPlayer();
-    QMediaPlayer * mSound10 = new QMediaPlayer();
-    QMediaPlayer * mSound11 = new QMediaPlayer();
-    QMediaPlayer * mSound12 = new QMediaPlayer();
-    QMediaPlayer * mSound13 = new QMediaPlayer();
-    QMediaPlayer * mSound14 = new QMediaPlayer();
-    QMediaPlayer * mSound15 = new QMediaPlayer();
-    QMediaPlayer * mSound16 = new QMediaPlayer();
+    AudioAll* mSound1 = new Music("qrc:/sounds/Sounds/Break-Down.mp3");
+    AudioAll * mSound2 = new Sound("qrc:/sounds/Sounds/Button.wav");
+    AudioAll * mSound3 = new Sound("qrc:/sounds/Sounds/damage1.wav");
+    AudioAll * mSound4 = new Sound("qrc:/sounds/Sounds/damage2.wav");
+    AudioAll * mSound5 = new Sound("qrc:/sounds/Sounds/damage3.wav");
+    AudioAll * mSound6 = new Sound("qrc:/sounds/Sounds/Door_Closing.wav");
+    AudioAll * mSound7 = new Sound("qrc:/sounds/Sounds/Door_Opening.wav");
+    AudioAll * mSound8 = new Sound("qrc:/sounds/Sounds/Laser.wav");
+    AudioAll * mSound9 = new Music("qrc:/sounds/Sounds/Light-Years_v001.mp3");
+    AudioAll * mSound10 = new Sound("qrc:/sounds/Sounds/piston.wav");
+    AudioAll * mSound11 = new Sound("qrc:/sounds/Sounds/Robot_hit.wav");
+    AudioAll * mSound12 = new Sound("qrc:/sounds/Sounds/Robot_less_angry.wav");
+    AudioAll * mSound13 = new Sound("qrc:/sounds/Sounds/Robot_more_angry.wav");
+    AudioAll * mSound14 = new Music("qrc:/sounds/Sounds/The-Creeping-Blob.mp3");
+    AudioAll * mSound15 = new Sound("qrc:/sounds/Sounds/walking.wav");
+    AudioAll * mSound16 = new Sound("qrc:/sounds/Sounds/Scream.wav");
 
-    mSound1->setMedia(QUrl("qrc:/sounds/Sounds/Break-Down.mp3"));
+
     mSound1->setVolume(20);
-    mSound2->setMedia(QUrl("qrc:/sounds/Sounds/Button.wav"));
-    mSound3->setMedia(QUrl("qrc:/sounds/Sounds/damage1.wav"));
-    mSound4->setMedia(QUrl("qrc:/sounds/Sounds/damage2.wav"));
-    mSound5->setMedia(QUrl("qrc:/sounds/Sounds/damage3.wav"));
-    mSound6->setMedia(QUrl("qrc:/sounds/Sounds/Door_Closing.wav"));
-    mSound7->setMedia(QUrl("qrc:/sounds/Sounds/Door_Opening.wav"));
-    mSound8->setMedia(QUrl("qrc:/sounds/Sounds/Laser.wav"));
-    mSound9->setMedia(QUrl("qrc:/sounds/Sounds/Light-Years_v001.mp3"));
     mSound9->setVolume(20);
-    mSound10->setMedia(QUrl("qrc:/sounds/Sounds/piston.wav"));
-    mSound11->setMedia(QUrl("qrc:/sounds/Sounds/Robot_hit.wav"));
-    mSound12->setMedia(QUrl("qrc:/sounds/Sounds/Robot_less_angry.wav"));
-    mSound13->setMedia(QUrl("qrc:/sounds/Sounds/Robot_more_angry.wav"));
-    mSound14->setMedia(QUrl("qrc:/sounds/Sounds/The-Creeping-Blob.mp3"));
     mSound14->setVolume(20);
-    mSound15->setMedia(QUrl("qrc:/sounds/Sounds/walking.wav"));
-    mSound16->setMedia(QUrl("qrc:/sounds/Sounds/Scream.wav"));
     mSound16->setVolume(10);
     mSound1->play();
  //   delay();
