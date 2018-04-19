@@ -20,6 +20,7 @@ int Map::roomX=51;
 int Map::roomY=51;
 bool Map::demo;
 bool Map::storage=false;
+bool Map::bStorage=false;
 
 //consider making the floor array static within class
 Map::Map(QGraphicsScene* scenePointer, bool demoMode, Game * gameObject)
@@ -44,7 +45,8 @@ Map::Map(QGraphicsScene* scenePointer, bool demoMode, Game * gameObject)
         floorArray[52][50]=4;
         floorArray[52][51]=14;
         floorArray[53][51]=10;
-        floorArray[54][51]=5;
+        floorArray[54][51]=10;
+        floorArray[55][51]=5;
     } else{                             //this is run during normal gameplay
         successPath="";
                                                                         //add in when map gen is finished
@@ -155,6 +157,10 @@ void Map::switchRooms(QString name)
             storage=false;
             game->getCharacter()->KNStressTest();
         }
+        if(bStorage){
+            bStorage=false;
+            game->getCharacter()->BTStressTest();
+        }
 
         //remove objects from room completely
         enemies->removeEnemies();
@@ -224,6 +230,10 @@ void Map::switchRooms(QString name)
                     storage=true;
                     game->getCharacter()->KNStressTest();
                 }else if(roomY==54){
+                    qDebug() << "Weapons stress test";
+                    bStorage=true;
+                    game->getCharacter()->BTStressTest();
+                }else if(roomY==55){
                     Goal * g = new Goal();
                     goal = g;
                     goal->setPos(360,260);
