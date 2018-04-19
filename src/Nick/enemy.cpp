@@ -1,14 +1,20 @@
 #include "enemy.h"
 
-Enemy::Enemy(qreal xSet, qreal ySet, int size, QPixmap pic)
+Enemy::Enemy(qreal xSet, qreal ySet, int size)
 {
-    //qDebug() << x << " " << y;
     mSize = size;
-    mHealth = size;
-    mAtkValue = 40-size;
-
-    pic = pic.scaled(size, size, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-    setPixmap(pic);
+    mHealth = size*3;
+    if(mSize <= 30)
+    {
+        mAtkValue = 40-size;
+        mSpeed = mAtkValue/10.0;
+    }
+    else
+    {
+        mAtkValue = 5;
+        mSpeed = 1;
+    }
+    //qDebug() << ;
     setPos(xSet, ySet);
     setTransformOriginPoint(size/2, size/2);
 }
@@ -38,15 +44,38 @@ int Enemy::getSize()
     return mSize;
 }
 
-void Enemy::move(qreal xNew, qreal yNew)
+void Enemy::move(qreal playerX, qreal playerY)
 {
-    setPos(xNew, yNew);
+    qreal tempX = getXPos();
+    qreal tempY = getYPos();
+    qreal tempRotX = playerX-tempX;
+    qreal tempRotY = playerY-tempY;
+    qreal flipAdd = 90.0;
+    qreal hypot = sqrt((tempRotX*tempRotX)+(tempRotY*tempRotY)); //normalize the distance between player and enemy
+    tempRotX /= hypot;
+    tempRotY /= hypot;
+    tempX+=tempRotX*((qreal)mSpeed/(1.0+(((qreal)mSize-40.0)/100)));
+    tempY+=tempRotY*((qreal)mSpeed/(1.0+(((qreal)mSize-40.0)/100)));
+    if (tempRotY < 0)
+    {
+        flipAdd = -90;
+    }
+    setPos(tempX, tempY);
+    double degreeRot = -(qRadiansToDegrees(qAtan(tempRotX/tempRotY)));
+    setRotation(degreeRot+flipAdd);
 }
 
 int Enemy::attack()
 {
     //figure out some sort of cool attack things
     return mAtkValue;
+}
+
+void Enemy::makeDecision(qreal playerX, qreal playerY)
+{
+    int d = decide(playerX, playerY);
+    move(playerX, playerY);
+    makeAttack(playerX, playerY);
 }
 
 void Enemy::attacked(int damage)

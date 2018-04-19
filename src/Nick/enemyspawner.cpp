@@ -22,22 +22,33 @@ Enemy * EnemySpawner::spawnEnemy(qreal x, qreal y)
    QPixmap pic;
    if(temp2)
    {
-       pic = QPixmap(":/images/NAenemyRanged.png");
+       if (temp < 3)
+       {
+           return new RangedEnemy(x, y, mTempSize-10);
+       }
+       else if (temp >= 3 && temp <= 8)
+       {
+           return new RangedEnemy(x, y, mTempSize);
+       }
+       else
+       {
+           return new RangedEnemy(x, y, mTempSize+20);
+       }
    }
    else
    {
-       pic = QPixmap(":/images/NAenemyMelee.png");
+       if (temp < 3)
+       {
+           return new MeleeEnemy(x, y, mTempSize-10);
+       }
+       else if (temp >= 3 && temp <= 8)
+       {
+           return new MeleeEnemy(x, y, mTempSize);
+       }
+       else
+       {
+           return new MeleeEnemy(x, y, mTempSize+30);
+       }
    }
-   if (temp < 3)
-   {
-       return new Enemy(x, y, mTempSize-10, pic);
-   }
-   else if (temp >= 3 && temp <= 8)
-   {
-       return new Enemy(x, y, mTempSize, pic);
-   }
-   else
-   {
-       return new Enemy(x, y, mTempSize+10, pic);
-   }
+
 }
