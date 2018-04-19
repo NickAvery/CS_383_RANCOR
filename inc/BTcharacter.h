@@ -52,9 +52,9 @@ public:
     void setPostition(QPointF point);     //sets the position for the player.
     QPointF getPosition();   //Returns the position of the player
     QPointF getCenter();
-    QRectF getRect() { return myPlayer->pixmap().rect(); }  //Gets the rectangle that represents the pixmap of the player.
-    int getCurrentHealth() { return DataBank.currentHealth; }  //Gets the player health
-    int getDamage() { return DataBank.damage; }  //Gets the player damage
+    QRectF getRect();  //Gets the rectangle that represents the pixmap of the player.
+    int getCurrentHealth();  //Gets the player health
+    int getDamage();  //Gets the player damage
 
 
     void keyPressEvent(QKeyEvent *event);   //Registers WASD keys, arrow keys, and 'P' for pause.

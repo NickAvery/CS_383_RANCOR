@@ -153,6 +153,7 @@ Character::~Character()
 {
     //delete(player);
     //player = NULL;
+    emit(shotKill());
     delete(mySkillManager);
     mySkillManager = NULL;
     delete(myPlayer);
@@ -180,10 +181,8 @@ QPointF Character::getPosition()
     return QPointF();
 }
 
-QPointF Character::getCenter()
-{
-    return QPointF( (myPlayer->pos().x() + (myPlayer->pixmap().rect().width() / 2)) , (myPlayer->pos().y() + (myPlayer->pixmap().rect().height()/2)) );
-}
+
+
 
 void Character::setPostition(QPointF point)
 {
@@ -223,27 +222,34 @@ struct direction {
  */
 void Character::keyPressEvent(QKeyEvent *event)
 {
+    assert(myMove);
     switch ( event->key() ) {
+        case Qt::Key_Right:
+        case Qt::Key_D:
+            myMove->moveRight = true;
+            break;
         case Qt::Key_Up:
         case Qt::Key_W:
+        qDebug() << "Pressing W";
+            //myMove->dirNum += 1;
             myMove->moveUp = true;
+            break;
+
+        case Qt::Key_Left:
+        case Qt::Key_A:
+            myMove->moveLeft = true;
             break;
         case Qt::Key_Down:
         case Qt::Key_S:
              myMove->moveDown = true;
             break;
-        case Qt::Key_Right:
-        case Qt::Key_D:
-            myMove->moveRight = true;
-            break;
-        case Qt::Key_Left:
-        case Qt::Key_A:
-            myMove->moveLeft = true;
-            break;
         case Qt::Key_P:
             static bool state = false;
             state = !state;
             if (myGame != NULL) myGame->setPause(state);
+            return;
+            //^^Critical that this is set. If no movement key was entered,
+                //and the math after the switch-case occurs, then the myMove->num will be all messed up.
             break;
         default:
             event->ignore();
@@ -253,6 +259,7 @@ void Character::keyPressEvent(QKeyEvent *event)
 
 void Character::keyReleaseEvent(QKeyEvent *event)
 {
+    assert(myMove);
     switch ( event->key() ) {
         case Qt::Key_Up:
         case Qt::Key_W:
@@ -383,33 +390,9 @@ void Character::doDamage(double damage)
 //scene->removeItem();
 }
 
-void Character::successPath(QString path)
-{
-    //static QChar* p = path.begin();
-    //static QString::iterator i = path.begin();
-    //static QString::iterator = path.begin();
-    if (0) qDebug() << path;
-}
 
-void Character::setPlayerStats(DataBank* p)
-{
-    mStats = p;
-}
 
-void Character::KNStressTest()
-{
-    mKNStressTest = !mKNStressTest;
-}
 
-void Character::setMousePoint(QPointF p)
-{
-    mMousePoint = p;
-}
-
-void Character::toggleShooting()
-{
-    mIsShooting = !mIsShooting;
-}
 
 
 /*
@@ -432,10 +415,7 @@ bool Character::Contains(QPointF& p, bool proper)
 }
 */
 
-void Character::playerLeaveRoom(QString name)
-{
-    myMap->switchRooms(name);
-}
+
 
 void Character::gameWin()
 {
@@ -526,4 +506,59 @@ int Character::shoot()
         mShotCooldown = shotCooldownCount(mStats->fireRate);
     }
     return 0;
+}
+
+
+int Character::getCurrentHealth()
+{
+    return mStats->currentHealth;
+}
+
+int Character::getDamage()
+{
+    return mStats->damage;
+}
+
+
+void Character::playerLeaveRoom(QString name)
+{
+    myMap->switchRooms(name);
+}
+
+void Character::setPlayerStats(DataBank* p)
+{
+    mStats = p;
+}
+
+void Character::KNStressTest()
+{
+    mKNStressTest = !mKNStressTest;
+}
+
+void Character::setMousePoint(QPointF p)
+{
+    mMousePoint = p;
+}
+
+void Character::toggleShooting()
+{
+    mIsShooting = !mIsShooting;
+}
+
+void Character::successPath(QString path)
+{
+    //static QChar* p = path.begin();
+    //static QString::iterator i = path.begin();
+    //static QString::iterator = path.begin();
+    if (0) qDebug() << path;
+}
+
+QPointF Character::getCenter()
+{
+    return QPointF( (myPlayer->pos().x() + (myPlayer->pixmap().rect().width() / 2)) , (myPlayer->pos().y() + (myPlayer->pixmap().rect().height()/2)) );
+}
+
+QRectF Character::getRect()
+{
+    return myPlayer->pixmap().rect();
 }
