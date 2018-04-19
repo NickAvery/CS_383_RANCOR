@@ -639,6 +639,11 @@ void Character::KNStressTest()
     mKNStressTest = !mKNStressTest;
 }
 
+void Character::BTStressTest()
+{
+    mBTStressTest = !mBTStressTest;
+}
+
 void Character::setMousePoint(QPointF p)
 {
     mMousePoint = p;

@@ -69,7 +69,8 @@ public:
     //Called by outside Classes to give info
     void successPath(QString path);
     void setPlayerStats(DataBank *p );
-    void KNStressTest();    //Karstin's stress Test.
+    void KNStressTest();    //Karstin's (Skill Manager)stress Test.
+    void BTStressTest();    //Baylus's (Weapons) Stress Test.
     void setMousePoint(QPointF p);
     void toggleShooting();
     //bool Contains(QPointF &p, bool);
@@ -86,6 +87,7 @@ private:
     bool mIsShooting = false;
     bool mShotCooldown = false;
     bool mKNStressTest = false;
+    bool mBTStressTest = false;
     bool mIsAutopilot = false;
     bool mSuccessPath = false;
 
