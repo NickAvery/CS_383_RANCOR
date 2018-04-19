@@ -26,6 +26,7 @@ public:
     bool enemiesDead();                         //true if all enemies are dead/there are no enemies
     void removeEnemy(int);                    //remove an enemy from sEnemies. used in update
     void removeEnemies();                    //remove an enemy from sEnemies. used in update
+    int numOfEnemies();                      //returns the number of enemies
 };
 
 #endif // ENEMYUPDATER_H
