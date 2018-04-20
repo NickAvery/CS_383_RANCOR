@@ -28,8 +28,23 @@ Game::Game()
 
 void Game::NextLevel()
 {
-   music->setSound(QString("qrc:/sounds/Sounds/Light-Years_v001.mp3"));
-   music->playSound();
+    static int x =0;
+    if(!x){
+        music->setSound(QString("qrc:/sounds/Sounds/Light-Years_v001.mp3"));
+        x++;
+        music->setVolume(20);
+    }
+    else if( x == 1){
+        music->setSound(QString("qrc:/sounds/Sounds/The-Creeping-Blob.mp3"));
+        music->setVolume(70);
+        x++;
+    }else if(x == 2){
+        music->setSound(QString("qrc:/sounds/Sounds/Break-Down.mp3"));
+        music->setVolume(20);
+        x =0;
+    }
+        music->playSound();
+
 }
 
 void Game::start(int CharClass)
