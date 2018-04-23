@@ -12,7 +12,7 @@ class Sound:public AudioAll{
     Sound(QString);
     //plays the sound once called. Will start the song over again.
     void play();
-
+    //AudioAll* getInsance(QString y){y;}
     //pauses the music
     void pause();
 

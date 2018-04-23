@@ -18,7 +18,7 @@ public:
     virtual void pause() = 0;
     virtual void setVolume(int x) = 0;
     virtual void setSound(QString) = 0;
-
+    //virtual AudioAll* getInstance(QString) = 0;
 public slots:
     virtual void manage() = 0;
 

@@ -8,9 +8,17 @@
 
 
 class Music: public AudioAll{
+private:
+    Music(QString);
+    static Music* sUniqueInstance;
+    ~Music(){}
 
 public:
-    Music(QString);
+
+     static Music *getInstance(QString passedString);
+
+    Music(const Music&);
+    Music& operator=(const Music&);
 
     //plays the music once called. Will start the song over again.
     void play(void);
@@ -27,6 +35,7 @@ public:
 public slots:
     //restarts the music once it finds the song has stopped playing
     void manage();
+
 
 };
 
