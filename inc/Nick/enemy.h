@@ -23,10 +23,12 @@ public:
     int getHealth();                        //gets the health value
     int getAtkValue();                      //gets the attack value
     int getSize();                          //get the size of an enemy
+    int getSpeed();                         //get the speed of an enemy
     void move(qreal, qreal);                //sets the position to the (x, y) coordinate
     int attack();                           //enemy deals damage
     virtual void makeAttack(qreal, qreal) = 0;
     virtual int decide(qreal, qreal) = 0;
+    void runAway(qreal, qreal);
     void makeDecision(qreal, qreal);
     void attacked(int);                     //enemy is hit
     void removeEnemy();                     //if an enemy dies or gets removed for another reason, use this
