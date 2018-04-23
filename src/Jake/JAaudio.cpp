@@ -17,8 +17,9 @@ AudioInter::AudioInter(int sound_choice, QString soundpath, QObject* parent) : Q
             mClass = new Sound(soundpath);
         }
         else{
-            mClass = new Music(soundpath);
-
+            Music* mClass2;
+            mClass2 = mClass2->getInstance(soundpath);
+            mClass = mClass2;
             QTimer* musicManager = new QTimer();
             connect(musicManager,SIGNAL(timeout()),this,SLOT(musicManage()));
             musicManager->start(100);
@@ -69,7 +70,9 @@ int AudioInter::setVolume(int volume)
 
 void AudioInter::stressTest()
 {
-    AudioAll* mSound1 = new Music("qrc:/sounds/Sounds/Break-Down.mp3");
+    AudioAll* mSound1;
+    Music* mSound1temp = mSound1temp->getInstance("qrc:/sounds/Sounds/Break-Down.mp3");
+    mSound1 = mSound1temp;
     AudioAll * mSound2 = new Sound("qrc:/sounds/Sounds/Button.wav");
     AudioAll * mSound3 = new Sound("qrc:/sounds/Sounds/damage1.wav");
     AudioAll * mSound4 = new Sound("qrc:/sounds/Sounds/damage2.wav");
@@ -77,12 +80,18 @@ void AudioInter::stressTest()
     AudioAll * mSound6 = new Sound("qrc:/sounds/Sounds/Door_Closing.wav");
     AudioAll * mSound7 = new Sound("qrc:/sounds/Sounds/Door_Opening.wav");
     AudioAll * mSound8 = new Sound("qrc:/sounds/Sounds/Laser.wav");
-    AudioAll * mSound9 = new Music("qrc:/sounds/Sounds/Light-Years_v001.mp3");
+    //AudioAll * mSound9 = new Music("qrc:/sounds/Sounds/Light-Years_v001.mp3");
+    AudioAll* mSound9;
+    Music* mSound2temp = mSound2temp->getInstance("qrc:/sounds/Sounds/Light-Years_v001.mp3");
+    mSound9 = mSound2temp;
     AudioAll * mSound10 = new Sound("qrc:/sounds/Sounds/piston.wav");
     AudioAll * mSound11 = new Sound("qrc:/sounds/Sounds/Robot_hit.wav");
     AudioAll * mSound12 = new Sound("qrc:/sounds/Sounds/Robot_less_angry.wav");
     AudioAll * mSound13 = new Sound("qrc:/sounds/Sounds/Robot_more_angry.wav");
-    AudioAll * mSound14 = new Music("qrc:/sounds/Sounds/The-Creeping-Blob.mp3");
+    //AudioAll * mSound14 = new Music("qrc:/sounds/Sounds/The-Creeping-Blob.mp3");
+    AudioAll* mSound14;
+    Music* mSound3temp = mSound3temp->getInstance("qrc:/sounds/Sounds/The-Creeping-Blob.mp3");
+    mSound14 = mSound3temp;
     AudioAll * mSound15 = new Sound("qrc:/sounds/Sounds/walking.wav");
     AudioAll * mSound16 = new Sound("qrc:/sounds/Sounds/Scream.wav");
 
