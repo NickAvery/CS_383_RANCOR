@@ -1,6 +1,7 @@
 #ifndef RANGEDENEMY_H
 #define RANGEDENEMY_H
 
+
 #include "enemy.h"
 
 class RangedEnemy : public Enemy {

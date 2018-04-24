@@ -8,6 +8,7 @@
 #include <QtMath>
 #include <cassert>
 #include <QUrl>
+
 class Enemy: public QGraphicsPixmapItem
 {
     //QGraphicsPixmapItem holds things such as position and the image.
