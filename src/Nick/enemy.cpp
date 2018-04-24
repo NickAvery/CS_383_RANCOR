@@ -21,12 +21,12 @@ Enemy::Enemy(qreal xSet, qreal ySet, int size)
 
 qreal Enemy::getXPos()
 {
-    return x();
+    return x()+(mSize/2);
 }
 
 qreal Enemy::getYPos()
 {
-    return y();
+    return y()+(mSize/2);
 }
 
 int Enemy::getHealth()
@@ -51,8 +51,8 @@ int Enemy::getSpeed()
 
 void Enemy::move(qreal playerX, qreal playerY)
 {
-    qreal tempX = getXPos();
-    qreal tempY = getYPos();
+    qreal tempX = x();
+    qreal tempY = y();
     qreal tempRotX = playerX-tempX;
     qreal tempRotY = playerY-tempY;
     qreal flipAdd = 90.0;
@@ -78,8 +78,8 @@ int Enemy::attack()
 
 void Enemy::runAway(qreal playerX, qreal playerY)
 {
-    qreal tempX = getXPos();
-    qreal tempY = getYPos();
+    qreal tempX = x();
+    qreal tempY = y();
     qreal tempRotX = playerX-tempX;
     qreal tempRotY = playerY-tempY;
     qreal flipAdd = 90.0;
