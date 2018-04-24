@@ -8,8 +8,8 @@ MeleeEnemy::MeleeEnemy(double xSet, double ySet, int size):Enemy(xSet, ySet, siz
 }
 void MeleeEnemy::makeAttack(qreal playerX, qreal playerY)
 {
-    qreal tempX = getXPos();
-    qreal tempY = getYPos();
+    qreal tempX = x();
+    qreal tempY = y();
     qreal tempRotX = playerX-tempX;
     qreal tempRotY = playerY-tempY;
     qreal flipAdd = 90.0;
@@ -32,8 +32,8 @@ void MeleeEnemy::makeAttack(qreal playerX, qreal playerY)
 
 int MeleeEnemy::decide(qreal playerX, qreal playerY)
 {
-    qreal tempX = getXPos();
-    qreal tempY = getYPos();
+    qreal tempX = x();
+    qreal tempY = y();
     qreal tempRotX = playerX-tempX;
     qreal tempRotY = playerY-tempY;
     qreal distance = sqrt((tempRotX*tempRotX)+(tempRotY*tempRotY));

@@ -8,6 +8,7 @@
 #include <QtMath>
 #include <cassert>
 #include <QUrl>
+#include <QObject>
 
 class Enemy: public QGraphicsPixmapItem
 {
