@@ -624,6 +624,7 @@ int Character::shoot(QLineF fireLine)
         //Shoot a bullet.
         //QPointF p = myPlayer->pos();
         //Shot* s = new Shot( mStats->shotSpeed, QLineF(p , mMousePoint) );
+        qDebug() << mStats->shotSpeed;
         PlayerShot* s = new PlayerShot( mStats->shotSpeed, fireLine );
         connect(this, SIGNAL(shotTick()), s, SLOT(shotUpdate()));
         connect(this, SIGNAL(shotKill()), s, SLOT(kill()));

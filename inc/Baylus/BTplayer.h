@@ -31,12 +31,21 @@ struct direction {
 class Player: public QGraphicsPixmapItem {
 
 public:
-    Player(Character *parent, struct direction* movement, Game *thegame);
+    //static Player getInstance()
+    static Player getInstance(Character *p, struct direction *m, Game *g) {
+        if (uniqueInstance == NULL) {
+            uniqueInstance = new Player(p, m, g);
+        }
+        return uniqueInstance;
+    }
+
     //QPoint getPosition();   //Returns the position of the center of the
     void move();
     void dealDamageToPlayer(int damage);  //Deals damage to the player.
     void put(QPointF p); //Puts player in new room.
 private:
+    Player(Character *parent, struct direction* movement, Game *thegame);
+    static Player uniqueInstance;
     int checkCollisions();
 
     //QGraphicsRectItem* ghost;  //Entirely useless, im pretty sure.

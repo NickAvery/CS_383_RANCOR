@@ -49,7 +49,6 @@ public:
     ~Character();
 
     //void setSpeed(double speed);   //Changes The speed
-    void setPostition(QPointF point);     //sets the position for the player.
     QPointF getPosition();   //Returns the position of the player
     QPointF getCenter();
     QRectF getRect();  //Gets the rectangle that represents the pixmap of the player.
@@ -57,14 +56,10 @@ public:
     int getDamage();  //Gets the player damage stat.
 
 
-    void keyPressEvent(QKeyEvent *event);   //Registers WASD keys, arrow keys, and 'P' for pause.
-    void keyReleaseEvent(QKeyEvent *event); //see keyPressEvent();
-    void mousePressEvent(QMouseEvent *event);
-    void mouseReleaseEvent(QMouseEvent *event);
-    void mouseMoveEvent(QMouseEvent *event);
     //virtual void move();    //Moves player and ghost to appropriate positions.
     void update();
     void doDamage(double sDamage);
+    void setPostition(QPointF point);     //sets the position for the player.
 
     //Called by outside Classes to give info
     void successPath(QString path);
@@ -79,6 +74,12 @@ public:
     void playerLeaveRoom(QString name);
     void gameWin();
 private:
+    void keyPressEvent(QKeyEvent *event);   //Registers WASD keys, arrow keys, and 'P' for pause.
+    void keyReleaseEvent(QKeyEvent *event); //see keyPressEvent();
+    void mousePressEvent(QMouseEvent *event);
+    void mouseReleaseEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent *event);
+
     bool invincibilityFrameCount(int frames);
     bool shotCooldownCount(int t);
     int shoot(QLineF fireLine);

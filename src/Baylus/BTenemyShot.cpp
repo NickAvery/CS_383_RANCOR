@@ -39,7 +39,10 @@ bool EnemyShot::checkCollisions() {
 
     if (die || !walls) {
         //qDebug() << "Hit Something!";
-        delete this;
+        //delete this;
+        return true;
+    } else {
+        return false;
     }
 }
 
