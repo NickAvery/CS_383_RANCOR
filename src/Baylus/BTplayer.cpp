@@ -19,6 +19,8 @@
 
 #include <QWidget>
 
+Player* Player::sUniqueInstance;
+
 Player::Player(Character *parent, direction *movement, Game* thegame)
     //: QPixmapGraphicsItem(myPixmap)
 {

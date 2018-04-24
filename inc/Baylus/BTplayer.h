@@ -32,11 +32,11 @@ class Player: public QGraphicsPixmapItem {
 
 public:
     //static Player getInstance()
-    static Player getInstance(Character *p, struct direction *m, Game *g) {
-        if (uniqueInstance == NULL) {
-            uniqueInstance = new Player(p, m, g);
+    static Player* getInstance(Character *p, struct direction *m, Game *g) {
+        if (sUniqueInstance == NULL) {
+            sUniqueInstance = new Player(p, m, g);
         }
-        return uniqueInstance;
+        return sUniqueInstance;
     }
 
     //QPoint getPosition();   //Returns the position of the center of the
@@ -45,7 +45,7 @@ public:
     void put(QPointF p); //Puts player in new room.
 private:
     Player(Character *parent, struct direction* movement, Game *thegame);
-    static Player uniqueInstance;
+    static Player* sUniqueInstance;
     int checkCollisions();
 
     //QGraphicsRectItem* ghost;  //Entirely useless, im pretty sure.
