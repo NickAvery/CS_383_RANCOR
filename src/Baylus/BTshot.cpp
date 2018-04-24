@@ -12,6 +12,7 @@
 
 
 #include "BTshot.h"
+#include "BTplayer.h"
 #include "NAenemyupdater.h"
 #include "JTwalls.h"
 
@@ -24,12 +25,26 @@
 #define PI 3.14159265358979323846264
 
 
-Shot::Shot(double s, QLineF l)
+
+struct weaponStats* Shot::sWeapon;
+
+Shot::Shot( double s, QLineF l)
     //:QGraphicsRectItem(l.x1(), l.y1(), size, size)
 {
+    qDebug() << "Shooting.";
+    /*
+    if (!sWeapon) { //If weapon variable has not been initialized.
+        //Replace this with setting the weapon to the passed in weapon stats.
+        sWeapon = new (struct weaponStats);
+    }
+    if (!(sWeapon->myPixMap))   //if weapon pixmap doesnt exist.
+        sWeapon->myPixMap = new QPixmap(":/images/Graphics/Lasers/laserGreen04.png");
     //Draw Graphics
+    setPixmap(*(sWeapon->myPixMap));
+    */
     setPixmap(QPixmap(":/images/Graphics/Lasers/laserGreen04.png"));
 
+    //parentType = p;
 
     //this->pixmap().rect().center();
     shotSpeed = s;
@@ -88,29 +103,55 @@ int Shot::shotUpdate()
 http://doc.qt.io/qt-5/qtwidgets-graphicsview-diagramscene-arrow-cpp.html
     method "paint()" uses several methods of obtaining the intersecting items.
 */
+    /*
     QList<QGraphicsItem *> list = collidingItems(Qt::IntersectsItemShape) ;
     bool die = false;
     bool walls = false;
     foreach(QGraphicsItem * i , list)
     {
         Enemy * item= dynamic_cast<Enemy *>(i);
-        if (item) {
+        if (item) { //If enemy has been hit.
             //Signal enemy Damage,
+            if ( typeid(parentType) != typeid(Enemy) ) {
+                //If this shot was not from an enemy.
 
-            //Remove Shot.
-            //delete this;    //Note: Scary stuff to do this, handle with extreme care.
-            item->attacked(damage);
-            die = true;
+                //Remove Shot.
+                //delete this;    //Note: Scary stuff to do this, handle with extreme care.
+                item->attacked(damage);
+                die = true;
+            } else {
+                //If the shot was from and enemy, dont damage enemies.
+            }
+
         }
         Walls* wall = dynamic_cast<Walls *>(i);
         if (wall) {
             walls = true;
         }
-    }
+
+        Player* p = dynamic_cast<Player *>(i);
+        if ( p ) {  //If the shot is hitting the (a(?)) player.
+            if ( typeid(parentType) != typeid(Player) ) {
+                //The shot was not from the player.
+
+                //Deal damage to the player.
+                p->dealDamageToPlayer(parentType.getAtkValue());
+                die = true; //Shot dies after checking collisions.
+            }   //If the shot is from a player, dont damage player.
+
+
+        }
+    }* /
     if (die || !walls) {
         //qDebug() << "Hit Something!";
         delete this;
+    }*/
+
+    if (checkCollisions()) {
+        qDebug() << "Shot dying.";
+        delete this;
     }
+
     return 0;
 }
 
@@ -125,3 +166,5 @@ void Shot::kill()
 {
     delete this;
 }
+
+

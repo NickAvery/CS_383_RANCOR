@@ -157,6 +157,18 @@ void Player::move()
     checkCollisions();
 }
 
+
+/*
+ *  Deals damage to the player.
+ *  Damage is calculated by the character class.
+ *
+ *
+ */
+void Player::dealDamageToPlayer(int damage)
+{
+    mCharacter->doDamage(damage);
+}
+
 /* put()
  * sets players position (into new room)
  * finds new walls.

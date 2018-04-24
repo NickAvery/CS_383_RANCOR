@@ -11,15 +11,17 @@
 
 #include "BTcharacter.h"
 #include "BTplayer.h"
-#include "BTshot.h"
+//#include "BTshot.h"
+#include "BTplayerShot.h"
 
 #include "JTwalls.h"
 #include "KNSkillManager.h"
 #include "JAgame.h"
 #include "JAaudio.h"
 
-//#include <iostream>
+#include <iostream>
 #include <QPoint>
+#include <QProcess>
 #include <QWidget>
 #include <QGraphicsRectItem>
 #include <QGraphicsPixmapItem>
@@ -28,6 +30,7 @@
 #include <QMouseEvent>
 #include <QDebug>
 #include <cmath>
+//#include <cstring>
 #include <QString>
 #include <QCursor>  //QCursor:: pos()[ Shooting ],
 #include <BTcharacter.h>
@@ -110,7 +113,7 @@ Character::Character(int characterNumber , bool autopilot, bool successPath, Gam
     mMousePoint = QPointF(0,0);
 
     //Fire initial shot to load graphics
-    Shot();
+    //Shot();
 
     if (autopilot) {
         if (successPath) {
@@ -228,6 +231,11 @@ int Character::getMoveDirection()
     //If not moving.
     //qDebug() << "Player not moving, myMove is" << myMove->moveRight << myMove->moveUp << myMove->moveLeft  << myMove->moveDown;
     return -1;
+}
+
+void Character::enemyHit()
+{
+    ++mTempScore;
 }
 
 /*
@@ -381,16 +389,18 @@ void Character::mousePressEvent(QMouseEvent *event)
                 //QRectF r = myPlayer->rect();
                 //QPointF c = mapToGlobal(r.center().toPoint());
                 //QPointF t( c.x(), c.y() + 1 );
+                /*
                 if ( 0 ) {                              //Temporary Until shooting fix is ensured.
                     QPointF p = myPlayer->pos();
                     //qDebug() << "Firing a shot" << p << " to " << event->windowPos();
-                    Shot* s = new Shot( 3, QLineF(p , event->windowPos()) );
+                    Shot<Player*>* s = new Shot<Player*>( myPlayer, 3, QLineF(p , event->windowPos()) );
                     connect(this, SIGNAL(shotTick()), s, SLOT(shotUpdate()));
                     connect(this, SIGNAL(shotKill()), s, SLOT(kill()));
 
                     scene->addItem(s);
                     mLaser->playSound();
                 }
+                */
 
             }
             break;
@@ -463,6 +473,7 @@ void Character::update()
             myPlayer->setRotation( 90 - a );
         }
     }
+
     shotTick();
     //Karstin's stress Test
     if (mKNStressTest) {
@@ -523,6 +534,19 @@ bool Character::Contains(QPointF& p, bool proper)
 
 void Character::gameWin()
 {
+    //Send score
+    char* s;
+/*std::string s;*/
+    QProcess *proc = new QProcess();
+    QStringList cmdArgList;
+    cmdArgList << "52.160.46.238";
+    cmdArgList << "1";
+    cmdArgList << "SPACE MAN";
+    itoa(mTempScore, s, 10);
+    cmdArgList << s;
+    proc->start("C:\\Users\\irish\\Downloads\\hssclient",
+    cmdArgList);
+
     VictoryScreen win;
     win.display();
     //win.show();
@@ -600,9 +624,10 @@ int Character::shoot(QLineF fireLine)
         //Shoot a bullet.
         //QPointF p = myPlayer->pos();
         //Shot* s = new Shot( mStats->shotSpeed, QLineF(p , mMousePoint) );
-        Shot* s = new Shot( mStats->shotSpeed, fireLine );
+        PlayerShot* s = new PlayerShot( mStats->shotSpeed, fireLine );
         connect(this, SIGNAL(shotTick()), s, SLOT(shotUpdate()));
         connect(this, SIGNAL(shotKill()), s, SLOT(kill()));
+        connect(s, SIGNAL(hitEnemy()),this, SLOT(enemyHit()));
 
         scene->addItem(s);
         mLaser->playSound();

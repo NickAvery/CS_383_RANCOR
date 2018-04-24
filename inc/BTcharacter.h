@@ -33,7 +33,7 @@ class Autopilot;    // Handles auto-movement and firing
 
 struct direction;
 struct DataBank;
-struct weaponStats;
+//struct weaponStats;
 
 class Character : public QWidget
 {
@@ -54,7 +54,7 @@ public:
     QPointF getCenter();
     QRectF getRect();  //Gets the rectangle that represents the pixmap of the player.
     int getCurrentHealth();  //Gets the player health
-    int getDamage();  //Gets the player damage
+    int getDamage();  //Gets the player damage stat.
 
 
     void keyPressEvent(QKeyEvent *event);   //Registers WASD keys, arrow keys, and 'P' for pause.
@@ -117,12 +117,15 @@ private:
 
     //Other
     Autopilot* mAP = NULL;
-    struct weaponStats mWeapStats;
+    weaponStats mWeapStats;
+    int mTempScore = 0;
     //protected:
     int getMoveDirection();
 signals:
     void shotTick();
     void shotKill();
+public slots:
+    void enemyHit();
 };
 
 #endif // CHARACTER_H

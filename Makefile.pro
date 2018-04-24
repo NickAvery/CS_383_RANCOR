@@ -38,7 +38,9 @@ HEADERS += inc/JAaudio.h inc/JAgame.h  inc/Jake/sound.h inc/Jake/music.h        
     inc/Angelo/ASVictoryScreen.h \
     inc/BTentity.h \
     inc/Nick/rangedenemy.h \
-    inc/Nick/meleeenemy.h
+    inc/Nick/meleeenemy.h \
+    inc/BTenemyShot.h \
+    inc/BTplayerShot.h
 
 
 
@@ -57,7 +59,9 @@ src/Baylus/BTcharacter.cpp src/Baylus/BTplayer.cpp src/Baylus/BTshot.cpp \
     src/Jake/JAmusic.cpp \
     src/Jake/JAsound.cpp \
     src/Nick/rangedenemy.cpp \
-    src/Nick/meleeenemy.cpp
+    src/Nick/meleeenemy.cpp \
+    src/Baylus/BTenemyShot.cpp \
+    src/Baylus/BTplayerShot.cpp
 
 
 
