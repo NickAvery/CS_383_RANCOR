@@ -79,7 +79,8 @@ Character::Character(int characterNumber , bool autopilot, bool successPath, Gam
     myMove->moveLeft =  false;
 
     //Make Player and add them to scene.
-    myPlayer = new Player(this, myMove, myGame);
+    myPlayer = Player::getInstance(this, myMove, myGame);
+//    myPlayer = new Player(this, myMove, myGame);
 
     mEnemyUpdater = myGame->getEnemies();
 
