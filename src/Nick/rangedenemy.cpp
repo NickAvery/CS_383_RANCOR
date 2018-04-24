@@ -5,7 +5,7 @@ RangedEnemy::RangedEnemy(double xSet, double ySet, int size):Enemy(xSet, ySet, s
     QPixmap pic = QPixmap(":/images/NAenemyRanged.png");
     pic = pic.scaled(size, size, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
     setPixmap(pic);
-    shotCooldown = size*7;
+    shotCooldown = size*4;
     tempCooldown = 0;
 }
 
