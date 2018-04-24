@@ -15,7 +15,6 @@ private:
     int testCaseMax;           //test case var
     int testCaseNum;           //test case var
     void update(qreal, qreal); //updates all enemies. used in giveInfo
-
 public:
     EnemyUpdater();                             //constructor, creates enemy spawner and enemylist
     void giveInfo(qreal, qreal);    //give the player info to the enemyUpdater
