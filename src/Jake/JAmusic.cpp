@@ -20,11 +20,6 @@ Music* Music::getInstance(QString passedString)
 }
 
 
-void Music::setVolume(int vol){
-    mSound->setVolume(vol);
-
-}
-
 void Music::setSound(QString nextSongString){
     mSound->setMedia(QUrl(nextSongString));
 }
@@ -40,7 +35,23 @@ void Music::pause(void)
 }
 
 void Music::manage(){
+    //plays next song once current one finishes
     if(!(mSound->state() == QMediaPlayer::PlayingState)){
-        mSound->play();
+        static int x =0;
+        if(!x){
+            setSound(QString("qrc:/sounds/Sounds/Light-Years_v001.mp3"));
+            x++;
+            setVolume(20);
+        }
+        else if( x == 1){
+            setSound(QString("qrc:/sounds/Sounds/The-Creeping-Blob.mp3"));
+            setVolume(70);
+            x++;
+        }else if(x == 2){
+            setSound(QString("qrc:/sounds/Sounds/Break-Down.mp3"));
+            setVolume(20);
+            x =0;
+        }
+      mSound->play();
     }
 }

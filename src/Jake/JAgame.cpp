@@ -21,6 +21,7 @@ Game::Game()
 
   music = new AudioInter(0, "qrc:/sounds/Sounds/Break-Down.mp3");
   //sets the first song to be played to be this one
+
   music->playSound();
   music->setVolume(10);
   //sets its volume to 10 cause its kinda loud to begin with.
@@ -125,10 +126,6 @@ void Game::levelLoop()
 }
 
 
-//QGraphicsScene* getScene(){
-//  return scene;
-  
-//}
 
 
 void Game::mainMenu()

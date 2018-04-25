@@ -6,13 +6,11 @@ Sound::Sound(QString soundPath):AudioAll(soundPath){
     mSound->setMedia(QUrl(name));
 }
 
-void Sound::setVolume(int vol){
-    mSound->setVolume(vol);
-
-}
 
 void Sound::play()
 {
+    //randomizes damage sounds to not be all the same;
+
     if((name == QString("qrc:/sounds/Sounds/damage1.wav"))|| (name == QString("qrc:/sounds/Sounds/damage2.wav")) ||( name == QString("qrc:/sounds/Sounds/damage3.wav"))){
         int x = rand()%3;
         if(x == 0)

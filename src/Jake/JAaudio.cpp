@@ -5,12 +5,6 @@
 #include <QTime>
 #include <QTimer>
 
-/*
-AudioAll::AudioAll(QString x){
-    name = x;
-}
-*/
-
 AudioInter::AudioInter(int sound_choice, QString soundpath, QObject* parent) : QObject(parent)
 {
         if(sound_choice == 1){
@@ -19,7 +13,11 @@ AudioInter::AudioInter(int sound_choice, QString soundpath, QObject* parent) : Q
         else{
             Music* mClass2;
             mClass2 = mClass2->getInstance(soundpath);
+            //calls getInstance because music follows the singleton pattern.
+
             mClass = mClass2;
+
+            //timer make sure music doesnt stop
             QTimer* musicManager = new QTimer();
             connect(musicManager,SIGNAL(timeout()),this,SLOT(musicManage()));
             musicManager->start(100);
@@ -47,7 +45,7 @@ void AudioInter::setSound(QString soundpath){
 
 int AudioInter::playSound() //sound effect that you wish to be played
 {
-
+    //example of delegation
     mClass->play();
     return 0;
 }
@@ -80,7 +78,6 @@ void AudioInter::stressTest()
     AudioAll * mSound6 = new Sound("qrc:/sounds/Sounds/Door_Closing.wav");
     AudioAll * mSound7 = new Sound("qrc:/sounds/Sounds/Door_Opening.wav");
     AudioAll * mSound8 = new Sound("qrc:/sounds/Sounds/Laser.wav");
-    //AudioAll * mSound9 = new Music("qrc:/sounds/Sounds/Light-Years_v001.mp3");
     AudioAll* mSound9;
     Music* mSound2temp = mSound2temp->getInstance("qrc:/sounds/Sounds/Light-Years_v001.mp3");
     mSound9 = mSound2temp;
@@ -88,7 +85,6 @@ void AudioInter::stressTest()
     AudioAll * mSound11 = new Sound("qrc:/sounds/Sounds/Robot_hit.wav");
     AudioAll * mSound12 = new Sound("qrc:/sounds/Sounds/Robot_less_angry.wav");
     AudioAll * mSound13 = new Sound("qrc:/sounds/Sounds/Robot_more_angry.wav");
-    //AudioAll * mSound14 = new Music("qrc:/sounds/Sounds/The-Creeping-Blob.mp3");
     AudioAll* mSound14;
     Music* mSound3temp = mSound3temp->getInstance("qrc:/sounds/Sounds/The-Creeping-Blob.mp3");
     mSound14 = mSound3temp;
@@ -101,35 +97,35 @@ void AudioInter::stressTest()
     mSound14->setVolume(20);
     mSound16->setVolume(10);
     mSound1->play();
- //   delay();
+ //    ();
     mSound2->play();
-   // delay();
+   //  ();
     mSound3->play();
-   // delay();
+   //  ();
     mSound4->play();
-   // delay();
+   //  ();
     mSound5->play();
-    //delay();
+    // ();
     mSound6->play();
-    //delay();
+    // ();
     mSound7->play();
-    //delay();
+    // ();
     mSound8->play();
-    //delay();
+    // ();
     mSound9->play();
-    //delay();
+    // ();
     mSound10->play();
-    //delay();
+    // ();
     mSound11->play();
-    //delay();
+    // ();
     mSound12->play();
-    //delay();
+    // ();
     mSound13->play();
-    //delay();
+    // ();
     mSound14->play();
-    //delay();
+    // ();
     mSound15->play();
-    //delay();
+    // ();
     mSound16->play();
 }
 
