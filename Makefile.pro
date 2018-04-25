@@ -61,7 +61,8 @@ src/Baylus/BTcharacter.cpp src/Baylus/BTplayer.cpp src/Baylus/BTshot.cpp \
     src/Nick/rangedenemy.cpp \
     src/Nick/meleeenemy.cpp \
     src/Baylus/BTenemyShot.cpp \
-    src/Baylus/BTplayerShot.cpp
+    src/Baylus/BTplayerShot.cpp \
+    src/Jake/JAaudiosuper.cpp
 
 
 
