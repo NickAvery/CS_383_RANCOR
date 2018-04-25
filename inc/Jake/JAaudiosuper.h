@@ -7,18 +7,18 @@
 class AudioAll{
 public:
 
-    AudioAll(QString x){
-        name = x;
-    }
+    AudioAll(QString x);
     //constructor only initializes the name variable in this class
 
 
     //The Functions below are to be overrided by the subclass that derive from it
     virtual void play()= 0;    
     virtual void pause() = 0;
-    virtual void setVolume(int x) = 0;
+
+    //sets the volume for the music
+    void setVolume(int x);
+
     virtual void setSound(QString) = 0;
-    //virtual AudioAll* getInstance(QString) = 0;
 public slots:
     virtual void manage() = 0;
 
@@ -30,5 +30,6 @@ protected:
         //Holds the audio player information
 };
 #endif // JAAUDIO_H
+
 
 
