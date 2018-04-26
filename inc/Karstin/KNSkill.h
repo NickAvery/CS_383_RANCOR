@@ -12,7 +12,8 @@
 #ifndef __SKILL_H__
 #define __SKILL_H__
 
-class Skill {
+class Skill
+{
  public:
   //Skill ID's:
   //To be used whenever a skillID field is required to reference a given skill.
@@ -30,8 +31,8 @@ class Skill {
   Skill(int skillID, int startingLevel);
   //Destructor
   ~Skill();
-  //Returns 0 if this skill does not have given ID; returns 1 if it does
-  int hasID(int skillID);
+  //Returns false if this skill does not have given ID; returns true if it does
+  bool hasID(int skillID);
   //Returns current level of this skill
   int getLevel();
   //Adds amount on to current skill level. If level goes below 0, floor at 0.

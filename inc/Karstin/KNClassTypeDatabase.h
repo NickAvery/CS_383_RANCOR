@@ -3,11 +3,12 @@
 
 #include "KNClassType.h"
 
-class ClassTypeDatabase {
+class ClassTypeDatabase
+{
  public:
   ClassTypeDatabase();
   ~ClassTypeDatabase();
-  int hasClassType(int classID);
+  bool hasClassType(int classID);
   ClassType *getClassType(int classID);
  private:
   ClassType **classTypes;

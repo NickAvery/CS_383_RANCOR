@@ -13,7 +13,8 @@
 //Necessary included headers
 #include "KNSkill.h"
 
-class ClassType {
+class ClassType
+{
  public:
   //Class Type ID's:
   //To be used whenever a classID field is required to reference a given class type.
@@ -30,7 +31,7 @@ class ClassType {
   //Returns level of skill with given Skill ID assigned to this class type
   int getSkillLevel(int skillID);
   //Returns 0 if classID is not this class type, returns 1 if it is.
-  int hasID(int classID);
+  bool hasID(int classID);
  private:
   //Class Type ID
   int ID;
