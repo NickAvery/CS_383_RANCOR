@@ -16,7 +16,6 @@ class Character;
 //Necessary included headers
 #include "KNClassTypeDatabase.h"
 #include "KNSkill.h"
-#include "KNScore.h"
 #include "KNItemDatabase.h"
 #include "KNItem.h"
 #include "KNWeapon.h"
