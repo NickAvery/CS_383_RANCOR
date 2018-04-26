@@ -12,17 +12,17 @@
 
 #include "KNItem.h"
 
-class PermaMod : Item
+class PermaMod : public Item
 {
  public:
   PermaMod(int *classIDs, int cIDcount, int ref, int spd, int hlth, int dmg);
   ~PermaMod();
-  override void apply();
+  void apply() override;
  private:
   //Basic stat changes involved in all Items
   int speedChange;
   int healthChange;
   int damageChange;  
-}
+};
 
 #endif //PERMAMOD_H

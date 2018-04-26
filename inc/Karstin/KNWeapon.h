@@ -19,7 +19,7 @@ class Weapon : public Item
   Weapon(int *classIDs, int cIDcount, int ref, int dmg, int *pSize, double pSpd, double pRng, double acc, int pCount, double pSprd, double pRate);
   //Destructor
   ~Weapon();
-  override void apply();
+  void apply() override;
  private:
   //Stat changes to projectiles
   int *projSize;

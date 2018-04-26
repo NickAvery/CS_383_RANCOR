@@ -8,6 +8,10 @@
 #ifndef __ITEMDATABASE_H__
 #define __ITEMDATABASE_H__
 
+#include "KNItem.h"
+#include "KNWeapon.h"
+#include "KNPermaMod.h"
+
 class ItemDatabase {
  public:
   ItemDatabase();
