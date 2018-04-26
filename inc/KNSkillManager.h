@@ -17,7 +17,10 @@ class Character;
 #include "KNClassTypeDatabase.h"
 #include "KNSkill.h"
 #include "KNScore.h"
-#include "KNPowerUp.h"
+#include "KNItemDatabase.h"
+#include "KNItem.h"
+#include "KNWeapon.h"
+#include "KNPermaMod.h"
 
 struct DataBank {
   int size[2];
@@ -29,6 +32,11 @@ struct DataBank {
   int shotSpeed;
 };
 
+struct ItemData {
+  int reference;
+  //Pixmap image;
+};
+
 class SkillManager {
   //Visible methods
  public:
@@ -38,23 +46,29 @@ class SkillManager {
   //Destructor
   ~SkillManager();
   //Sets class type that is being used (by Class Type ID), and all base skill settings defined by selected class type.
-  //Returns: 1 if successful, 0 if classID is invalid
-  //Use: int success = skillManager.selectClassType(ClassType::WARRIOR);
+  //Returns: true if successful, false if classID is invalid
+  //Use: bool success = skillManager.selectClassType(ClassType::WARRIOR);
   //Note: See KNClassType.h for full list of Class Type ID's
-  int selectClassType(int classID);
+  bool selectClassType(int classID);
   //Returns current level of skill with given Skill ID
   //Returns -1 if skillID is invalid
   //Use: int speedLevel = skillManager.getSkillLevel(Skill::SPEED);
   //Note: See KNSkill.h for full list of Skill ID's
   int getSkillLevel(int skillID);
-  //Returns value total Skill level
-  int getTotalLevel();
+  //Returns value of current level (1 + number of level ups applied)
+  int getLevel();
   //Adds experience to the Skills, applies level ups when necessary
   void addExperience(int amount);
-  //Stores and applies given PowerUp
-  void applyPowerUp(PowerUp *p);
-  //Tick down all PowerUp timers; destroys and removes PowerUps which have been depleted
-  void tickDownPowerUps(double seconds);
+
+  //Looks for item with matching ref value, and applies item stat changes to skill data
+  bool addItem(int ref);
+
+  //Ported over from Score class
+  //Return the current score value
+  int getScore();
+  //Calculate the current score based on experience value
+  void calculateScore();
+
  private:
   struct DataBank *DB;
   //Collection of skills
@@ -67,18 +81,28 @@ class SkillManager {
   ClassTypeDatabase *classTypeDatabase;
   //Reference to currently selected ClassType
   ClassType *selectedClassType;
-  //Collection of active PowerUps
-  PowerUp **appliedPowerUps;
-  //Reference to Score object
-  Score *score;
+
+  //Collection of collected Items
+  Item **collectedItems;
+  //ItemDatabase
+  ItemDatabase *itemDatabase;
+
   //Total skill level
   int totalLevel;
   //Current experience collected
   int experience;
   //Amount of total experience which will give next level up
   int nextLevelExperience;
+  //Rate at which nextLevelExperience increases for next level
   double growthMultiplier;
+  //Player score variable
+  int score;
+  //Update DB to current values
   void updateDataBank();
+  //Display current DB values
+  void printDataBank();
+  //Level up skills by given level amount
+  void levelUp(int levels);
 };
 
 #endif //SKILLMANAGER_H
