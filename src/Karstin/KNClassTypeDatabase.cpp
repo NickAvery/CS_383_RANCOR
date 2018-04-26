@@ -1,7 +1,15 @@
+/* KNClassTypeDatabase.cpp
+ * 
+ * Implementation file for ClassTypeDatabase class.
+ * 
+ * J Karstin Neill       4.24.18
+ */
+
 #include "KNClassTypeDatabase.h"
 #include <iostream>
 
-ClassTypeDatabase::ClassTypeDatabase() {
+ClassTypeDatabase::ClassTypeDatabase()
+{
   classTypes = new ClassType*[3];
   //WARRIOR creation
   classTypes[0] = new ClassType(ClassType::WARRIOR, 3, 1, 2, 3, 5);
@@ -11,24 +19,25 @@ ClassTypeDatabase::ClassTypeDatabase() {
   classTypes[2] = new ClassType(ClassType::DR_BC, 3, 1, 2, 3, 5);
 }
 
-ClassTypeDatabase::~ClassTypeDatabase() {
+ClassTypeDatabase::~ClassTypeDatabase()
+{
   //None Yet
 }
 
-int ClassTypeDatabase::hasClassType(int classID) {
-  for (int i=0; i < 4; i++) {
-    if (classTypes[i]->hasID(classID)) {
-      return 1;
-    }
+bool ClassTypeDatabase::hasClassType(int classID)
+{
+  for (int i=0; i < 4; i++)
+  {
+    if (classTypes[i]->hasID(classID)) return true;
   }
-  return 0;
+  return false;
 }
 
-ClassType *ClassTypeDatabase::getClassType(int classID) {
-  for (int i=0; i < 4; i++) {
-    if (classTypes[i]->hasID(classID)) {
-      return classTypes[i];
-    }
+ClassType *ClassTypeDatabase::getClassType(int classID)
+{
+  for (int i=0; i < 4; i++)
+  {
+    if (classTypes[i]->hasID(classID)) return classTypes[i];
   }
   return NULL;
 }
