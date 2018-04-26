@@ -22,3 +22,8 @@ Weapon::~Weapon()
 {
   
 }
+
+void Weapon::apply()
+{
+
+}

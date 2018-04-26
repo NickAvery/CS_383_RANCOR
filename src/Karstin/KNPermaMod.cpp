@@ -24,7 +24,7 @@ PermaMod::~PermaMod()
   
 }
 
-override void PermaMod::apply()
+void PermaMod::apply()
 {
   
 }
