@@ -206,7 +206,7 @@ int Player::checkCollisions()
     {
         Door * door= dynamic_cast<Door *>(i);
         if (door){
-            name = door->name;
+            name = door->mName;
             //cant return here, since i want to check all collisions.
             //return 1;
             r = true;
