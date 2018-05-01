@@ -7,287 +7,342 @@
 #include <stdlib.h>
 #include <QDebug>
 #include <QTime>
+#include <QLabel>
+#include <QGraphicsPixmapItem>
 
-#include "JTmap.h"
-#include "JTwalls.h"
-#include "JTroom.h"
-#include "JTgoal.h"
+#include "JTMap.h"
+#include "JTWalls.h"
+#include "JTRoom.h"
+#include "JTGoal.h"
 #include "JAgame.h"
 #include "JAaudio.h"
-#include "JTbackground.h"
+#include "JTBackground.h"
+#include "JTGenerator.h"
 
-int Map::roomX=51;
-int Map::roomY=51;
-bool Map::demo;
-bool Map::storage=false;
-bool Map::bStorage=false;
+int Map::sRoomX=51;
+int Map::sRoomY=51;
+int Map::sGoalX;
+int Map::sGoalY;
+bool Map::sDemo;
+bool Map::sKarstinStressStorage=false;
+bool Map::sBaylusStressStorage=false;
 
 //consider making the floor array static within class
 Map::Map(QGraphicsScene* scenePointer, bool demoMode, Game * gameObject)
 {
-    goal=NULL;
-    demo=demoMode;
-    enemies = gameObject->getEnemies();
-    scene=scenePointer;
-    game=gameObject;
+    mGoal=NULL;
+    sDemo=demoMode;
+    mEnemies = gameObject->getEnemies();
+    mScene=scenePointer;
+    mGame=gameObject;
 
-    if(demo){                           //this section is only run during demo mode
-        successPath="RRR";
-        //selectRoom(3,scene);
+    //this section is only run during demo mode
+    if(sDemo)
+    {
+        sGoalX = 55;
+        sGoalY = 51;
+        mSuccessPath="RRR";
         selectRoom(3);
-        for(int i=0; i<MAX_Y; i++){
-            for(int j=0; j<MAX_X; j++){
-                floorArray[i][j]=16;
+        for(int i=0; i<SMAX_Y; i++)
+        {
+            for(int j=0; j<SMAX_X; j++)
+            {
+                mFloorArray[i][j]=16;
             }
         }
 
-        floorArray[51][51]=3;
-        floorArray[52][50]=4;
-        floorArray[52][51]=14;
-        floorArray[53][51]=10;
-        floorArray[54][51]=10;
-        floorArray[55][51]=5;
-    } else{                             //this is run during normal gameplay
-        successPath="";
-                                                                        //add in when map gen is finished
-                                                                        //srand(time(NULL));
-                                                                        //int goalx=10-rand()%10;      //the 10 in these two lines is the path length
-                                                                        //int goaly=10-goalx;
-                                                                        //goalx+=51;
-                                                                        //goaly+=51;
-                                                                        //QString coords = QString::number(roomx)+" "+QString::number(roomy);
-                                                                        //room = selectRoom(1, scene);
-                                                                        //selectRoom(1,scene);
-        selectRoom(1);
-
-        //later, switch this out for real map creation
-        //make sure to always add to the solution string
-        for(int i=0; i<MAX_Y; i++){
-            for(int j=0; j<MAX_X; j++){
-                floorArray[i][j]=16;
+        mFloorArray[51][51]=3;
+        mFloorArray[52][50]=4;
+        mFloorArray[52][51]=14;
+        mFloorArray[53][51]=10;
+        mFloorArray[54][51]=10;
+        mFloorArray[55][51]=5;
+    }
+    else
+    {                             //this is run during normal gameplay
+        Generator* mapGenerator = new Generator;
+        mapGenerator->generate();
+        mSuccessPath=mapGenerator->getPath();
+        mapGenerator->getGoal(sGoalX, sGoalY);
+        qDebug() << mSuccessPath;
+        for(int i=0; i<SMAX_Y; i++)
+        {
+            for(int j=0; j<SMAX_X; j++)
+            {
+                mFloorArray[i][j]= (mapGenerator->mValues)[i][j];
             }
         }
-        floorArray[51][51]=1;
-        floorArray[51][50]=4;
-        floorArray[51][52]=2;
-        floorArray[50][51]=3;
-        floorArray[52][51]=5;
+        qDebug()<<"Map array"<< mFloorArray[51][51];
+        selectRoom(mFloorArray[51][51]);
     }
 }
 
 void Map::selectRoom(int selection)
 {
     QList<QPoint> enemyCoords;
-    switch(selection){
-    case 1:
-        //enemyCoords << QPoint(70,70) << QPoint(600,600) << QPoint(400,400);
-        room = new Room(true, true, true, true, selection);         //this will be attached to the 4 door case
-        break;
-    case 2:
-        //enemyCoords << QPoint(300, 300) << QPoint(500,500);
-        room = new Room(true, false, false, false, selection);         //this will be attached to the top door case
-        break;
-    case 3:
-        //enemyCoords << QPoint(250,600);
-        room = new Room(false, true, false, false, selection);         //this will be attached to the right door case
-        break;
-    case 4:
-        //enemyCoords << QPoint(200,400);
-        room = new Room(false, false, true, false, selection);         //this will be attached to the bottom door case
-        break;
-    case 5:
-        room = new Room(false, false, false, true, selection);         //this will be attached to the left door case
-        break;
-    case 6:
-        room = new Room(true, true, false, false, selection);         //this will be attached to the top && right door case
-        break;
-    case 7:
-        room = new Room(true, false, true, false, selection);         //this will be attached to the 2 vertical door case
-        break;
-    case 8:
-        room = new Room(true, false, true, false, selection);         //this will be attached to the top && left door case
-        break;
-    case 9:
-        room = new Room(false, true, true, false, selection);         //this will be attached to the right && bottom door case
-        break;
-    case 10:
-        room = new Room(false, true, false, true, selection);         //this will be attached to the 2 horizontal door case
-        break;
-    case 11:
-        room = new Room(false, false, true, true, selection);         //this will be attached to the bottom && left door case
-        break;
-    case 12:
-        room = new Room(false, true, true, true, selection);         //this will be attached to the not-top door case
-        break;
-    case 13:
-        room = new Room(true, false, true, true, selection);         //this will be attached to the not-right door case
-        break;
-    case 14:
-        room = new Room(true, true, false, true, selection);         //this will be attached to the not-bottom door case
-        break;
-    case 15:
-        room = new Room(true, true, true, false, selection);         //this will be attached to the not-left door case
-        break;
-    case 16:
-    default:
-        room = new Room(false, false, false, false, selection);        //handles problem case. 0 doors.
-        break;
-
+    switch(selection)
+    {
+        case 1:
+            mRoom = new Room(true, true, true, true, selection);         //this will be attached to the 4 door case
+            break;
+        case 2:
+            mRoom = new Room(true, false, false, false, selection);         //this will be attached to the top door case
+            break;
+        case 3:
+            mRoom = new Room(false, true, false, false, selection);         //this will be attached to the right door case
+            break;
+        case 4:
+            mRoom = new Room(false, false, true, false, selection);         //this will be attached to the bottom door case
+            break;
+        case 5:
+            mRoom = new Room(false, false, false, true, selection);         //this will be attached to the left door case
+            break;
+        case 6:
+            mRoom = new Room(true, true, false, false, selection);         //this will be attached to the top && right door case
+            break;
+        case 7:
+            mRoom = new Room(true, false, true, false, selection);         //this will be attached to the 2 vertical door case
+            break;
+        case 8:
+            mRoom = new Room(true, false, false, true, selection);         //this will be attached to the top && left door case
+            break;
+        case 9:
+            mRoom = new Room(false, true, true, false, selection);         //this will be attached to the right && bottom door case
+            break;
+        case 10:
+            mRoom = new Room(false, true, false, true, selection);         //this will be attached to the 2 horizontal door case
+            break;
+        case 11:
+            mRoom = new Room(false, false, true, true, selection);         //this will be attached to the bottom && left door case
+            break;
+        case 12:
+            mRoom = new Room(false, true, true, true, selection);         //this will be attached to the not-top door case
+            break;
+        case 13:
+            mRoom = new Room(true, false, true, true, selection);         //this will be attached to the not-right door case
+            break;
+        case 14:
+            mRoom = new Room(true, true, false, true, selection);         //this will be attached to the not-bottom door case
+            break;
+        case 15:
+            mRoom = new Room(true, true, true, false, selection);         //this will be attached to the not-left door case
+            break;
+        case 16:
+        default:
+            mRoom = new Room(false, false, false, false, selection);        //handles problem case. 0 doors.
+            break;
     }
 
     //add room objects to scene
-    if(room->walls != NULL)
-        scene->addItem(room->walls);
-    if(room->lDoor != NULL)
-        scene->addItem(room->lDoor);
-    if(room->rDoor != NULL)
-        scene->addItem(room->rDoor);
-    if(room->tDoor != NULL)
-        scene->addItem(room->tDoor);
-    if(room->bDoor != NULL)
-        scene->addItem(room->bDoor);
-    if(room->bg != NULL)
-        scene->addItem(room->bg);
+    if(mRoom->mWalls != NULL)
+    {
+        mScene->addItem(mRoom->mWalls);
+    }
+    if(mRoom->mLeftDoorObject != NULL)
+    {
+        mScene->addItem(mRoom->mLeftDoorObject);
+    }
+    if(mRoom->mRightDoorObject != NULL)
+    {
+        mScene->addItem(mRoom->mRightDoorObject);
+    }
+    if(mRoom->mTopDoorObject != NULL)
+    {
+        mScene->addItem(mRoom->mTopDoorObject);
+    }
+    if(mRoom->mBottomDoorObject != NULL)
+    {
+        mScene->addItem(mRoom->mBottomDoorObject);
+    }
+    if(mRoom->mBackgroundObject != NULL)
+    {
+        mScene->addItem(mRoom->mBackgroundObject);
+    }
 }
 
 void Map::switchRooms(QString name)
 {
-    if((enemies->enemiesDead())){
-        if(storage){    //storage here is the switch for Karstin's test
-            storage=false;
-            game->getCharacter()->KNStressTest();
+    qDebug() <<"Room X: "<<sRoomX<<"\tRoom Y: "<<sRoomY;
+    qDebug() <<"Goal X: "<<sGoalX<<"\tGoal Y: "<<sGoalY;
+    if((mEnemies->enemiesDead()))
+    {
+        if(sKarstinStressStorage)
+        {
+            sKarstinStressStorage=false;
+            mGame->getCharacter()->KNStressTest();
         }
-        if(bStorage){
-            bStorage=false;
-            game->getCharacter()->BTStressTest();
+        if(sBaylusStressStorage)
+        {
+            sBaylusStressStorage=false;
+            mGame->getCharacter()->BTStressTest();
         }
 
         //remove objects from room completely
-        enemies->removeEnemies();
-        delete room->walls;
-        room->walls=NULL;
-        delete room->rDoor;
-        room->rDoor=NULL;
-        delete room->lDoor;
-        room->lDoor=NULL;
-        delete room->tDoor;
-        room->tDoor=NULL;
-        delete room->bDoor;
-        room->bDoor=NULL;
-        delete room;
-        room=NULL;
-        if(goal!=NULL)
-            delete goal;
-        goal=NULL;
+        mEnemies->removeEnemies();
+        delete mRoom->mWalls;
+        mRoom->mWalls=NULL;
+        delete mRoom->mRightDoorObject;
+        mRoom->mRightDoorObject=NULL;
+        delete mRoom->mLeftDoorObject;
+        mRoom->mLeftDoorObject=NULL;
+        delete mRoom->mTopDoorObject;
+        mRoom->mTopDoorObject=NULL;
+        delete mRoom->mBottomDoorObject;
+        mRoom->mBottomDoorObject=NULL;
+        delete mRoom;
+        mRoom=NULL;
+        if(mGoal!=NULL)
+        {
+            delete mGoal;
+        }
+        mGoal=NULL;
         int roomChoice;
 
         //this is based on which door the player moves through, to make sure movement is continuous
-        if(name=="Top"){
-            roomX--;
-            roomChoice=floorArray[roomY][roomX];
+        if(name=="Top")
+        {
+            sRoomX--;
+            roomChoice=mFloorArray[sRoomY][sRoomX];
             selectRoom(roomChoice);
-            game->getCharacter()->setPostition(QPointF(400,500));
-            if(demo){
-                if (roomX==50){
+            mGame->getCharacter()->setPostition(QPointF(400,500));
+            if(sDemo)
+            {
+                if (sRoomX==50)
+                {
                     qDebug()<<"Enemy test.";
-                    enemies->testCase(scene);
+                    mEnemies->testCase(mScene);
                 }
             }
-        } else if(name=="Bottom"){
-            roomX++;
-            //qDebug() << roomx<<" "<<roomy;
-            roomChoice=floorArray[roomY][roomX];
+        }
+        else if(name=="Bottom")
+        {
+            sRoomX++;
+            roomChoice=mFloorArray[sRoomY][sRoomX];
             selectRoom(roomChoice);
-            game->getCharacter()->setPostition(QPointF(400,75));
-            if(demo){
-                if(roomY==52){
+            mGame->getCharacter()->setPostition(QPointF(400,75));
+            if(sDemo)
+            {
+                if(sRoomY==52)
+                {
                     qDebug() << "Audio Stress Test";
                     AudioInter * test = new AudioInter(1,"");
                     test->stressTest();
-                } else if(roomY==54){
-                    Goal * g = new Goal();
-                    goal = g;
-                    goal->setPos(360,260);
-                    scene->addItem(goal);
-                } else if (roomX==51){
+                }
+                else if(sRoomY==54)
+                {
+                    //QPixmap pic = QPixmap(":/images/Stairs.png");
+                    mGoal = new Goal();
+                }
+                else if (sRoomX==51)
+                {
                     qDebug()<<"Enemy test.";
-                    enemies->testCase(scene);
+                    mEnemies->testCase(mScene);
                 }
             }
-        } else if(name=="Right"){
-            roomY++;
-            //qDebug() << roomx<<" "<<roomy;
-            roomChoice=floorArray[roomY][roomX];
+        }
+        else if(name=="Right")
+        {
+            sRoomY++;
+            roomChoice=mFloorArray[sRoomY][sRoomX];
             selectRoom(roomChoice);
-            game->getCharacter()->setPostition(QPointF(100,275));
-            if(demo){
-                if(roomY==52){
+            mGame->getCharacter()->setPostition(QPointF(100,275));
+            if(sDemo)
+            {
+                if(sRoomY==52)
+                {
                     qDebug() << "Audio Stress Test";
                     AudioInter * test = new AudioInter(1,"");
                     test->stressTest();
-                }else if(roomY==53){
+                }
+                else if(sRoomY==53)
+                {
                     qDebug() <<"Character stress test";
-                    storage=true;
-                    game->getCharacter()->KNStressTest();
-                }else if(roomY==54){
+                    sKarstinStressStorage=true;
+                    mGame->getCharacter()->KNStressTest();
+                }
+                else if(sRoomY==54)
+                {
                     qDebug() << "Weapons stress test";
-                    bStorage=true;
-                    game->getCharacter()->BTStressTest();
-                }else if(roomY==55){
-                    Goal * g = new Goal();
-                    goal = g;
-                    goal->setPos(360,260);
-                    scene->addItem(goal);
+                    sBaylusStressStorage=true;
+                    mGame->getCharacter()->BTStressTest();
                 }
             }
-        } else if(name=="Left"){
-            roomY--;
-            //qDebug() << roomx<<" "<<roomy;
-            roomChoice=floorArray[roomY][roomX];
+        }
+        else if(name=="Left")
+        {
+            sRoomY--;
+            roomChoice=mFloorArray[sRoomY][sRoomX];
             selectRoom(roomChoice);
-            game->getCharacter()->setPostition(QPointF(675,275));
-            if(demo){
-                if(roomY==52){
+            mGame->getCharacter()->setPostition(QPointF(675,275));
+            if(sDemo)
+            {
+                if(sRoomY==52)
+                {
                     qDebug() << "Audio Stress Test";
                     AudioInter * test = new AudioInter(1,"");
                     test->stressTest();
-                } else if(roomY==54){
-                    Goal * g = new Goal();
-                    goal = g;
-                    goal->setPos(360,260);
-                    scene->addItem(goal);
                 }
             }
-        } else {
+        }
+        else
+        {
             qDebug() << "Failed to match a room";
-            roomChoice=floorArray[roomY][roomX];
+            roomChoice=mFloorArray[sRoomY][sRoomX];
             selectRoom(roomChoice);
-            game->getCharacter()->setPostition(QPointF(400,300));
+            mGame->getCharacter()->setPostition(QPointF(400,300));
         }
         qsrand(QTime::currentTime().msec());
         int seed1 =qrand()%10+1;
         int seed2 =qrand()%2+1;
-        int amountenemies =0;
+        int amountEnemies =0;
         if(seed1<=1)
-            amountenemies=0;
-        else if(seed1>1 && seed1<=8)
-            amountenemies=seed1*seed2;
-        else if(seed1>8 && seed2==2)
-            amountenemies=20;
-        else
-            amountenemies=10;
-        enemies->removeEnemies();
-        for(int i=0; i<amountenemies; i++){
-            enemies->newEnemy(scene, qrand()%690+40,qrand()%490+40);
+        {
+            amountEnemies=0;
         }
+        else if(seed1>1 && seed1<=8)
+        {
+            amountEnemies=seed1*seed2;
+        }
+        else if(seed1>8 && seed2==2)
+        {
+            amountEnemies=20;
+        }
+        else
+        {
+            amountEnemies=10;
+        }
+        mEnemies->removeEnemies();
+        qDebug() << "sRoomX == sGoalY:" << sRoomX <<"=="<<sGoalY;
+        qDebug() << "sRoomY == sGoalX:" << sRoomY <<"=="<<sGoalX;
+        if(sRoomX==sGoalY && sRoomY==sGoalX)
+        {
+             qDebug() << "Tah dah!";
+             Goal * g = new Goal();
+             mGoal = g;
+             g->setZValue(4);
+             g->setPos((qreal)360,(qreal)260);
+             mScene->addItem(g);
+             //mGoal->show();
+         }
+         if(!sDemo){
+            for(int i=0; i<amountEnemies; i++)
+            {
+                mEnemies->newEnemy(mScene, qrand()%690+40,qrand()%490+40);
+            }
+         }
     }
 }
 
 QString Map::getSuccessPath()
 {
-    return successPath;
-};
+    return mSuccessPath;
+}
 
-QRectF Map::getWallsRect(){
-    return room->walls->rect();
+QRectF Map::getWallsRect()
+{
+    return mRoom->mWalls->rect();
+}
+
+Map* Map::getMap(){
+    return this;
 }

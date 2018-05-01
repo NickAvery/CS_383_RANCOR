@@ -1,13 +1,15 @@
-#include "JTdoor.h"
+#include "JTDoor.h"
 #include <string>
 
 Door::Door(bool sides, QString doorName)
 {
-    name=doorName;
-    if(sides){
+    mName=doorName;
+    if(sides)
+    {
         setRect(0,0,10,60);
         setPos(40,40);
-    } else {
+    } else
+    {
         setRect(0,0,60,10);
         setPos(40,40);
     }

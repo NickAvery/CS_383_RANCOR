@@ -1,4 +1,4 @@
-#include "JTwalls.h"
+#include "JTWalls.h"
 
 Walls::Walls(): QObject(), QGraphicsRectItem()
 {
