@@ -1,20 +1,21 @@
 #ifndef JTROOM_H
 #define JTROOM_H
 
-#include "JTwalls.h"
-#include "JTdoor.h"
-#include "JTbackground.h"
+#include "JTWalls.h"
+#include "JTDoor.h"
+#include "JTBackground.h"
 #include <QGraphicsView>
-class Room: public QGraphicsView{
+class Room: public QGraphicsView
+{
 private:
 public:
-    Room(bool topDoor, bool rightDoor, bool bottomDoor, bool leftDoor, int selection);
-    Walls * walls;
-    Door * lDoor;
-    Door * rDoor;
-    Door * bDoor;
-    Door * tDoor;
-    Background * bg;
+    Walls * mWalls;
+    Door * mLeftDoorObject;
+    Door * mRightDoorObject;
+    Door * mBottomDoorObject;
+    Door * mTopDoorObject;
+    Background * mBackgroundObject;
+    Room(bool topDoor, bool rightDoor, bool bottomDoor, bool mLeftDoorObject, int selection);
 };
 
 #endif // JTROOM_H
