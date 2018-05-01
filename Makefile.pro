@@ -27,7 +27,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 # Input
 HEADERS += inc/JAaudio.h inc/JAgame.h  inc/Jake/sound.h inc/Jake/music.h                        \
-           inc/JTmap.h inc/James/JTdoor.h inc/James/JTroom.h inc/James/JTwalls.h inc/James/JTgoal.h inc/James/JTbackground.h\
+           inc/JTMap.h inc/James/JTDoor.h inc/James/JTRoom.h inc/James/JTWalls.h inc/James/JTGoal.h inc/James/JTBackground.h inc/James/JTCollidable.h inc/James/JTGenerator.h\
            inc/NAenemyupdater.h inc/Nick/enemy.h                \
            inc/KNSkillManager.h inc/Karstin/KNClassType.h inc/Karstin/KNClassTypeDatabase.h inc/Karstin/KNSkill.h inc/Karstin/KNItem.h inc/Karstin/KNItemDatabase.h inc/Karstin/KNPermaMod.h inc/Karstin/KNWeapon.h   \
            inc/Angelo/ASmenu.h                                  \
@@ -47,7 +47,7 @@ HEADERS += inc/JAaudio.h inc/JAgame.h  inc/Jake/sound.h inc/Jake/music.h        
 
 SOURCES +=                                                            \
 src/Jake/JAaudio.cpp src/Jake/JAgame.cpp src/Jake/main.cpp            \
-src/James/JTmap.cpp src/James/JTwalls.cpp src/James/JTroom.cpp src/James/JTdoor.cpp src/James/JTgoal.cpp src/James/JTbackground.cpp\
+src/James/JTMap.cpp src/James/JTWalls.cpp src/James/JTRoom.cpp src/James/JTDoor.cpp src/James/JTGoal.cpp src/James/JTBackground.cpp src/James/JTCollidable.cpp src/James/JTGenerator.cpp\
 src/Nick/enemy.cpp src/Nick/enemyupdater.cpp                          \
 src/Karstin/KNSkillManager.cpp src/Karstin/KNClassType.cpp src/Karstin/KNClassTypeDatabase.cpp src/Karstin/KNSkill.cpp src/Karstin/KNItem.cpp src/Karstin/KNItemDatabase.cpp src/Karstin/KNPermaMod.cpp src/Karstin/KNWeapon.cpp  \
 src/Angelo/ASmenu.cpp                                                 \
@@ -67,6 +67,6 @@ src/Baylus/BTcharacter.cpp src/Baylus/BTplayer.cpp src/Baylus/BTshot.cpp \
 
 
 RESOURCES += src/Jake/sounds.qrc \
-    src/James/JTimages.qrc    \
+    src/James/JTImages.qrc    \
     src/Baylus/BTimages.qrc \
     src/Nick/NAresources.qrc
