@@ -9,7 +9,7 @@ class Door: public QObject, public QGraphicsRectItem{
     Q_OBJECT
 public:
     Door * door;
-    QString name;
+    QString mName;
     Door(bool sides, QString doorName);
 };
 
