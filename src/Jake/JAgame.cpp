@@ -53,22 +53,26 @@ void Game::start(int CharClass)
   scene->clear();
   
   eUpdater = new EnemyUpdater();
-  
+  //Enemy manage creates enemies and add's to the scene.
+
+
   map = new Map(scene, false, this);
     //James(map designer) adds himself to the scene.
-  
+
 
   Player = new Character(CharClass, this, scene);
     //Creates a new character CharClass represents the character that was chosen at the mainMenu.
+    //Player manager manually sets the focus to be on himself
+    //create last as position on the map is dependant on the map being made
 
   show();
-    //Add's Player to scene and set him to be the focus.
+
 
   timer = new QTimer();
   connect(timer,SIGNAL(timeout()),this,SLOT(levelLoop()));
   timer->start(10);
   //starts and connects that timer that is leveLoop.
-
+  //not connected till after all objects are constructed
 }
 
 
@@ -76,11 +80,14 @@ void Game::stressStart(int CharClass, bool autoPilot, bool successPath)
 {
     scene->clear();
     eUpdater = new EnemyUpdater();
-    map = new Map(scene, true, this); //somehow signal to James this is a stress test.
+    map = new Map(scene, true, this);
+    //true signals to James this is a stress test.
     
 
     Player = new Character(CharClass, autoPilot, successPath, this, scene);
       //Creates a new character CharClass represents the character that was chosen at the mainMenu.
+      //autoPilot  means that this is a stressTest.
+      //successPath tells him whether or not this is a success case of the demo or the fail cased
 
     show();
 
