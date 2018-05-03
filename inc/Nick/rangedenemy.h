@@ -11,7 +11,7 @@ public:
     RangedEnemy(double, double, int);
     ~RangedEnemy();
     void makeAttack(qreal, qreal);
-    int decide(qreal, qreal);
+    int decide(qreal, qreal, int, int);
 private:
     int shotCooldown;
     int tempCooldown;

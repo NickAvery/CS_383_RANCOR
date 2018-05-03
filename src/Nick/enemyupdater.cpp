@@ -29,7 +29,7 @@ int EnemyUpdater::numOfEnemies()
     return sEnemies.size();
 }
 
-void EnemyUpdater::update(qreal playerX, qreal playerY)
+void EnemyUpdater::update(qreal playerX, qreal playerY, int playerDamage, int playerLife)
 {
     Enemy *temp;
     for(int i = 0; i < sEnemies.size(); i++)
@@ -42,7 +42,7 @@ void EnemyUpdater::update(qreal playerX, qreal playerY)
             removeEnemy(i);
             continue;
         }
-        temp->makeDecision(playerX, playerY);
+        temp->makeDecision(playerX, playerY, playerDamage, playerLife);
         //qDebug() << "Enemy " << i << ": " << (int)sEnemies.value(i)->getXPos() << ", " << (int)sEnemies.value(i)->getYPos();
     }
 }
@@ -60,9 +60,9 @@ void EnemyUpdater::removeEnemies()
     }
 }
 
-void EnemyUpdater::giveInfo(qreal charX, qreal charY)
+void EnemyUpdater::giveInfo(qreal charX, qreal charY, int charDamage, int charLife)
 {
-    update(charX, charY);
+    update(charX, charY, charDamage, charLife);
 }
 
 void EnemyUpdater::newEnemy(QGraphicsScene *scene, qreal x, qreal y)

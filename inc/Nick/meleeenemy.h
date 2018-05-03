@@ -7,7 +7,7 @@ class MeleeEnemy : public Enemy {
 public:
     MeleeEnemy(double, double, int);
     void makeAttack(qreal, qreal);
-    int decide(qreal, qreal);
+    int decide(qreal, qreal, int, int);
 };
 
 #endif // MELEEENEMY_H

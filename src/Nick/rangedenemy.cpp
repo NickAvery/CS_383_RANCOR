@@ -46,7 +46,7 @@ void RangedEnemy::makeAttack(qreal playerX, qreal playerY)
 
 }
 
-int RangedEnemy::decide(qreal playerX, qreal playerY)
+int RangedEnemy::decide(qreal playerX, qreal playerY, int playerDamage, int playerLife)
 {
     qreal tempX = x();
     qreal tempY = y();
@@ -55,9 +55,9 @@ int RangedEnemy::decide(qreal playerX, qreal playerY)
     qreal distance = sqrt((tempRotX*tempRotX)+(tempRotY*tempRotY));
     shotTick();
     //attack player
-    if(distance < 200 && getHealth() >30)
+    if(distance < 200 && (getHealth() >30 || playerLife <= getAtkValue()))
         return 1;
-    else if(getHealth() <= 30)
+    else if(getHealth() <= playerDamage)
         return 2;
     else
         return 0;
