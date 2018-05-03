@@ -14,6 +14,7 @@ TARGET = SpaceShooter
 INCLUDEPATH += . inc inc/Jake inc/James inc/Nick inc/Baylus inc/Angelo inc/Karstin
 FORMS += inc/mainmenu.ui \
     inc/victoryscreen.ui
+
 # The following define makes your compiler warn you if you use any
 # feature of Qt which has been marked as deprecated (the exact warnings
 # depend on your compiler). Please consult the documentation of the

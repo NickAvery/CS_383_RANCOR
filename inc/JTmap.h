@@ -2,9 +2,9 @@
 #define JTMAP_H
 
 #include "JTWalls.h"
-#include "JTRoom.h"
+#include "JTroom.h"
 #include "JAgame.h"
-#include "JTGoal.h"
+#include "JTgoal.h"
 #include <QGraphicsView>
 #include <QWidget>
 #include <QGraphicsScene>
