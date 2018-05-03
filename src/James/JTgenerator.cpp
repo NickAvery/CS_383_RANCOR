@@ -1,6 +1,6 @@
-#include "JTGenerator.h"
+#include "JTgenerator.h"
 #include <QDebug>
-#include <JTGenerator.h>
+#include <JTgenerator.h>
 
 void Generator::getGoal(int &x, int &y)
 {

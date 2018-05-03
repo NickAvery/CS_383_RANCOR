@@ -1,6 +1,6 @@
-#include "JTRoom.h"
-#include "JTWalls.h"
-#include "JTDoor.h"
+#include "JTroom.h"
+#include "JTwalls.h"
+#include "JTdoor.h"
 
 Room::Room(bool topDoor, bool rightDoor, bool bottomDoor, bool leftDoor, int selection)
 {

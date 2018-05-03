@@ -536,8 +536,8 @@ bool Character::Contains(QPointF& p, bool proper)
 void Character::gameWin()
 {
     //Send score
-    char* s;
-/*std::string s;*/
+   /* char* s;
+std::string s;
     QProcess *proc = new QProcess();
     QStringList cmdArgList;
     cmdArgList << "52.160.46.238";
@@ -547,7 +547,7 @@ void Character::gameWin()
     cmdArgList << s;
     proc->start("C:\\Users\\irish\\Downloads\\hssclient",
     cmdArgList);
-
+*/
     VictoryScreen win;
     win.display();
     //win.show();

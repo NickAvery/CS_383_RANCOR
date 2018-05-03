@@ -10,14 +10,14 @@
 #include <QLabel>
 #include <QGraphicsPixmapItem>
 
-#include "JTMap.h"
+#include "JTmap.h"
 #include "JTWalls.h"
-#include "JTRoom.h"
-#include "JTGoal.h"
+#include "JTroom.h"
+#include "JTgoal.h"
 #include "JAgame.h"
 #include "JAaudio.h"
 #include "JTBackground.h"
-#include "JTGenerator.h"
+#include "JTgenerator.h"
 
 int Map::sRoomX=51;
 int Map::sRoomY=51;
