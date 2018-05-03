@@ -14,10 +14,10 @@ private:
     EnemySpawner *mSpawner;    //Enemy Spawner
     int testCaseMax;           //test case var
     int testCaseNum;           //test case var
-    void update(qreal, qreal); //updates all enemies. used in giveInfo
+    void update(qreal, qreal, int, int); //updates all enemies. used in giveInfo
 public:
     EnemyUpdater();                             //constructor, creates enemy spawner and enemylist
-    void giveInfo(qreal, qreal);    //give the player info to the enemyUpdater
+    void giveInfo(qreal, qreal, int, int);    //give the player info to the enemyUpdater
     void newEnemy(QGraphicsScene *, qreal, qreal);            //create a new enemy using the spawner
     Enemy *getEnemy(int);                     //get an enemy from the list
     QList<Enemy*> getEnemies();                 //get the entire list of enemies

@@ -30,7 +30,7 @@ void MeleeEnemy::makeAttack(qreal playerX, qreal playerY)
     setRotation(degreeRot+flipAdd);
 }
 
-int MeleeEnemy::decide(qreal playerX, qreal playerY)
+int MeleeEnemy::decide(qreal playerX, qreal playerY, int playerDamage, int playerLife)
 {
     qreal tempX = x();
     qreal tempY = y();
@@ -38,9 +38,9 @@ int MeleeEnemy::decide(qreal playerX, qreal playerY)
     qreal tempRotY = playerY-tempY;
     qreal distance = sqrt((tempRotX*tempRotX)+(tempRotY*tempRotY));
     //attack player
-    if(distance < 70 && getHealth() >30)
+    if(distance < 70 && (getHealth() >30 || playerLife <= getAtkValue()))
         return 1;
-    else if(getHealth() <= 30)
+    else if(getHealth() <= playerDamage)
         return 2;
     else
         return 0;

@@ -126,7 +126,7 @@ Character* Game::getCharacter()
 void Game::levelLoop()
 {
     if(!Pause){
-    eUpdater->giveInfo(Player->getPosition().x(), Player->getPosition().y());
+    eUpdater->giveInfo(Player->getPosition().x(), Player->getPosition().y(), Player->getDamage(), Player->getCurrentHealth());
     Player->update();
     }
     //this loop updates the player and the enemy movements.

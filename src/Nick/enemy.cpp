@@ -103,9 +103,9 @@ void Enemy::runAway(qreal playerX, qreal playerY)
     setRotation(degreeRot-flipAdd);
 }
 
-void Enemy::makeDecision(qreal playerX, qreal playerY)
+void Enemy::makeDecision(qreal playerX, qreal playerY, int playerDamage, int playerLife)
 {
-    int d = decide(playerX, playerY);
+    int d = decide(playerX, playerY, playerDamage, playerLife);
     if(d == 1)
         makeAttack(playerX, playerY);
     else if (d == 0)
