@@ -1,0 +1,21 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>JTAll.png</file>
+        <file>JTBottom.png</file>
+        <file>JTBottom_Left.png</file>
+        <file>JTBottom_Right.png</file>
+        <file>JTLeft.png</file>
+        <file>JTNone.png</file>
+        <file>JTNot_Bottom.png</file>
+        <file>JTNot_Left.png</file>
+        <file>JTNot_Right.png</file>
+        <file>JTNot_Top.png</file>
+        <file>JTRight.png</file>
+        <file>JTTop.png</file>
+        <file>JTTop_Left.png</file>
+        <file>JTTop_Right.png</file>
+        <file>JTTwo_Horizontal.png</file>
+        <file>JTTwo_Vertical.png</file>
+        <file>JTStairs.png</file>
+    </qresource>
+</RCC>
